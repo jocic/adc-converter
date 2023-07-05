@@ -1,6 +1,8 @@
 # ADC Converter
 
-Serial plotter and sample analysis software for DSP applications. 
+Serial plotter and sample analysis software for DSP applications.
+
+[Preview](assets/images/preview.png)
 
 [![Buy Me Coffee](assets/images/buy-me-coffee.png)](https://www.paypal.me/DjordjeJocic)
 
