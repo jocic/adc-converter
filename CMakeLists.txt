@@ -27,23 +27,23 @@ FILE(COPY icons DESTINATION ${CMAKE_BINARY_DIR})
 
 set(PROJECT_SOURCES
         
-        main_window.ui
+        source/main_window.ui
         
-        audio_source.h
-        scope_data_types.h
-        scope_chart.h
-        data_control.h
-        data_receiver.h
-        scope_widget.h
-        main_window.h
+        source/audio_source.h
+        source/scope_data_types.h
+        source/scope_chart.h
+        source/data_control.h
+        source/data_receiver.h
+        source/scope_widget.h
+        source/main_window.h
         
-        audio_source.cpp
-        scope_chart.cpp
-        data_control.cpp
-        data_receiver.cpp
-        scope_widget.cpp
-        main_window.cpp
-        main.cpp
+        source/audio_source.cpp
+        source/scope_chart.cpp
+        source/data_control.cpp
+        source/data_receiver.cpp
+        source/scope_widget.cpp
+        source/main_window.cpp
+        source/main.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
