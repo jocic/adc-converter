@@ -2,7 +2,7 @@
 
 Serial plotter and sample analysis software for DSP applications.
 
-[Preview](assets/images/preview.png)
+![Preview](assets/images/preview.jpg)
 
 [![Buy Me Coffee](assets/images/buy-me-coffee.png)](https://www.paypal.me/DjordjeJocic)
 
