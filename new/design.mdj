@@ -8798,6 +8798,32 @@
 					"name": "QThread"
 				}
 			]
+		},
+		{
+			"_type": "UMLSubsystem",
+			"_id": "AAAAAAGJLh+saELMmG0=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Data Receiver",
+			"ownedElements": [
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAGJLh/fxULQBWo=",
+					"_parent": {
+						"$ref": "AAAAAAGJLh+saELMmG0="
+					},
+					"name": "Data Receiver"
+				},
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAGJLiAqK0LU2Ck=",
+					"_parent": {
+						"$ref": "AAAAAAGJLh+saELMmG0="
+					},
+					"name": "Data Processor"
+				}
+			]
 		}
 	]
 }
