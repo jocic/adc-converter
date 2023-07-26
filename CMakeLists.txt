@@ -14,36 +14,43 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Charts)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Charts)
-
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS SerialPort)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS SerialPort)
-
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Multimedia)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Multimedia)
-
-FILE(COPY icons DESTINATION ${CMAKE_BINARY_DIR})
+include_directories(source)
 
 set(PROJECT_SOURCES
-        
-        source/main_window.ui
-        
-        source/audio_source.h
-        source/scope_data_types.h
-        source/scope_chart.h
-        source/data_control.h
-        source/data_receiver.h
-        source/scope_widget.h
-        source/main_window.h
-        
-        source/audio_source.cpp
-        source/scope_chart.cpp
-        source/data_control.cpp
-        source/data_receiver.cpp
-        source/scope_widget.cpp
-        source/main_window.cpp
-        source/main.cpp
+    
+    # General
+    
+    source/abstract_widget.h
+    
+    # MVC
+    
+    #source/mvc/model_attribute.h
+    #source/mvc/view_element.h
+    #source/mvc/element_manager.h
+    #source/mvc/abstract_model.h
+    source/mvc/abstract_view.h
+    #source/mvc/abstract_controller.h
+    #source/mvc/model_attribute.cpp
+    #source/mvc/view_element.cpp
+    #source/mvc/element_manager.cpp
+    #source/mvc/abstract_model.cpp
+    #source/mvc/abstract_view.cpp
+    #source/mvc/abstract_controller.cpp
+    
+    # Options (Widgets)
+    
+    source/options/bps/bps_model.h
+    source/options/bps/bps_view.h
+    source/options/bps/bps_controller.h
+    source/options/bps/bps_widget.h
+    source/options/bps/bps_widget.cpp
+    
+    # General
+    
+    source/main.cpp
+    source/mainwindow.cpp
+    source/mainwindow.h
+    source/mainwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -69,12 +76,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(adc-converter PRIVATE
-    Qt${QT_VERSION_MAJOR}::Widgets
-    Qt${QT_VERSION_MAJOR}::SerialPort
-    Qt${QT_VERSION_MAJOR}::Charts
-    Qt${QT_VERSION_MAJOR}::Multimedia
-)
+target_link_libraries(adc-converter PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 set_target_properties(adc-converter PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
