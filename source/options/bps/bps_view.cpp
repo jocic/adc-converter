@@ -1,22 +1,22 @@
 #include <QDebug>
+#include <QLayout>
+#include <QGroupBox>
+#include <QFormLayout>
+#include <QComboBox>
+#include <QCheckBox>
 
+#include "mvc/element_manager.h"
 #include "bps_view.h"
 
 void BpsView::initialize(QWidget* parent) {
+    
+    // Arrange View
     
     QGroupBox*   box    = new QGroupBox();
     QFormLayout* layout = new QFormLayout();
     QComboBox*   combo  = new QComboBox();
     QCheckBox*   check  = new QCheckBox();
     
-    // Box Layout
-    
-//        m_ElementManager->insert("group_box", box);
-     {
-        parent->layout()->addWidget(box);
-    }
-    
-    parent->setStyleSheet("");
     box->setLayout(layout);
     box->setTitle("Bits Per Sample");
     
@@ -28,34 +28,14 @@ void BpsView::initialize(QWidget* parent) {
     
     layout->addRow(combo, check);
     
-    this->arrange();
+    parent->layout()->addWidget(box);
     
-    qDebug() << "[*] BpsView (AbstractView) - Initialized";
+    // Push References
+    
+    ElementManager* manager = this->get_ElementManager();
+    
+    manager->push("combo_BitsPerSample", combo);
+    manager->push("cbeck_Signed", check);
     
     emit BpsView::sig_View_Initialized();
-}
-
-
-void BpsView::arrange() {
-    return;
-    QGroupBox*   box    = new QGroupBox(); // m_ElementManager->get("group_box")
-    QFormLayout* layout = new QFormLayout();
-    QComboBox*   combo  = new QComboBox();
-    QCheckBox*   check  = new QCheckBox();
-    
-    box->setLayout(layout);
-    box->setTitle("Bits Per Sample");
-    
-    combo->addItems({
-        "8", "16", "24", "32"
-    });
-    
-    check->setText("Signed");
-    
-    layout->addRow(combo, check);
-    
-    
-    qDebug() << "[*] BpsView (AbstractView) - Arranged";
-    
-    emit BpsView::sig_View_Arranged();
 }

@@ -21,21 +21,19 @@ set(PROJECT_SOURCES
     # General
     
     source/abstract_widget.h
-    source/element_manager.h
     source/abstract_widget.cpp
-    source/element_manager.cpp
     
     # MVC
     
     #source/mvc/model_attribute.h
     #source/mvc/view_element.h
-    #source/mvc/element_manager.h
+    source/mvc/element_manager.h
     source/mvc/abstract_model.h
     source/mvc/abstract_view.h
     source/mvc/abstract_controller.h
     #source/mvc/model_attribute.cpp
     #source/mvc/view_element.cpp
-    #source/mvc/element_manager.cpp
+    source/mvc/element_manager.cpp
     source/mvc/abstract_model.cpp
     source/mvc/abstract_view.cpp
     source/mvc/abstract_controller.cpp

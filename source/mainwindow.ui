@@ -99,7 +99,7 @@
         <item>
          <widget class="BpsWidget" name="wd_Options_BPS" native="true">
           <property name="styleSheet">
-           <string notr="true">background: #cdcdcd</string>
+           <string notr="true"/>
           </property>
          </widget>
         </item>
@@ -123,8 +123,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>200</width>
-         <height>492</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -136,8 +136,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>200</width>
-         <height>492</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
