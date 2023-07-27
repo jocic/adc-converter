@@ -2,7 +2,9 @@
 
 #define ADC_OPTIONS_BPS_MODEL
 
-class BpsModel {
+#include "mvc/abstract_model.h"
+
+class BpsModel : public AbstractModel {
     
 };
 

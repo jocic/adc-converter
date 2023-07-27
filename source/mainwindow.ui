@@ -39,9 +39,15 @@
      <widget class="Line" name="line">
       <property name="minimumSize">
        <size>
-        <width>10</width>
+        <width>0</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
       </property>
       <property name="lineWidth">
        <number>1</number>
@@ -87,8 +93,11 @@
         <string>Options</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="leftMargin">
+         <number>9</number>
+        </property>
         <item>
-         <widget class="BpsWidget" name="widget" native="true">
+         <widget class="BpsWidget" name="wd_Options_BPS" native="true">
           <property name="styleSheet">
            <string notr="true">background: #cdcdcd</string>
           </property>
@@ -115,7 +124,7 @@
          <x>0</x>
          <y>0</y>
          <width>200</width>
-         <height>470</height>
+         <height>492</height>
         </rect>
        </property>
        <attribute name="label">
@@ -123,6 +132,14 @@
        </attribute>
       </widget>
       <widget class="QWidget" name="page_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>200</width>
+         <height>492</height>
+        </rect>
+       </property>
        <attribute name="label">
         <string>Info</string>
        </attribute>

@@ -2,7 +2,9 @@
 
 #define ADC_OPTIONS_BPS_CONTROLLER
 
-class BpsController {
+#include "mvc/abstract_controller.h"
+
+class BpsController : public AbstractController {
     
 };
 

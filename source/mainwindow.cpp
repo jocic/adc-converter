@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    
+    ui->wd_Options_BPS->initialize();
 }
 
 MainWindow::~MainWindow()

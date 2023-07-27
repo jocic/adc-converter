@@ -1,28 +1,18 @@
 #include "bps_widget.h"
+#include "bps_model.h"
+#include "bps_view.h"
+#include "bps_controller.h"
 
-
-BpsWidget::BpsWidget(QWidget* parent) {
-    
-    m_Parent = parent;
-    
-    m_View = new BpsView();
-    
-    initialize();
-}
+#include <QDebug>
+#include <QHBoxLayout>
 
 void BpsWidget::initialize() {
     
-    m_View->setup(m_Parent);
-}
-
-const BpsModel* BpsWidget::model() {
-    return m_Model;
-}
-
-const BpsView* BpsWidget::view() {
-    return m_View;
-}
-
-const BpsController* BpsWidget::controller() {
-    return m_Controller;
+    m_Model      = new BpsModel();
+    m_View       = new BpsView();
+    m_Controller = new BpsController();
+    
+    m_View->initialize(this);
+    
+    qDebug() << "BpsWidget (AbstractWidget) - Initialized";
 }
