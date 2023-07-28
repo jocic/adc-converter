@@ -13,13 +13,14 @@ class AbstractModel : public QObject {
         QMap<QString,QString> m_Attributes;
     
     public:
-        QString get(QString& key);
-        void set(QString& value);
-        bool exists(QString& key);
+        QString get(QString key);
+        void set(QString key, QString value);
+        bool exists(QString key);
         void clear();
     
     signals:
          void sig_Model_Updated(QString key, QString value);
+         void sig_Model_Cleared();
 };
 
 #endif

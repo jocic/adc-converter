@@ -4,6 +4,8 @@
 
 #include <QObject>
 
+#include "element_manager.h"
+
 class AbstractController : public QObject {
     
     Q_OBJECT
@@ -19,6 +21,12 @@ class AbstractController : public QObject {
 //        void on_View_Updated();
 //        void on_Model_Updated();
 //        void on_Model_Cleared();
+    
+    public slots:
+        void on_View_Initialized(ElementManager* manager);
+        void on_View_Changed();
+        void on_Model_Changed(QString key, QString value);
+        void on_Model_Cleared();
         
     signals:
         void sig_Controller_Connected();

@@ -23,7 +23,8 @@ class AbstractView : public QObject {
         virtual void initialize(QWidget* parent) = 0;
         
     signals:
-        void sig_View_Initialized();
+        void sig_View_Initialized(ElementManager* manager);
+        void sig_View_Changed();
 };
 
 #endif

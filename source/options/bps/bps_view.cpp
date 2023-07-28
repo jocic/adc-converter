@@ -37,5 +37,5 @@ void BpsView::initialize(QWidget* parent) {
     manager->push("combo_BitsPerSample", combo);
     manager->push("cbeck_Signed", check);
     
-    emit BpsView::sig_View_Initialized();
+    emit BpsView::sig_View_Initialized(manager);
 }

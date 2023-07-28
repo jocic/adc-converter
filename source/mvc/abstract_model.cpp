@@ -1,6 +1,6 @@
 #include "abstract_model.h"
 
-QString AbstractModel::get(QString& key) {
+QString AbstractModel::get(QString key) {
     
     auto search = m_Attributes.find(key);
     
@@ -11,12 +11,14 @@ QString AbstractModel::get(QString& key) {
     return search.value();
 }
 
-void AbstractModel::set(QString& key, QString& value) {
+void AbstractModel::set(QString key, QString value) {
     
     m_Attributes[key] = value;
+    
+    emit AbstractModel::sig_Model_Updated(key, value);
 }
 
-bool AbstractModel::exists(QString& key) {
+bool AbstractModel::exists(QString key) {
     
     auto search = m_Attributes.find(key);
     
@@ -26,4 +28,6 @@ bool AbstractModel::exists(QString& key) {
 void AbstractModel::clear() {
     
     m_Attributes.clear();
+    
+    emit AbstractModel::sig_Model_Cleared();
 }
