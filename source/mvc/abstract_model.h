@@ -5,17 +5,21 @@
 #include <QObject>
 #include <QMap>
 
-//#include "model_attribute.h"
-
 class AbstractModel : public QObject {
     
     Q_OBJECT
     
     private:
-        //QMap<QString,ModelAttribute> m_Attributes;
+        QMap<QString,QString> m_Attributes;
     
     public:
-         //virtual void clear();
+        QString get(QString& key);
+        void set(QString& value);
+        bool exists(QString& key);
+        void clear();
+    
+    signals:
+         void sig_Model_Updated(QString key, QString value);
 };
 
 #endif
