@@ -10,23 +10,11 @@ class AbstractController : public QObject {
     
     Q_OBJECT
     
-    public:
-//         virtual void connect();
-//         virtual void configure();
-        
-//    private slots:
-//        void on_View_Arranged();
-//        void on_View_Setup();
-//        void on_View_Reset();
-//        void on_View_Updated();
-//        void on_Model_Updated();
-//        void on_Model_Cleared();
-    
     public slots:
-        void on_View_Initialized(ElementManager* manager);
-        void on_View_Changed();
-        void on_Model_Changed(QString key, QString value);
-        void on_Model_Cleared();
+        virtual void on_View_Initialized(ElementManager* manager) = 0;
+        virtual void on_View_Changed() = 0;
+        virtual void on_Model_Changed(QString key, QString value) = 0;
+        virtual void on_Model_Cleared() = 0;
         
     signals:
         void sig_Controller_Connected();

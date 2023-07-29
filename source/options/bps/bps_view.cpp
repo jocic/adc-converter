@@ -6,6 +6,7 @@
 #include <QCheckBox>
 
 #include "mvc/element_manager.h"
+#include "bps_model.h"
 #include "bps_view.h"
 
 void BpsView::initialize(QWidget* parent) {
@@ -34,8 +35,8 @@ void BpsView::initialize(QWidget* parent) {
     
     ElementManager* manager = this->get_ElementManager();
     
-    manager->push("combo_BitsPerSample", combo);
-    manager->push("cbeck_Signed", check);
+    manager->push(BpsModel::FIELD_BITS_PER_SAMPLE, combo);
+    manager->push(BpsModel::FIELD_SIGNED, check);
     
     emit BpsView::sig_View_Initialized(manager);
 }
