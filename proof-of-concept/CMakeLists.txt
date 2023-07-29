@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(adc-converter VERSION 0.1 LANGUAGES CXX)
+project(proof-of-concept VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -25,6 +25,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Multimedia)
 
 FILE(COPY icons DESTINATION ${CMAKE_BINARY_DIR})
 
+include_directories(source)
+
 set(PROJECT_SOURCES
         
         source/main_window.ui
@@ -47,36 +49,36 @@ set(PROJECT_SOURCES
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(adc-converter
+    qt_add_executable(proof-of-concept
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
-#    set_property(TARGET adc-converter APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#    set_property(TARGET proof-of-concept APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
-        add_library(adc-converter SHARED
+        add_library(proof-of-concept SHARED
             ${PROJECT_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
-        add_executable(adc-converter
+        add_executable(proof-of-concept
             ${PROJECT_SOURCES}
         )
     endif()
 endif()
 
-target_link_libraries(adc-converter PRIVATE
+target_link_libraries(proof-of-concept PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::SerialPort
     Qt${QT_VERSION_MAJOR}::Charts
     Qt${QT_VERSION_MAJOR}::Multimedia
 )
 
-set_target_properties(adc-converter PROPERTIES
+set_target_properties(proof-of-concept PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -84,10 +86,10 @@ set_target_properties(adc-converter PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-install(TARGETS adc-converter
+install(TARGETS proof-of-concept
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(adc-converter)
+    qt_finalize_executable(proof-of-concept)
 endif()
