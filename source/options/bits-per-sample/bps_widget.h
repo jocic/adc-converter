@@ -7,11 +7,7 @@
 class BpsWidget : public AbstractWidget {
     
     public:
-        
-        BpsWidget(QWidget* parent = NULL) : AbstractWidget(parent) {
-            
-        }
-        
+        BpsWidget(QWidget* parent = NULL);
         void initialize() override;
 };
 

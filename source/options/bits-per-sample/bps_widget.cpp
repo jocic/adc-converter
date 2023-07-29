@@ -1,7 +1,15 @@
+#include <QWidget>
+
 #include "bps_widget.h"
 #include "bps_model.h"
 #include "bps_view.h"
 #include "bps_controller.h"
+
+
+BpsWidget::BpsWidget(QWidget* parent) : AbstractWidget(parent)  {
+    
+    // Nothing here, yet...
+}
 
 void BpsWidget::initialize() {
     

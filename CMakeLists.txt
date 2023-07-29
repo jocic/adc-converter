@@ -38,16 +38,25 @@ set(PROJECT_SOURCES
     source/mvc/abstract_view.cpp
     source/mvc/abstract_controller.cpp
     
-    # Options (Widgets)
+    # Options (Bits Per Sample)
     
-    source/options/bps/bps_model.h
-    source/options/bps/bps_view.h
-    source/options/bps/bps_controller.h
-    source/options/bps/bps_widget.h
-    source/options/bps/bps_model.cpp
-    source/options/bps/bps_view.cpp
-    source/options/bps/bps_controller.cpp
-    source/options/bps/bps_widget.cpp
+    source/options/bits-per-sample/bps_model.h
+    source/options/bits-per-sample/bps_view.h
+    source/options/bits-per-sample/bps_controller.h
+    source/options/bits-per-sample/bps_widget.h
+    source/options/bits-per-sample/bps_model.cpp
+    source/options/bits-per-sample/bps_view.cpp
+    source/options/bits-per-sample/bps_controller.cpp
+    source/options/bits-per-sample/bps_widget.cpp
+    
+    # Options (Sample Rate)
+    
+    source/options/sample-rate/sr_model.h
+    source/options/sample-rate/sr_view.h
+    source/options/sample-rate/sr_controller.h
+    source/options/sample-rate/sr_widget.h
+    source/options/sample-rate/sr_view.cpp
+    source/options/sample-rate/sr_widget.cpp
     
     # General
     
