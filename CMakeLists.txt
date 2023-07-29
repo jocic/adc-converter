@@ -16,11 +16,15 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 include_directories(source)
 
+FILE(COPY source/icons DESTINATION ${CMAKE_BINARY_DIR})
+
 set(PROJECT_SOURCES
     
     # General
     
+    source/app_icons.h
     source/abstract_widget.h
+    source/app_icons.cpp
     source/abstract_widget.cpp
     
     # MVC
@@ -55,6 +59,13 @@ set(PROJECT_SOURCES
     source/options/sample-rate/sr_view.cpp
     source/options/sample-rate/sr_controller.cpp
     source/options/sample-rate/sr_widget.cpp
+    
+    # Options (Playback)
+    
+    source/options/playback/pl_view.h
+    source/options/playback/pl_widget.h
+    source/options/playback/pl_view.cpp
+    source/options/playback/pl_widget.cpp
     
     # General
     

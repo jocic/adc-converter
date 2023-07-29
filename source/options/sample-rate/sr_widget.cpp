@@ -5,7 +5,6 @@
 #include "sr_view.h"
 #include "sr_controller.h"
 
-
 SrWidget::SrWidget(QWidget* parent) : AbstractWidget(parent)  {
     
     // Nothing here, yet...
