@@ -25,14 +25,10 @@ set(PROJECT_SOURCES
     
     # MVC
     
-    #source/mvc/model_attribute.h
-    #source/mvc/view_element.h
     source/mvc/element_manager.h
     source/mvc/abstract_model.h
     source/mvc/abstract_view.h
     source/mvc/abstract_controller.h
-    #source/mvc/model_attribute.cpp
-    #source/mvc/view_element.cpp
     source/mvc/element_manager.cpp
     source/mvc/abstract_model.cpp
     source/mvc/abstract_view.cpp
