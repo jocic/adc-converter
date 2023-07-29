@@ -10,6 +10,13 @@ class AbstractController : public QObject {
     
     Q_OBJECT
     
+    private:
+        ElementManager* m_Manager;
+    
+    public:
+        ElementManager* get_ElementManager();
+        void set_ElementManager(ElementManager* manager);
+    
     public slots:
         virtual void on_View_Initialized(ElementManager* manager) = 0;
         virtual void on_View_Changed() = 0;

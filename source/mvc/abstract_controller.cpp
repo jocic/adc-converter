@@ -2,4 +2,13 @@
 
 #include "abstract_controller.h"
 
-// Nothing here, yet...
+ElementManager* AbstractController::get_ElementManager() {
+    return m_Manager;
+}
+
+void AbstractController::set_ElementManager(ElementManager* manager) {
+    
+    if (manager != NULL) {
+        m_Manager = manager;
+    }
+}
