@@ -55,6 +55,7 @@ set(PROJECT_SOURCES
     source/options/sample-rate/sr_view.h
     source/options/sample-rate/sr_controller.h
     source/options/sample-rate/sr_widget.h
+    source/options/sample-rate/sr_model.cpp
     source/options/sample-rate/sr_view.cpp
     source/options/sample-rate/sr_widget.cpp
     

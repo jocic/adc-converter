@@ -78,7 +78,7 @@
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="page">
+       <widget class="QWidget" name="page_Options">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -105,7 +105,7 @@
           <widget class="SrWidget" name="wd_Options_SR" native="true"/>
          </item>
          <item>
-          <spacer name="verticalSpacer">
+          <spacer name="vs_Options">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
