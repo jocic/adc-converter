@@ -43,12 +43,12 @@
     </item>
    </layout>
   </widget>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="dock_Options">
    <property name="features">
     <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
    <property name="windowTitle">
-    <string>Toolbox</string>
+    <string>Options</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
@@ -56,99 +56,27 @@
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
-      <widget class="QToolBox" name="toolBox">
-       <property name="minimumSize">
-        <size>
-         <width>200</width>
-         <height>0</height>
-        </size>
-       </property>
+      <widget class="BpsWidget" name="wd_Options_BPS" native="true">
        <property name="styleSheet">
         <string notr="true"/>
        </property>
-       <property name="frameShape">
-        <enum>QFrame::NoFrame</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Plain</enum>
-       </property>
-       <property name="midLineWidth">
-        <number>0</number>
-       </property>
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <widget class="QWidget" name="page_Options">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>200</width>
-          <height>449</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Options</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <property name="leftMargin">
-          <number>9</number>
-         </property>
-         <item>
-          <widget class="BpsWidget" name="wd_Options_BPS" native="true">
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="SrWidget" name="wd_Options_SR" native="true"/>
-         </item>
-         <item>
-          <widget class="PlWidget" name="wd_Options_PL" native="true"/>
-         </item>
-         <item>
-          <spacer name="vs_Options">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="page_2">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>200</width>
-          <height>449</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Tools</string>
-        </attribute>
-       </widget>
-       <widget class="QWidget" name="page_3">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>200</width>
-          <height>449</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Info</string>
-        </attribute>
-       </widget>
       </widget>
+     </item>
+     <item>
+      <widget class="SrWidget" name="wd_Options_SR" native="true"/>
+     </item>
+     <item>
+      <spacer name="vs_Options">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </widget>
@@ -201,12 +129,67 @@
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="dock_Tools">
+   <property name="features">
+    <set>QDockWidget::DockWidgetFeatureMask</set>
+   </property>
+   <property name="windowTitle">
+    <string>Tools</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_4">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="PlWidget" name="wd_Options_PL" native="true"/>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>163</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFeatureMask</set>
+   </property>
+   <property name="windowTitle">
+    <string>Info</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2"/>
+  </widget>
   <action name="actionToolbox">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Toolbox</string>
+    <string>Tools</string>
    </property>
   </action>
   <action name="actionToolbox_3">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Options</string>
    </property>
@@ -222,21 +205,33 @@
    </property>
   </action>
   <action name="actionScope">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Scope</string>
    </property>
   </action>
   <action name="actionSamples">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Samples</string>
    </property>
   </action>
   <action name="actionFFT">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>FFT</string>
    </property>
   </action>
   <action name="actionTerminal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Terminal</string>
    </property>

@@ -62,8 +62,10 @@ set(PROJECT_SOURCES
     
     # Options (Playback)
     
+    source/options/playback/pl_model.h
     source/options/playback/pl_view.h
     source/options/playback/pl_widget.h
+    source/options/playback/pl_model.cpp
     source/options/playback/pl_view.cpp
     source/options/playback/pl_widget.cpp
     
