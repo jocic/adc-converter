@@ -71,14 +71,14 @@ set(PROJECT_SOURCES
     source/options/reference/ref_controller.cpp
     source/options/reference/ref_widget.cpp
     
-    # Options (Playback)
+    # Tools (Playback)
     
-    source/options/playback/pl_model.h
-    source/options/playback/pl_view.h
-    source/options/playback/pl_widget.h
-    source/options/playback/pl_model.cpp
-    source/options/playback/pl_view.cpp
-    source/options/playback/pl_widget.cpp
+    source/tools/playback/pl_model.h
+    source/tools/playback/pl_view.h
+    source/tools/playback/pl_widget.h
+    source/tools/playback/pl_model.cpp
+    source/tools/playback/pl_view.cpp
+    source/tools/playback/pl_widget.cpp
     
     # General
     

@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_PL_WIDGET
+#ifndef ADC_TOOLS_PL_WIDGET
 
-#define ADC_OPTIONS_PL_WIDGET
+#define ADC_TOOLS_PL_WIDGET
 
 #include "abstract_widget.h"
 

@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     
     // Tools
     
-    ui->wd_Options_PL->initialize();
+    ui->wd_Tools_PL->initialize();
 }
 
 MainWindow::~MainWindow()
