@@ -60,6 +60,17 @@ set(PROJECT_SOURCES
     source/options/sample-rate/sr_controller.cpp
     source/options/sample-rate/sr_widget.cpp
     
+    # Options (Reference)
+    
+    source/options/reference/ref_model.h
+    source/options/reference/ref_view.h
+    source/options/reference/ref_controller.h
+    source/options/reference/ref_widget.h
+    source/options/reference/ref_model.cpp
+    source/options/reference/ref_view.cpp
+    source/options/reference/ref_controller.cpp
+    source/options/reference/ref_widget.cpp
+    
     # Options (Playback)
     
     source/options/playback/pl_model.h

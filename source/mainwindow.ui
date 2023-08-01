@@ -66,6 +66,9 @@
       <widget class="SrWidget" name="wd_Options_SR" native="true"/>
      </item>
      <item>
+      <widget class="RefWidget" name="wd_Options_REF" native="true"/>
+     </item>
+     <item>
       <spacer name="vs_Options">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -254,6 +257,12 @@
    <class>PlWidget</class>
    <extends>QWidget</extends>
    <header>options/playback/pl_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>RefWidget</class>
+   <extends>QWidget</extends>
+   <header>options/reference/ref_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

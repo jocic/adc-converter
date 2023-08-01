@@ -7,8 +7,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     
+    // Options
+    
     ui->wd_Options_BPS->initialize();
     ui->wd_Options_SR->initialize();
+    ui->wd_Options_REF->initialize();
+    
+    // Tools
+    
     ui->wd_Options_PL->initialize();
 }
 
