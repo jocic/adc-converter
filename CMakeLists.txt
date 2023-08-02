@@ -80,6 +80,17 @@ set(PROJECT_SOURCES
     source/tools/playback/pl_view.cpp
     source/tools/playback/pl_widget.cpp
     
+    # Tools (Hex Converter)
+    
+    source/tools/hex-converter/hex_model.h
+    source/tools/hex-converter/hex_view.h
+    source/tools/hex-converter/hex_controller.h
+    source/tools/hex-converter/hex_widget.h
+    source/tools/hex-converter/hex_model.cpp
+    source/tools/hex-converter/hex_view.cpp
+    source/tools/hex-converter/hex_controller.cpp
+    source/tools/hex-converter/hex_widget.cpp
+    
     # General
     
     source/main.cpp

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ADC Converter</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -31,12 +31,12 @@
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>Scope</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>Samples</string>
        </attribute>
       </widget>
      </widget>
@@ -146,6 +146,9 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="PlWidget" name="wd_Tools_PL" native="true"/>
+     </item>
+     <item>
+      <widget class="HexWidget" name="wd_Tools_HEX" native="true"/>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -263,6 +266,12 @@
    <class>RefWidget</class>
    <extends>QWidget</extends>
    <header>options/reference/ref_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>HexWidget</class>
+   <extends>QWidget</extends>
+   <header>tools/hex-converter/hex_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
