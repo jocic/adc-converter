@@ -6,22 +6,34 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1200</width>
     <height>600</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>ADC Converter</string>
+  <property name="baseSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+  <property name="windowTitle">
+   <string>ADC Converter v1.0.0</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDockWidget &gt; * { border-right: 1px solid #dfdfdf; }</string>
+  </property>
+  <widget class="QWidget" name="lay_General">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="tab_General">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>1</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="tabsClosable">
        <bool>true</bool>
@@ -29,12 +41,12 @@
       <property name="movable">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="tab_Scope">
        <attribute name="title">
         <string>Scope</string>
        </attribute>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="tab_Samples">
        <attribute name="title">
         <string>Samples</string>
        </attribute>
@@ -44,8 +56,17 @@
    </layout>
   </widget>
   <widget class="QDockWidget" name="dock_Options">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="styleSheet">
     <string notr="true"/>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
    </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFeatureMask</set>
@@ -57,10 +78,46 @@
     <string>Options</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>2</number>
+    <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents">
+   <widget class="QWidget" name="lay_Options">
+    <property name="minimumSize">
+     <size>
+      <width>180</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <property name="spacing">
+      <number>12</number>
+     </property>
+     <property name="leftMargin">
+      <number>12</number>
+     </property>
+     <property name="topMargin">
+      <number>12</number>
+     </property>
+     <property name="rightMargin">
+      <number>12</number>
+     </property>
+     <property name="bottomMargin">
+      <number>12</number>
+     </property>
      <item>
       <widget class="BpsWidget" name="wd_Options_BPS" native="true">
        <property name="styleSheet">
@@ -73,6 +130,9 @@
      </item>
      <item>
       <widget class="RefWidget" name="wd_Options_REF" native="true"/>
+     </item>
+     <item>
+      <widget class="QWidget" name="wd_Options_SER" native="true"/>
      </item>
      <item>
       <spacer name="vs_Options">
@@ -90,55 +150,72 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
+  <widget class="QMenuBar" name="bar_General">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1200</width>
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuView">
+   <widget class="QMenu" name="menu_Views">
     <property name="title">
      <string>View</string>
     </property>
-    <widget class="QMenu" name="menuWidgets">
+    <widget class="QMenu" name="menu_Widgets">
      <property name="title">
       <string>Toolbox</string>
      </property>
-     <addaction name="actionToolbox_3"/>
-     <addaction name="actionTools"/>
-     <addaction name="actionInfo"/>
+     <addaction name="action_Options"/>
+     <addaction name="action_Tools"/>
+     <addaction name="action_Info"/>
     </widget>
-    <widget class="QMenu" name="menuViews">
+    <widget class="QMenu" name="menu_View">
      <property name="title">
       <string>Views</string>
      </property>
-     <addaction name="actionScope"/>
-     <addaction name="actionSamples"/>
-     <addaction name="actionFFT"/>
-     <addaction name="actionTerminal"/>
+     <addaction name="action_Scope"/>
+     <addaction name="action_Samples"/>
+     <addaction name="action_FFT"/>
+     <addaction name="action_Terminal"/>
     </widget>
-    <addaction name="menuViews"/>
-    <addaction name="menuWidgets"/>
+    <addaction name="menu_View"/>
+    <addaction name="menu_Widgets"/>
    </widget>
-   <widget class="QMenu" name="menuHelp">
+   <widget class="QMenu" name="menu_Help">
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="action_About"/>
+    <addaction name="separator"/>
+    <addaction name="action_Contact"/>
+    <addaction name="action_Feature"/>
+    <addaction name="separator"/>
+    <addaction name="action_Bug"/>
    </widget>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="menu_File">
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="action_Save"/>
+    <addaction name="action_Load"/>
+    <addaction name="separator"/>
+    <addaction name="action_Export"/>
+    <addaction name="separator"/>
+    <addaction name="action_Exit"/>
    </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuView"/>
-   <addaction name="menuHelp"/>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Views"/>
+   <addaction name="menu_Help"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dock_Tools">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
@@ -151,8 +228,23 @@
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_4">
+   <widget class="QWidget" name="lay_Tools">
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>12</number>
+     </property>
+     <property name="leftMargin">
+      <number>12</number>
+     </property>
+     <property name="topMargin">
+      <number>12</number>
+     </property>
+     <property name="rightMargin">
+      <number>12</number>
+     </property>
+     <property name="bottomMargin">
+      <number>12</number>
+     </property>
      <item>
       <widget class="PlWidget" name="wd_Tools_PL" native="true"/>
      </item>
@@ -163,7 +255,7 @@
       <widget class="DecWidget" name="wd_Tools_DEC" native="true"/>
      </item>
      <item>
-      <spacer name="verticalSpacer">
+      <spacer name="vs_Tools">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -178,7 +270,13 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="dock_Info">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
@@ -195,9 +293,28 @@
     <string>Info</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>1</number>
+    <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_2"/>
+   <widget class="QWidget" name="lay_Info">
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QWidget" name="wd_Info_GEN" native="true"/>
+     </item>
+     <item>
+      <spacer name="vs_Info">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>136</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <action name="actionToolbox">
    <property name="checkable">
@@ -207,7 +324,7 @@
     <string>Tools</string>
    </property>
   </action>
-  <action name="actionToolbox_3">
+  <action name="action_Options">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -215,17 +332,17 @@
     <string>Options</string>
    </property>
   </action>
-  <action name="actionTools">
+  <action name="action_Tools">
    <property name="text">
     <string>Tools</string>
    </property>
   </action>
-  <action name="actionInfo">
+  <action name="action_Info">
    <property name="text">
     <string>Info</string>
    </property>
   </action>
-  <action name="actionScope">
+  <action name="action_Scope">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -233,7 +350,7 @@
     <string>Scope</string>
    </property>
   </action>
-  <action name="actionSamples">
+  <action name="action_Samples">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -241,7 +358,7 @@
     <string>Samples</string>
    </property>
   </action>
-  <action name="actionFFT">
+  <action name="action_FFT">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -249,12 +366,64 @@
     <string>FFT</string>
    </property>
   </action>
-  <action name="actionTerminal">
+  <action name="action_Terminal">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
     <string>Terminal</string>
+   </property>
+  </action>
+  <action name="action_Exit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="action_Feature">
+   <property name="text">
+    <string>Feature Request</string>
+   </property>
+  </action>
+  <action name="action_Contact">
+   <property name="text">
+    <string>Bug Report</string>
+   </property>
+  </action>
+  <action name="action_Bug">
+   <property name="text">
+    <string>Check Updates</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="text">
+    <string>About Program</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="text">
+    <string>Save Samples</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="action_Load">
+   <property name="text">
+    <string>Load Samples</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="action_Export">
+   <property name="text">
+    <string>Export Audio</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
    </property>
   </action>
  </widget>

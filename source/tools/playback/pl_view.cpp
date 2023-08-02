@@ -34,6 +34,7 @@ void PlView::initialize(QWidget* parent) {
     
     layout->addRow(slider);
     layout->addRow(toggle, save);
+    layout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
     
     parent->layout()->addWidget(box);
     
