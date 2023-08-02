@@ -4,6 +4,7 @@
 #include <QFormLayout>
 #include <QLabel>
 #include <QLineEdit>
+#include <QCheckBox>
 
 #include "mvc/element_manager.h"
 #include "hex_model.h"
@@ -13,12 +14,13 @@ void HexView::initialize(QWidget* parent) {
     
     // Arrange View
     
-    QGroupBox*   box       = new QGroupBox();
-    QFormLayout* layout    = new QFormLayout();
-    QLabel*      hex_label = new QLabel();
-    QLineEdit*   hex_text  = new QLineEdit();
-    QLabel*      dec_label = new QLabel();
-    QLineEdit*   dec_text  = new QLineEdit();
+    QGroupBox*   box        = new QGroupBox();
+    QFormLayout* layout     = new QFormLayout();
+    QLabel*      hex_label  = new QLabel();
+    QLineEdit*   hex_text   = new QLineEdit();
+    QLabel*      dec_label  = new QLabel();
+    QLineEdit*   dec_text   = new QLineEdit();
+    QCheckBox*   val_signed = new QCheckBox();
     
     box->setLayout(layout);
     box->setTitle("Hexadecimal Converter");
@@ -29,6 +31,9 @@ void HexView::initialize(QWidget* parent) {
     dec_label->setText("DEC");
     layout->addRow(dec_label, dec_text);
     
+    val_signed->setText("Signed");
+    layout->addRow(val_signed);
+    
     parent->layout()->addWidget(box);
     
     // Push References
@@ -37,6 +42,7 @@ void HexView::initialize(QWidget* parent) {
     
     manager->push(HexModel::FIELD_DECIMAL, dec_text);
     manager->push(HexModel::FIELD_HEXADECIMAL, hex_text);
+    manager->push(HexModel::FIELD_SIGNED, val_signed);
     
     emit HexView::sig_View_Initialized(manager);
 }

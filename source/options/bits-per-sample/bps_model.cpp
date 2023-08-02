@@ -23,7 +23,7 @@ bool BpsModel::get_Signed() {
     
     QString value = this->get(FIELD_SIGNED);
     
-    return (value == "true") ? true : false;
+    return value == "true";
 }
 
 void BpsModel::set_Signed(bool value) {

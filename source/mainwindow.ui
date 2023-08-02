@@ -44,6 +44,9 @@
    </layout>
   </widget>
   <widget class="QDockWidget" name="dock_Options">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
