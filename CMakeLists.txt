@@ -91,6 +91,17 @@ set(PROJECT_SOURCES
     source/tools/hex-converter/hex_controller.cpp
     source/tools/hex-converter/hex_widget.cpp
     
+    # Tools (Dec Converter)
+    
+    source/tools/dec-converter/dec_model.h
+    source/tools/dec-converter/dec_view.h
+    source/tools/dec-converter/dec_controller.h
+    source/tools/dec-converter/dec_widget.h
+    source/tools/dec-converter/dec_model.cpp
+    source/tools/dec-converter/dec_view.cpp
+    source/tools/dec-converter/dec_controller.cpp
+    source/tools/dec-converter/dec_widget.cpp
+    
     # General
     
     source/main.cpp

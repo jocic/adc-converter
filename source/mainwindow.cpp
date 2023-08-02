@@ -15,8 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     
     // Tools
     
-    ui->wd_Tools_PL->initialize();    
+    ui->wd_Tools_PL->initialize();
     ui->wd_Tools_HEX->initialize();
+    ui->wd_Tools_DEC->initialize();
 }
 
 MainWindow::~MainWindow()

@@ -47,6 +47,9 @@
    <property name="features">
     <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
    <property name="windowTitle">
     <string>Options</string>
    </property>
@@ -136,6 +139,9 @@
    <property name="features">
     <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
    <property name="windowTitle">
     <string>Tools</string>
    </property>
@@ -149,6 +155,9 @@
      </item>
      <item>
       <widget class="HexWidget" name="wd_Tools_HEX" native="true"/>
+     </item>
+     <item>
+      <widget class="DecWidget" name="wd_Tools_DEC" native="true"/>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -175,6 +184,9 @@
    </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFeatureMask</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
     <string>Info</string>
@@ -272,6 +284,12 @@
    <class>HexWidget</class>
    <extends>QWidget</extends>
    <header>tools/hex-converter/hex_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>DecWidget</class>
+   <extends>QWidget</extends>
+   <header>tools/dec-converter/dec_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
