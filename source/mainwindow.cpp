@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->wd_Options_BPS->initialize();
     ui->wd_Options_SR->initialize();
     ui->wd_Options_REF->initialize();
+    ui->wd_Options_SER->initialize();
     
     // Tools
     

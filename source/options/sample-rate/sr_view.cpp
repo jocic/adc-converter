@@ -2,7 +2,7 @@
 #include <QLayout>
 #include <QGroupBox>
 #include <QFormLayout>
-#include <QLineEdit>>
+#include <QLineEdit>
 
 #include "mvc/element_manager.h"
 #include "sr_model.h"

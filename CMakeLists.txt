@@ -14,6 +14,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS SerialPort)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS SerialPort)
+
 include_directories(source)
 
 FILE(COPY source/icons DESTINATION ${CMAKE_BINARY_DIR})
@@ -70,6 +73,17 @@ set(PROJECT_SOURCES
     source/options/reference/ref_view.cpp
     source/options/reference/ref_controller.cpp
     source/options/reference/ref_widget.cpp
+    
+    # Options (Serial)
+    
+    source/options/serial/ser_model.h
+    source/options/serial/ser_view.h
+    source/options/serial/ser_controller.h
+    source/options/serial/ser_widget.h
+    source/options/serial/ser_model.cpp
+    source/options/serial/ser_view.cpp
+    source/options/serial/ser_controller.cpp
+    source/options/serial/ser_widget.cpp
     
     # Tools (Playback)
     
@@ -133,7 +147,9 @@ else()
     endif()
 endif()
 
-target_link_libraries(adc-converter PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(adc-converter PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::SerialPort)
 
 set_target_properties(adc-converter PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

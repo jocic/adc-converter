@@ -32,6 +32,12 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
@@ -132,7 +138,7 @@
       <widget class="RefWidget" name="wd_Options_REF" native="true"/>
      </item>
      <item>
-      <widget class="QWidget" name="wd_Options_SER" native="true"/>
+      <widget class="SerWidget" name="wd_Options_SER" native="true"/>
      </item>
      <item>
       <spacer name="vs_Options">
@@ -462,6 +468,12 @@
    <class>DecWidget</class>
    <extends>QWidget</extends>
    <header>tools/dec-converter/dec_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SerWidget</class>
+   <extends>QWidget</extends>
+   <header>options/serial/ser_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
