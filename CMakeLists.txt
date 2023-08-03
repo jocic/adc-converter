@@ -52,28 +52,6 @@ set(PROJECT_SOURCES
     source/options/samples/smp_controller.cpp
     source/options/samples/smp_widget.cpp
     
-    # Options (Bits Per Sample)
-    
-    source/options/bits-per-sample/bps_model.h
-    source/options/bits-per-sample/bps_view.h
-    source/options/bits-per-sample/bps_controller.h
-    source/options/bits-per-sample/bps_widget.h
-    source/options/bits-per-sample/bps_model.cpp
-    source/options/bits-per-sample/bps_view.cpp
-    source/options/bits-per-sample/bps_controller.cpp
-    source/options/bits-per-sample/bps_widget.cpp
-    
-    # Options (Sample Rate)
-    
-    source/options/sample-rate/sr_model.h
-    source/options/sample-rate/sr_view.h
-    source/options/sample-rate/sr_controller.h
-    source/options/sample-rate/sr_widget.h
-    source/options/sample-rate/sr_model.cpp
-    source/options/sample-rate/sr_view.cpp
-    source/options/sample-rate/sr_controller.cpp
-    source/options/sample-rate/sr_widget.cpp
-    
     # Options (Reference)
     
     source/options/reference/ref_model.h

@@ -128,16 +128,6 @@
       <widget class="SmpWidget" name="wd_Options_SMP" native="true"/>
      </item>
      <item>
-      <widget class="BpsWidget" name="wd_Options_BPS" native="true">
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="SrWidget" name="wd_Options_SR" native="true"/>
-     </item>
-     <item>
       <widget class="RefWidget" name="wd_Options_REF" native="true"/>
      </item>
      <item>
@@ -437,18 +427,6 @@
   </action>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>BpsWidget</class>
-   <extends>QWidget</extends>
-   <header>options/bits-per-sample/bps_widget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>SrWidget</class>
-   <extends>QWidget</extends>
-   <header>options/sample-rate/sr_widget.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>PlWidget</class>
    <extends>QWidget</extends>

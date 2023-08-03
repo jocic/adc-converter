@@ -9,9 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     
     // Options
     
-    ui->wd_Options_SMP->initialize();    
-    ui->wd_Options_BPS->initialize();
-    ui->wd_Options_SR->initialize();
+    ui->wd_Options_SMP->initialize();
     ui->wd_Options_REF->initialize();
     ui->wd_Options_SER->initialize();
     
