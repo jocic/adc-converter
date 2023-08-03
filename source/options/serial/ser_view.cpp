@@ -15,6 +15,8 @@ void SerView::initialize(QWidget* parent) {
     
     QGroupBox*   box        = new QGroupBox();
     QFormLayout* layout     = new QFormLayout();
+    QLabel*      lbl_baud   = new QLabel();
+    QComboBox*   cmb_baud   = new QComboBox();
     QLabel*      lbl_data   = new QLabel();
     QComboBox*   cmb_data   = new QComboBox();
     QLabel*      lbl_stop   = new QLabel();
@@ -26,6 +28,12 @@ void SerView::initialize(QWidget* parent) {
     
     box->setLayout(layout);
     box->setTitle("Serial");
+    
+    lbl_baud->setText("Baud Rate");
+    cmb_baud->addItems({ "1200", "2400", "4800", "9600",
+        "19200", "38400", "57600", "115200" });
+    cmb_baud->setCurrentIndex(4);
+    layout->addRow(lbl_baud, cmb_baud);
     
     lbl_data->setText("Data Bits");
     cmb_data->addItems({ "5", "6", "7", "8" });
@@ -53,6 +61,7 @@ void SerView::initialize(QWidget* parent) {
     
     ElementManager* manager = this->get_ElementManager();
     
+    manager->push(SerModel::FIELD_BAUD_RATE, cmb_baud);    
     manager->push(SerModel::FIELD_DATA_BITS, cmb_data);
     manager->push(SerModel::FIELD_STOP_BITS, cmb_stop);  
     manager->push(SerModel::FIELD_PARITY_BITS, cmb_parity);

@@ -1,9 +1,58 @@
 #include "ser_model.h"
 
+const QString SerModel::FIELD_BAUD_RATE    = "cmb_Baud";
 const QString SerModel::FIELD_PARITY_BITS  = "cmb_Parity";
 const QString SerModel::FIELD_DATA_BITS    = "cmb_Data";
 const QString SerModel::FIELD_STOP_BITS    = "cmb_Stop";
 const QString SerModel::FIELD_FLOW_CONTROL = "cmb_Flow";
+
+QSerialPort::BaudRate SerModel::get_BaudRate() {
+    
+    QString value = this->get(FIELD_BAUD_RATE);
+    
+    if (value == "1200") {
+        return QSerialPort::BaudRate::Baud1200;
+    } else if (value == "2400") {
+        return QSerialPort::BaudRate::Baud2400;
+    } else if (value == "4800") {
+        return QSerialPort::BaudRate::Baud4800;
+    } else if (value == "9600") {
+        return QSerialPort::BaudRate::Baud9600;
+    } else if (value == "19200") {
+        return QSerialPort::BaudRate::Baud19200;
+    } else if (value == "38400") {
+        return QSerialPort::BaudRate::Baud38400;
+    } else if (value == "57600") {
+        return QSerialPort::BaudRate::Baud57600;
+    }
+    
+    return QSerialPort::BaudRate::Baud115200;
+}
+
+void SerModel::set_BaudRate(QSerialPort::BaudRate value) {
+    
+    QString new_value = "115200";
+    
+    if (value == QSerialPort::BaudRate::Baud1200) {
+        new_value = "1200";
+    } else if (value == QSerialPort::BaudRate::Baud2400) {
+        new_value = "2400";
+    } else if (value == QSerialPort::BaudRate::Baud4800) {
+        new_value = "4800";
+    } else if (value == QSerialPort::BaudRate::Baud9600) {
+        new_value = "9600";
+    } else if (value == QSerialPort::BaudRate::Baud19200) {
+        new_value = "19200";
+    } else if (value == QSerialPort::BaudRate::Baud38400) {
+        new_value = "38400";
+    } else if (value == QSerialPort::BaudRate::Baud57600) {
+        new_value = "57600";
+    }
+    
+    this->set(FIELD_BAUD_RATE, new_value);
+    
+    emit SerModel::sig_Model_Updated(FIELD_BAUD_RATE, new_value);
+}
 
 QSerialPort::Parity SerModel::get_ParityBit() {
     

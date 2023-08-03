@@ -10,11 +10,14 @@ class SerModel : public AbstractModel {
     
     public:
         
+        static const QString FIELD_BAUD_RATE;
         static const QString FIELD_PARITY_BITS;
         static const QString FIELD_DATA_BITS;
         static const QString FIELD_STOP_BITS;
         static const QString FIELD_FLOW_CONTROL;
         
+        QSerialPort::BaudRate get_BaudRate();
+        void set_BaudRate(QSerialPort::BaudRate value);
         QSerialPort::Parity get_ParityBit();
         void set_ParityBit(QSerialPort::Parity value);
         QSerialPort::DataBits get_DataBits();

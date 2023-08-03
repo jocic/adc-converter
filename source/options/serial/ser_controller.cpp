@@ -21,7 +21,18 @@ void SerController::on_Model_Changed(QString key, QString value) {
         return;
     }
     
-    if (key == SerModel::FIELD_DATA_BITS) {
+    if (key == SerModel::FIELD_BAUD_RATE) {
+        
+        QComboBox* cmb_baud = (QComboBox*)manager
+            ->get(SerModel::FIELD_BAUD_RATE);
+        
+        for (int i = 0; i < cmb_baud->count(); i++) {
+            if (cmb_baud->itemText(i) == value) {
+                cmb_baud->setCurrentIndex(i); break;
+            }
+        }
+    }
+    else if (key == SerModel::FIELD_DATA_BITS) {
         
         QComboBox* cmb_data = (QComboBox*)manager
             ->get(SerModel::FIELD_DATA_BITS);
@@ -73,6 +84,15 @@ void SerController::on_Model_Cleared() {
     
     if (manager == NULL) {
         return;
+    }
+    
+    QComboBox* cmb_baud = (QComboBox*)manager
+        ->get(SerModel::FIELD_DATA_BITS);
+    
+    for (int i = 0; i < cmb_baud->count(); i++) {
+        if (cmb_baud->itemText(i) == "19200") {
+            cmb_baud->setCurrentIndex(i); break;
+        }
     }
     
     QComboBox* cmb_data = (QComboBox*)manager
