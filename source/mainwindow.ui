@@ -125,6 +125,9 @@
       <number>12</number>
      </property>
      <item>
+      <widget class="SmpWidget" name="wd_Options_SMP" native="true"/>
+     </item>
+     <item>
       <widget class="BpsWidget" name="wd_Options_BPS" native="true">
        <property name="styleSheet">
         <string notr="true"/>
@@ -474,6 +477,12 @@
    <class>SerWidget</class>
    <extends>QWidget</extends>
    <header>options/serial/ser_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SmpWidget</class>
+   <extends>QWidget</extends>
+   <header>options/samples/smp_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

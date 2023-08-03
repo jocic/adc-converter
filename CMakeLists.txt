@@ -41,6 +41,17 @@ set(PROJECT_SOURCES
     source/mvc/abstract_view.cpp
     source/mvc/abstract_controller.cpp
     
+    # Options (Samples)
+    
+    source/options/samples/smp_model.h
+    source/options/samples/smp_view.h
+    source/options/samples/smp_controller.h
+    source/options/samples/smp_widget.h
+    source/options/samples/smp_model.cpp
+    source/options/samples/smp_view.cpp
+    source/options/samples/smp_controller.cpp
+    source/options/samples/smp_widget.cpp
+    
     # Options (Bits Per Sample)
     
     source/options/bits-per-sample/bps_model.h
