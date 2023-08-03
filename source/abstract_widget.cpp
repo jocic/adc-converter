@@ -1,5 +1,5 @@
 #include <QWidget>
-#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include "abstract_widget.h"
 
@@ -11,7 +11,7 @@ AbstractWidget::AbstractWidget(QWidget* parent) {
     m_View       = NULL;
     m_Controller = NULL;
     
-    this->setLayout(new QHBoxLayout());
+    this->setLayout(new QVBoxLayout());
     
     this->layout()->setContentsMargins(0, 0, 0, 0);
 }

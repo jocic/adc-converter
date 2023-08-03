@@ -74,6 +74,17 @@ set(PROJECT_SOURCES
     source/options/serial/ser_controller.cpp
     source/options/serial/ser_widget.cpp
     
+    # Options (Communication)
+    
+    source/options/communication/com_model.h
+    source/options/communication/com_view.h
+    source/options/communication/com_controller.h
+    source/options/communication/com_widget.h
+    source/options/communication/com_model.cpp
+    source/options/communication/com_view.cpp
+    source/options/communication/com_controller.cpp
+    source/options/communication/com_widget.cpp
+    
     # Tools (Playback)
     
     source/tools/playback/pl_model.h

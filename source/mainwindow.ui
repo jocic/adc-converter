@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>600</height>
+    <height>508</height>
    </rect>
   </property>
   <property name="baseSize">
@@ -67,6 +67,12 @@
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>112</height>
+    </size>
    </property>
    <property name="styleSheet">
     <string notr="true"/>
@@ -132,6 +138,9 @@
      </item>
      <item>
       <widget class="SerWidget" name="wd_Options_SER" native="true"/>
+     </item>
+     <item>
+      <widget class="ComWidget" name="wd_Options_COM" native="true"/>
      </item>
      <item>
       <spacer name="vs_Options">
@@ -215,6 +224,12 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>0</height>
+    </size>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
@@ -275,6 +290,12 @@
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>0</height>
+    </size>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
@@ -461,6 +482,12 @@
    <class>SmpWidget</class>
    <extends>QWidget</extends>
    <header>options/samples/smp_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ComWidget</class>
+   <extends>QWidget</extends>
+   <header>options/communication/com_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

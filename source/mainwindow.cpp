@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->wd_Options_SMP->initialize();
     ui->wd_Options_REF->initialize();
     ui->wd_Options_SER->initialize();
+    ui->wd_Options_COM->initialize();
     
     // Tools
     
