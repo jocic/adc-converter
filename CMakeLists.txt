@@ -11,24 +11,27 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+FILE(COPY source/icons DESTINATION ${CMAKE_BINARY_DIR})
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS SerialPort)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS SerialPort)
 
-include_directories(source)
+add_subdirectory(libraries/c89-wav)
+include_directories(${C89_WAV_DIR})
 
-FILE(COPY source/icons DESTINATION ${CMAKE_BINARY_DIR})
+include_directories(source)
 
 set(PROJECT_SOURCES
     
     # General
     
     source/app_icons.h
-    source/abstract_widget.h
     source/app_icons.cpp
-    source/abstract_widget.cpp
+    source/widgets/abstract_widget.h
+    source/widgets/abstract_widget.cpp
     
     # MVC
     
@@ -43,89 +46,89 @@ set(PROJECT_SOURCES
     
     # Options (Samples)
     
-    source/options/samples/smp_model.h
-    source/options/samples/smp_view.h
-    source/options/samples/smp_controller.h
-    source/options/samples/smp_widget.h
-    source/options/samples/smp_model.cpp
-    source/options/samples/smp_view.cpp
-    source/options/samples/smp_controller.cpp
-    source/options/samples/smp_widget.cpp
+    source/widgets/options/samples/smp_model.h
+    source/widgets/options/samples/smp_view.h
+    source/widgets/options/samples/smp_controller.h
+    source/widgets/options/samples/smp_widget.h
+    source/widgets/options/samples/smp_model.cpp
+    source/widgets/options/samples/smp_view.cpp
+    source/widgets/options/samples/smp_controller.cpp
+    source/widgets/options/samples/smp_widget.cpp
     
     # Options (Reference)
     
-    source/options/reference/ref_model.h
-    source/options/reference/ref_view.h
-    source/options/reference/ref_controller.h
-    source/options/reference/ref_widget.h
-    source/options/reference/ref_model.cpp
-    source/options/reference/ref_view.cpp
-    source/options/reference/ref_controller.cpp
-    source/options/reference/ref_widget.cpp
+    source/widgets/options/reference/ref_model.h
+    source/widgets/options/reference/ref_view.h
+    source/widgets/options/reference/ref_controller.h
+    source/widgets/options/reference/ref_widget.h
+    source/widgets/options/reference/ref_model.cpp
+    source/widgets/options/reference/ref_view.cpp
+    source/widgets/options/reference/ref_controller.cpp
+    source/widgets/options/reference/ref_widget.cpp
     
     # Options (Serial)
     
-    source/options/serial/ser_model.h
-    source/options/serial/ser_view.h
-    source/options/serial/ser_controller.h
-    source/options/serial/ser_widget.h
-    source/options/serial/ser_model.cpp
-    source/options/serial/ser_view.cpp
-    source/options/serial/ser_controller.cpp
-    source/options/serial/ser_widget.cpp
+    source/widgets/options/serial/ser_model.h
+    source/widgets/options/serial/ser_view.h
+    source/widgets/options/serial/ser_controller.h
+    source/widgets/options/serial/ser_widget.h
+    source/widgets/options/serial/ser_model.cpp
+    source/widgets/options/serial/ser_view.cpp
+    source/widgets/options/serial/ser_controller.cpp
+    source/widgets/options/serial/ser_widget.cpp
     
     # Options (Communication)
     
-    source/options/communication/com_model.h
-    source/options/communication/com_view.h
-    source/options/communication/com_controller.h
-    source/options/communication/com_widget.h
-    source/options/communication/com_model.cpp
-    source/options/communication/com_view.cpp
-    source/options/communication/com_controller.cpp
-    source/options/communication/com_widget.cpp
+    source/widgets/options/communication/com_model.h
+    source/widgets/options/communication/com_view.h
+    source/widgets/options/communication/com_controller.h
+    source/widgets/options/communication/com_widget.h
+    source/widgets/options/communication/com_model.cpp
+    source/widgets/options/communication/com_view.cpp
+    source/widgets/options/communication/com_controller.cpp
+    source/widgets/options/communication/com_widget.cpp
     
     # Tools (Playback)
     
-    source/tools/playback/pl_model.h
-    source/tools/playback/pl_view.h
-    source/tools/playback/pl_widget.h
-    source/tools/playback/pl_model.cpp
-    source/tools/playback/pl_view.cpp
-    source/tools/playback/pl_widget.cpp
+    source/widgets/tools/playback/pl_model.h
+    source/widgets/tools/playback/pl_view.h
+    source/widgets/tools/playback/pl_widget.h
+    source/widgets/tools/playback/pl_model.cpp
+    source/widgets/tools/playback/pl_view.cpp
+    source/widgets/tools/playback/pl_widget.cpp
     
     # Tools (Hex Converter)
     
-    source/tools/hex-converter/hex_model.h
-    source/tools/hex-converter/hex_view.h
-    source/tools/hex-converter/hex_controller.h
-    source/tools/hex-converter/hex_widget.h
-    source/tools/hex-converter/hex_model.cpp
-    source/tools/hex-converter/hex_view.cpp
-    source/tools/hex-converter/hex_controller.cpp
-    source/tools/hex-converter/hex_widget.cpp
+    source/widgets/tools/hex-converter/hex_model.h
+    source/widgets/tools/hex-converter/hex_view.h
+    source/widgets/tools/hex-converter/hex_controller.h
+    source/widgets/tools/hex-converter/hex_widget.h
+    source/widgets/tools/hex-converter/hex_model.cpp
+    source/widgets/tools/hex-converter/hex_view.cpp
+    source/widgets/tools/hex-converter/hex_controller.cpp
+    source/widgets/tools/hex-converter/hex_widget.cpp
     
     # Tools (Dec Converter)
     
-    source/tools/dec-converter/dec_model.h
-    source/tools/dec-converter/dec_view.h
-    source/tools/dec-converter/dec_controller.h
-    source/tools/dec-converter/dec_widget.h
-    source/tools/dec-converter/dec_model.cpp
-    source/tools/dec-converter/dec_view.cpp
-    source/tools/dec-converter/dec_controller.cpp
-    source/tools/dec-converter/dec_widget.cpp
+    source/widgets/tools/dec-converter/dec_model.h
+    source/widgets/tools/dec-converter/dec_view.h
+    source/widgets/tools/dec-converter/dec_controller.h
+    source/widgets/tools/dec-converter/dec_widget.h
+    source/widgets/tools/dec-converter/dec_model.cpp
+    source/widgets/tools/dec-converter/dec_view.cpp
+    source/widgets/tools/dec-converter/dec_controller.cpp
+    source/widgets/tools/dec-converter/dec_widget.cpp
     
     # Info (General)
     
-    source/info/general/gen_model.h
-    source/info/general/gen_view.h
-    source/info/general/gen_controller.h
-    source/info/general/gen_widget.h
-    source/info/general/gen_model.cpp
-    source/info/general/gen_view.cpp
-    source/info/general/gen_controller.cpp
-    source/info/general/gen_widget.cpp
+    source/widgets/info/general/gen_model.h
+    source/widgets/info/general/gen_view.h
+    source/widgets/info/general/gen_controller.h
+    source/widgets/info/general/gen_widget.h
+    source/widgets/info/general/gen_model.cpp
+    source/widgets/info/general/gen_view.cpp
+    source/widgets/info/general/gen_controller.cpp
+    source/widgets/info/general/gen_widget.cpp
     
     # General
     
@@ -159,6 +162,7 @@ else()
 endif()
 
 target_link_libraries(adc-converter PRIVATE
+    c89-wav
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::SerialPort)
 

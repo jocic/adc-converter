@@ -451,49 +451,49 @@
   <customwidget>
    <class>PlWidget</class>
    <extends>QWidget</extends>
-   <header>tools/playback/pl_widget.h</header>
+   <header>widgets/tools/playback/pl_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>RefWidget</class>
    <extends>QWidget</extends>
-   <header>options/reference/ref_widget.h</header>
+   <header>widgets/options/reference/ref_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>HexWidget</class>
    <extends>QWidget</extends>
-   <header>tools/hex-converter/hex_widget.h</header>
+   <header>widgets/tools/hex-converter/hex_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>DecWidget</class>
    <extends>QWidget</extends>
-   <header>tools/dec-converter/dec_widget.h</header>
+   <header>widgets/tools/dec-converter/dec_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>SerWidget</class>
    <extends>QWidget</extends>
-   <header>options/serial/ser_widget.h</header>
+   <header>widgets/options/serial/ser_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>SmpWidget</class>
    <extends>QWidget</extends>
-   <header>options/samples/smp_widget.h</header>
+   <header>widgets/options/samples/smp_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>ComWidget</class>
    <extends>QWidget</extends>
-   <header>options/communication/com_widget.h</header>
+   <header>widgets/options/communication/com_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>GenWidget</class>
    <extends>QWidget</extends>
-   <header>info/general/gen_widget.h</header>
+   <header>widgets/info/general/gen_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

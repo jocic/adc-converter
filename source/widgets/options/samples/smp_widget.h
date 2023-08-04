@@ -2,7 +2,7 @@
 
 #define ADC_OPTIONS_SMP_WIDGET
 
-#include "abstract_widget.h"
+#include "widgets/abstract_widget.h"
 
 class SmpWidget : public AbstractWidget {
     

@@ -2,7 +2,7 @@
 
 #define ADC_INFO_GEN_WIDGET
 
-#include "abstract_widget.h"
+#include "widgets/abstract_widget.h"
 
 class GenWidget : public AbstractWidget {
     

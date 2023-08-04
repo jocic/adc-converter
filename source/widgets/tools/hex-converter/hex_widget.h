@@ -2,7 +2,7 @@
 
 #define ADC_TOOLS_HEX_WIDGET
 
-#include "abstract_widget.h"
+#include "widgets/abstract_widget.h"
 
 class HexWidget : public AbstractWidget {
     

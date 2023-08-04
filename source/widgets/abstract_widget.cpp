@@ -1,7 +1,7 @@
 #include <QWidget>
 #include <QVBoxLayout>
 
-#include "abstract_widget.h"
+#include "widgets/abstract_widget.h"
 
 AbstractWidget::AbstractWidget(QWidget* parent) {
     
