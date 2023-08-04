@@ -28,10 +28,10 @@ void ComView::initialize(QWidget* parent) {
     box->setLayout(lay_root);
     box->setTitle("Communication");
     
-    lbl_port->setText("COM Port");
+    lbl_port->setText("Port");
     lay_root->addRow(lbl_port, cmb_port);
     
-    lbl_mode->setText("COM Mode");
+    lbl_mode->setText("Mode");
     cmb_mode->addItems({ "Text", "Binary" });
     lay_root->addRow(lbl_mode, cmb_mode);
     

@@ -116,6 +116,17 @@ set(PROJECT_SOURCES
     source/tools/dec-converter/dec_controller.cpp
     source/tools/dec-converter/dec_widget.cpp
     
+    # Info (General)
+    
+    source/info/general/gen_model.h
+    source/info/general/gen_view.h
+    source/info/general/gen_controller.h
+    source/info/general/gen_widget.h
+    source/info/general/gen_model.cpp
+    source/info/general/gen_view.cpp
+    source/info/general/gen_controller.cpp
+    source/info/general/gen_widget.cpp
+    
     # General
     
     source/main.cpp

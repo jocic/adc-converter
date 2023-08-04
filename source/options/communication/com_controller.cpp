@@ -1,4 +1,4 @@
-#include <QComboBox>>
+#include <QComboBox>
 
 #include "com_model.h"
 #include "com_controller.h"

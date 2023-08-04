@@ -19,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->wd_Tools_PL->initialize();
     ui->wd_Tools_HEX->initialize();
     ui->wd_Tools_DEC->initialize();
+    
+    // Info
+    
+    ui->wd_Info_GEN->initialize();
 }
 
 MainWindow::~MainWindow()

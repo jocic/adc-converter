@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>ADC Converter v1.0.0</string>
+   <string>ADC Converter v1.0.0 - Free Version</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QDockWidget &gt; * { border-right: 1px solid #dfdfdf; }</string>
@@ -227,7 +227,7 @@
    <property name="minimumSize">
     <size>
      <width>250</width>
-     <height>0</height>
+     <height>98</height>
     </size>
    </property>
    <property name="features">
@@ -294,7 +294,7 @@
    <property name="minimumSize">
     <size>
      <width>250</width>
-     <height>0</height>
+     <height>98</height>
     </size>
    </property>
    <property name="autoFillBackground">
@@ -318,7 +318,7 @@
    <widget class="QWidget" name="lay_Info">
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QWidget" name="wd_Info_GEN" native="true"/>
+      <widget class="GenWidget" name="wd_Info_GEN" native="true"/>
      </item>
      <item>
       <spacer name="vs_Info">
@@ -488,6 +488,12 @@
    <class>ComWidget</class>
    <extends>QWidget</extends>
    <header>options/communication/com_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GenWidget</class>
+   <extends>QWidget</extends>
+   <header>info/general/gen_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
