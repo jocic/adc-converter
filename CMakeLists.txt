@@ -11,7 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-FILE(COPY source/icons DESTINATION ${CMAKE_BINARY_DIR})
+FILE(COPY assets/icons DESTINATION ${CMAKE_BINARY_DIR})
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
@@ -30,6 +30,13 @@ set(PROJECT_SOURCES
     
     source/app_icons.h
     source/app_icons.cpp
+    
+    source/main.cpp
+    
+    source/mainwindow.cpp
+    source/mainwindow.h
+    source/mainwindow.ui
+    
     source/widgets/abstract_widget.h
     source/widgets/abstract_widget.cpp
     
@@ -43,6 +50,17 @@ set(PROJECT_SOURCES
     source/mvc/abstract_model.cpp
     source/mvc/abstract_view.cpp
     source/mvc/abstract_controller.cpp
+    
+    # Converters
+    
+    source/converters/abstract_converter.h
+    source/converters/abstract_converter.cpp
+    source/converters/hex_converter.h
+    source/converters/hex_converter.cpp
+    
+    #####################
+    # WIDGETS - OPTIONS #
+    #####################
     
     # Options (Samples)
     
@@ -88,6 +106,10 @@ set(PROJECT_SOURCES
     source/widgets/options/communication/com_controller.cpp
     source/widgets/options/communication/com_widget.cpp
     
+    ###################
+    # WIDGETS - TOOLS #
+    ###################
+    
     # Tools (Playback)
     
     source/widgets/tools/playback/pl_model.h
@@ -119,6 +141,10 @@ set(PROJECT_SOURCES
     source/widgets/tools/dec-converter/dec_controller.cpp
     source/widgets/tools/dec-converter/dec_widget.cpp
     
+    ##################
+    # WIDGETS - INFO #
+    ##################
+    
     # Info (General)
     
     source/widgets/info/general/gen_model.h
@@ -129,13 +155,6 @@ set(PROJECT_SOURCES
     source/widgets/info/general/gen_view.cpp
     source/widgets/info/general/gen_controller.cpp
     source/widgets/info/general/gen_widget.cpp
-    
-    # General
-    
-    source/main.cpp
-    source/mainwindow.cpp
-    source/mainwindow.h
-    source/mainwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
