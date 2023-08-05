@@ -2,6 +2,8 @@
 
 #include <QApplication>
 
+#include <QDebug>
+
 /*
  * TO-DO (Paid Version):
  *   - Reuse the existing code but restructure the core of the application model/view/controller and split it

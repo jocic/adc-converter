@@ -57,6 +57,8 @@ set(PROJECT_SOURCES
     source/converters/abstract_converter.cpp
     source/converters/hex_converter.h
     source/converters/hex_converter.cpp
+    source/converters/dec_converter.h
+    source/converters/dec_converter.cpp
     
     #####################
     # WIDGETS - OPTIONS #
