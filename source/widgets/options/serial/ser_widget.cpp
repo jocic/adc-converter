@@ -16,6 +16,9 @@ void SerWidget::initialize() {
     m_View       = new SerView();
     m_Controller = new SerController();
     
+    m_Controller->set_Model(m_Model);
+    m_Controller->set_View(m_View);
+    
     connect(m_Model, &SerModel::sig_Model_Updated,
         (SerController*)m_Controller, &SerController::on_Model_Changed);
     

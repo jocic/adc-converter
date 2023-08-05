@@ -17,6 +17,9 @@ void RefWidget::initialize() {
     m_View       = new RefView();
     m_Controller = new RefController();
     
+    m_Controller->set_Model(m_Model);
+    m_Controller->set_View(m_View);
+    
     connect(m_Model, &RefModel::sig_Model_Updated,
         (RefController*)m_Controller, &RefController::on_Model_Changed);
     

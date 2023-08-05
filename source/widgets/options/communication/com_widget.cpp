@@ -16,6 +16,9 @@ void ComWidget::initialize() {
     m_View       = new ComView();
     m_Controller = new ComController();
     
+    m_Controller->set_Model(m_Model);
+    m_Controller->set_View(m_View);
+    
     connect(m_Model, &ComModel::sig_Model_Updated,
         (ComController*)m_Controller, &ComController::on_Model_Changed);
     

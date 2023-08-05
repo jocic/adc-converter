@@ -16,6 +16,9 @@ void GenWidget::initialize() {
     m_View       = new GenView();
     m_Controller = new GenController();
     
+    m_Controller->set_Model(m_Model);
+    m_Controller->set_View(m_View);
+    
     connect(m_Model, &GenModel::sig_Model_Updated,
         (GenController*)m_Controller, &GenController::on_Model_Changed);
     

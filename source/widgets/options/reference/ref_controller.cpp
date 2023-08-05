@@ -5,7 +5,7 @@
 
 void RefController::on_View_Initialized(ElementManager* manager) {
     
-    this->set_ElementManager(manager);
+    // Does nothing...
 }
 
 void RefController::on_View_Changed() {
@@ -15,7 +15,7 @@ void RefController::on_View_Changed() {
 
 void RefController::on_Model_Changed(QString key, QString value) {
     
-    ElementManager* manager = this->get_ElementManager();
+    ElementManager* manager = this->get_View()->get_ElementManager();
     
     if (manager == NULL) {
         return;
@@ -39,7 +39,7 @@ void RefController::on_Model_Changed(QString key, QString value) {
 
 void RefController::on_Model_Cleared() {
     
-    ElementManager* manager = this->get_ElementManager();
+    ElementManager* manager = this->get_View()->get_ElementManager();
     
     if (manager == NULL) {
         return;

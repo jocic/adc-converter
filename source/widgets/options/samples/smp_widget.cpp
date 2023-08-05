@@ -16,6 +16,9 @@ void SmpWidget::initialize() {
     m_View       = new SmpView();
     m_Controller = new SmpController();
     
+    m_Controller->set_Model(m_Model);
+    m_Controller->set_View(m_View);
+    
     connect(m_Model, &SmpModel::sig_Model_Updated,
         (SmpController*)m_Controller, &SmpController::on_Model_Changed);
     

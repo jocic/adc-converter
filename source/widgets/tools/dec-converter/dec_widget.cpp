@@ -17,6 +17,9 @@ void DecWidget::initialize() {
     m_View       = new DecView();
     m_Controller = new DecController();
     
+    m_Controller->set_Model(m_Model);
+    m_Controller->set_View(m_View);
+    
     connect(m_Model, &DecModel::sig_Model_Updated,
         (DecController*)m_Controller, &DecController::on_Model_Changed);
     

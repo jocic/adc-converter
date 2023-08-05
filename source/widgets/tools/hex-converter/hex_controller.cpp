@@ -8,10 +8,6 @@
 
 void HexController::on_View_Initialized(ElementManager* manager) {
     
-    this->set_ElementManager(manager);
-    
-    // Connect Signals
-    
     QLineEdit* txt_hex = (QLineEdit*)manager
         ->get(HexModel::FIELD_HEXADECIMAL);
     QCheckBox* cb_sig = (QCheckBox*)manager
@@ -26,7 +22,7 @@ void HexController::on_View_Initialized(ElementManager* manager) {
 
 void HexController::on_View_Changed() {
     
-    ElementManager* manager = this->get_ElementManager();
+    ElementManager* manager = this->get_View()->get_ElementManager();
     HexModel*       model   = (HexModel*)this->get_Model();
     
     HexConverter* converter = new HexConverter();
@@ -49,7 +45,7 @@ void HexController::on_View_Changed() {
 
 void HexController::on_Model_Changed(QString key, QString value) {
     
-    ElementManager* manager = this->get_ElementManager();
+    ElementManager* manager = this->get_View()->get_ElementManager();
     
     if (manager == NULL) {
         return;
@@ -80,7 +76,7 @@ void HexController::on_Model_Changed(QString key, QString value) {
 
 void HexController::on_Model_Cleared() {
     
-    ElementManager* manager = this->get_ElementManager();
+    ElementManager* manager = this->get_View()->get_ElementManager();
     
     if (manager == NULL) {
         return;
