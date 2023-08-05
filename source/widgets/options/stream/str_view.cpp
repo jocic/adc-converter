@@ -8,10 +8,10 @@
 #include <QCheckBox>
 
 #include "mvc/element_manager.h"
-#include "smp_model.h"
-#include "smp_view.h"
+#include "str_model.h"
+#include "str_view.h"
 
-void SmpView::initialize(QWidget* parent) {
+void StrView::initialize(QWidget* parent) {
     
     // Arrange View
     
@@ -24,7 +24,7 @@ void SmpView::initialize(QWidget* parent) {
     QCheckBox*   cb_sign  = new QCheckBox();
     
     box->setLayout(layout);
-    box->setTitle("Samples");
+    box->setTitle("Stream");
     
     lbl_rate->setText("Sample Rate");
     txt_rate->setText("44100");
@@ -43,9 +43,9 @@ void SmpView::initialize(QWidget* parent) {
     
     ElementManager* manager = this->get_ElementManager();
     
-    manager->push(SmpModel::FIELD_SAMPLE_RATE, txt_rate);
-    manager->push(SmpModel::FIELD_BITS_PER_SAMPLE, cmb_bps);
-    manager->push(SmpModel::FIELD_SIGNED, cb_sign);
+    manager->push(StrModel::FIELD_SAMPLE_RATE, txt_rate);
+    manager->push(StrModel::FIELD_BITS_PER_SAMPLE, cmb_bps);
+    manager->push(StrModel::FIELD_SIGNED, cb_sign);
     
-    emit SmpView::sig_View_Initialized(manager);
+    emit StrView::sig_View_Initialized(manager);
 }

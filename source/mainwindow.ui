@@ -131,7 +131,7 @@
       <number>12</number>
      </property>
      <item>
-      <widget class="SmpWidget" name="wd_Options_SMP" native="true"/>
+      <widget class="StrWidget" name="wd_Options_STR" native="true"/>
      </item>
      <item>
       <widget class="RefWidget" name="wd_Options_REF" native="true"/>
@@ -479,9 +479,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>SmpWidget</class>
+   <class>StrWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/options/samples/smp_widget.h</header>
+   <header>widgets/options/stream/str_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

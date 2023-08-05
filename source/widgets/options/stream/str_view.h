@@ -1,12 +1,12 @@
-#ifndef ADC_OPT_SMP_VIEW_H
+#ifndef ADC_OPT_STR_VIEW_H
 
-#define ADC_OPT_SMP_VIEW_H
+#define ADC_OPT_STR_VIEW_H
 
 #include <QWidget>
 
 #include "mvc/abstract_view.h"
 
-class SmpView : public AbstractView {
+class StrView : public AbstractView {
     
     public:
         void initialize(QWidget* parent) override;

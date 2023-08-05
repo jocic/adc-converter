@@ -64,16 +64,16 @@ set(PROJECT_SOURCES
     # WIDGETS - OPTIONS #
     #####################
     
-    # Options (Samples)
+    # Options (Stream)
     
-    source/widgets/options/samples/smp_model.h
-    source/widgets/options/samples/smp_view.h
-    source/widgets/options/samples/smp_controller.h
-    source/widgets/options/samples/smp_widget.h
-    source/widgets/options/samples/smp_model.cpp
-    source/widgets/options/samples/smp_view.cpp
-    source/widgets/options/samples/smp_controller.cpp
-    source/widgets/options/samples/smp_widget.cpp
+    source/widgets/options/stream/str_model.h
+    source/widgets/options/stream/str_view.h
+    source/widgets/options/stream/str_controller.h
+    source/widgets/options/stream/str_widget.h
+    source/widgets/options/stream/str_model.cpp
+    source/widgets/options/stream/str_view.cpp
+    source/widgets/options/stream/str_controller.cpp
+    source/widgets/options/stream/str_widget.cpp
     
     # Options (Reference)
     

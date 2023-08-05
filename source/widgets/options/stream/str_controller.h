@@ -1,10 +1,10 @@
-#ifndef ADC_OPT_SMP_CONTROLLER_H
+#ifndef ADC_OPT_STR_CONTROLLER_H
 
-#define ADC_OPT_SMP_CONTROLLER_H
+#define ADC_OPT_STR_CONTROLLER_H
 
 #include "mvc/abstract_controller.h"
 
-class SmpController : public AbstractController {
+class StrController : public AbstractController {
     
     public slots:
         void on_View_Initialized(ElementManager* manager) override;

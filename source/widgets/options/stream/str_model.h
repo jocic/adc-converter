@@ -1,10 +1,10 @@
-#ifndef ADC_OPT_SMP_MODEL_H
+#ifndef ADC_OPT_STR_MODEL_H
 
-#define ADC_OPT_SMP_MODEL_H
+#define ADC_OPT_STR_MODEL_H
 
 #include "mvc/abstract_model.h"
 
-class SmpModel : public AbstractModel {
+class StrModel : public AbstractModel {
     
     public:
         
