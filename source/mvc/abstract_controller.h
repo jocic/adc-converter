@@ -4,6 +4,7 @@
 
 #include <QObject>
 
+#include "abstract_model.h"
 #include "element_manager.h"
 
 class AbstractController : public QObject {
@@ -12,10 +13,13 @@ class AbstractController : public QObject {
     
     private:
         ElementManager* m_Manager;
+        AbstractModel*  m_Model;
     
     public:
         ElementManager* get_ElementManager();
         void set_ElementManager(ElementManager* manager);
+        AbstractModel* get_Model();
+        void set_Model(AbstractModel* model);
     
     public slots:
         virtual void on_View_Initialized(ElementManager* manager) = 0;

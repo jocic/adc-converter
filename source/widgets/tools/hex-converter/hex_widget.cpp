@@ -17,6 +17,8 @@ void HexWidget::initialize() {
     m_View       = new HexView();
     m_Controller = new HexController();
     
+    m_Controller->set_Model(m_Model);
+    
     connect(m_Model, &HexModel::sig_Model_Updated,
         (HexController*)m_Controller, &HexController::on_Model_Changed);
     
