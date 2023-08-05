@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_COM_CONTROLLER
+#ifndef ADC_OPT_COM_CONTROLLER_H
 
-#define ADC_OPTIONS_COM_CONTROLLER
+#define ADC_OPT_COMN_CONTROLLER_H
 
 #include "mvc/abstract_controller.h"
 

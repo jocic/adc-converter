@@ -1,6 +1,6 @@
-#ifndef ADC_TOOLS_HEX_WIDGET
+#ifndef ADC_TOL_HEX_WIDGET_H
 
-#define ADC_TOOLS_HEX_WIDGET
+#define ADC_TOL_HEX_WIDGET_H
 
 #include "widgets/abstract_widget.h"
 

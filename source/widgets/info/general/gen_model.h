@@ -1,6 +1,6 @@
-#ifndef ADC_INFO_GEN_MODEL
+#ifndef ADC_INF_GEN_MODEL_H
 
-#define ADC_INFO_GEN_MODEL
+#define ADC_INF_GEN_MODEL_H
 
 #include "mvc/abstract_model.h"
 

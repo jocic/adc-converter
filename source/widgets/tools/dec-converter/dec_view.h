@@ -1,6 +1,6 @@
-#ifndef ADC_TOOLS_DEC_VIEW
+#ifndef ADC_TOL_DEC_VIEW_H
 
-#define ADC_TOOLS_DEC_VIEW
+#define ADC_TOL_DEC_VIEW_H
 
 #include <QWidget>
 

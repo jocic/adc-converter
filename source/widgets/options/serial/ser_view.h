@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_SER_VIEW
+#ifndef ADC_OPT_SER_VIEW_H
 
-#define ADC_OPTIONS_SER_VIEW
+#define ADC_OPT_SER_VIEW_H
 
 #include <QWidget>
 

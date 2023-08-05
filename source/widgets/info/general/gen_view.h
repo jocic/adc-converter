@@ -1,6 +1,6 @@
-#ifndef ADC_INFO_GEN_VIEW
+#ifndef ADC_INF_GEN_VIEW_H
 
-#define ADC_INFO_GEN_VIEW
+#define ADC_INF_GEN_VIEW_H
 
 #include <QWidget>
 

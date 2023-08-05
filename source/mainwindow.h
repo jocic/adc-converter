@@ -1,5 +1,6 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef ADC_COR_MAIN_WINDOW_H
+
+#define ADC_COR_MAIN_WINDOW_H
 
 #include <QMainWindow>
 

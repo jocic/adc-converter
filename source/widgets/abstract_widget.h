@@ -1,6 +1,6 @@
-#ifndef ADC_CORE_ABSTRACT_WIDGET
+#ifndef ADC_WIG_ABSTRACT_WIDGET_H
 
-#define ADC_CORE_ABSTRACT_WIDGET
+#define ADC_WIG_ABSTRACT_WIDGET_H
 
 #include <QWidget>
 

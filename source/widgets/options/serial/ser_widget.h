@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_SER_WIDGET
+#ifndef ADC_OPT_SER_WIDGET_H
 
-#define ADC_OPTIONS_SER_WIDGET
+#define ADC_OPT_SER_WIDGET_H
 
 #include "widgets/abstract_widget.h"
 

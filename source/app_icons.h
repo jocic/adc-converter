@@ -1,6 +1,6 @@
-#ifndef ADC_CORE_APP_ICONS
+#ifndef ADC_COR_APP_ICONS_H
 
-#define ADC_CORE_APP_ICONS
+#define ADC_COR_APP_ICONS_H
 
 #include <QObject>
 #include <QIcon>

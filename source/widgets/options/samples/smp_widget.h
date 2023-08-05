@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_SMP_WIDGET
+#ifndef ADC_OPT_SMP_WIDGET_H
 
-#define ADC_OPTIONS_SMP_WIDGET
+#define ADC_OPT_SMP_WIDGET_H
 
 #include "widgets/abstract_widget.h"
 

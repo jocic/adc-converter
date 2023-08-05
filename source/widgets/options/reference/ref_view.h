@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_REF_VIEW
+#ifndef ADC_OPT_REF_VIEW_H
 
-#define ADC_OPTIONS_REF_VIEW
+#define ADC_OPT_REF_VIEW_H
 
 #include <QWidget>
 

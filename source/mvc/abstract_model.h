@@ -1,6 +1,6 @@
-#ifndef ADC_CORE_ABSTRACT_MODEL
+#ifndef ADC_MVC_ABSTRACT_MODEL_H
 
-#define ADC_CORE_ABSTRACT_MODEL
+#define ADC_MVC_ABSTRACT_MODEL_H
 
 #include <QObject>
 #include <QMap>

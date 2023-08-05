@@ -1,6 +1,6 @@
-#ifndef ADC_TOOLS_DEC_MODEL
+#ifndef ADC_TOL_DEC_MODEL_H
 
-#define ADC_TOOLS_DEC_MODEL
+#define ADC_TOL_DEC_MODEL_H
 
 #include "mvc/abstract_model.h"
 

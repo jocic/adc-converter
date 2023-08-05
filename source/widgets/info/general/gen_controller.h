@@ -1,6 +1,6 @@
-#ifndef ADC_INFO_GEN_CONTROLLER
+#ifndef ADC_INF_GEN_CONTROLLER_H
 
-#define ADC_INFO_GEN_CONTROLLER
+#define ADC_INF_GEN_CONTROLLER_H
 
 #include "mvc/abstract_controller.h"
 

@@ -1,6 +1,6 @@
-#ifndef ADC_INFO_GEN_WIDGET
+#ifndef ADC_INF_GEN_WIDGET_H
 
-#define ADC_INFO_GEN_WIDGET
+#define ADC_INF_GEN_WIDGET_H
 
 #include "widgets/abstract_widget.h"
 

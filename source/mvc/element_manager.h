@@ -1,6 +1,6 @@
-#ifndef ELEMENT_MANAGER_H
+#ifndef ADC_MVC_ELEMENT_MANAGER_H
 
-#define ELEMENT_MANAGER_H
+#define ADC_MVC_ELEMENT_MANAGER_H
 
 #include <QWidget>
 #include <QObject>

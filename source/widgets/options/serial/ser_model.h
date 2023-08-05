@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_SER_MODEL
+#ifndef ADC_OPT_SER_MODEL_H
 
-#define ADC_OPTIONS_SER_MODEL
+#define ADC_OPT_SER_MODEL_H
 
 #include <QSerialPort>
 

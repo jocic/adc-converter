@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_REF_CONTROLLER
+#ifndef ADC_OPT_REF_CONTROLLER_H
 
-#define ADC_OPTIONS_REF_CONTROLLER
+#define ADC_OPT_REF_CONTROLLER_H
 
 #include "mvc/abstract_controller.h"
 

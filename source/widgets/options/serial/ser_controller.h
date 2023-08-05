@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_SER_CONTROLLER
+#ifndef ADC_OPT_SER_CONTROLLER_H
 
-#define ADC_OPTIONS_SER_CONTROLLER
+#define ADC_OPT_SER_CONTROLLER_H
 
 #include "mvc/abstract_controller.h"
 

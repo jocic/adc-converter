@@ -1,6 +1,6 @@
-#ifndef ADC_ABSTRACT_VIEW
+#ifndef ADC_MVC_ABSTRACT_VIEW_H
 
-#define ADC_ABSTRACT_VIEW
+#define ADC_MVC_ABSTRACT_VIEW_H
 
 #include <QObject>
 #include <QWidget>

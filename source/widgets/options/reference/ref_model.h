@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_REF_MODEL
+#ifndef ADC_OPT_REF_MODEL_H
 
-#define ADC_OPTIONS_REF_MODEL
+#define ADC_OPT_REF_MODEL_H
 
 #include "mvc/abstract_model.h"
 

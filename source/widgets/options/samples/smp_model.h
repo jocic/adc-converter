@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_SMP_MODEL
+#ifndef ADC_OPT_SMP_MODEL_H
 
-#define ADC_OPTIONS_SMP_MODEL
+#define ADC_OPT_SMP_MODEL_H
 
 #include "mvc/abstract_model.h"
 

@@ -1,6 +1,6 @@
-#ifndef ADC_OPTIONS_SMP_VIEW
+#ifndef ADC_OPT_SMP_VIEW_H
 
-#define ADC_OPTIONS_SMP_VIEW
+#define ADC_OPT_SMP_VIEW_H
 
 #include <QWidget>
 

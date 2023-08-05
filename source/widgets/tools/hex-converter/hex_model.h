@@ -1,6 +1,6 @@
-#ifndef ADC_TOOLS_HEX_MODEL
+#ifndef ADC_TOL_HEX_MODEL_H
 
-#define ADC_TOOLS_HEX_MODEL
+#define ADC_TOL_HEX_MODEL_H
 
 #include "mvc/abstract_model.h"
 

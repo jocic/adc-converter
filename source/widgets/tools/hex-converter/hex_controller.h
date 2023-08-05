@@ -1,6 +1,6 @@
-#ifndef ADC_TOOLS_HEX_CONTROLLER
+#ifndef ADC_TOL_HEX_CONTROLLER_H
 
-#define ADC_TOOLS_HEX_CONTROLLER
+#define ADC_TOL_HEX_CONTROLLER_H
 
 #include "mvc/abstract_controller.h"
 
