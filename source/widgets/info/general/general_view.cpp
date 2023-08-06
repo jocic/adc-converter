@@ -5,10 +5,10 @@
 #include <QLabel>
 
 #include "mvc/element_manager.h"
-#include "gen_model.h"
-#include "gen_view.h"
+#include "general_model.h"
+#include "general_view.h"
 
-void GenView::initialize(QWidget* parent) {
+void GeneralView::initialize(QWidget* parent) {
     
     // Arrange View
     
@@ -36,8 +36,8 @@ void GenView::initialize(QWidget* parent) {
     
     ElementManager* manager = this->get_ElementManager();
     
-    manager->push(GenModel::FIELD_SAMPLES, lbl_samples_val);
-    manager->push(GenModel::FIELD_DURATION, lbl_duration_val);
+    manager->push(GeneralModel::FIELD_SAMPLES, lbl_samples_val);
+    manager->push(GeneralModel::FIELD_DURATION, lbl_duration_val);
     
-    emit GenView::sig_View_Initialized(manager);
+    emit GeneralView::sig_View_Initialized(manager);
 }

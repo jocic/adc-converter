@@ -3,17 +3,17 @@
 #include "com_model.h"
 #include "com_controller.h"
 
-void ComController::on_View_Initialized(ElementManager* manager) {
+void CommunicationController::on_View_Initialized(ElementManager* manager) {
     
     // Does nothing...
 }
 
-void ComController::on_View_Changed() {
+void CommunicationController::on_View_Changed() {
     
     // Does nothing...
 }
 
-void ComController::on_Model_Changed(QString key, QString value) {
+void CommunicationController::on_Model_Changed(QString key, QString value) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -45,7 +45,7 @@ void ComController::on_Model_Changed(QString key, QString value) {
     }
 }
 
-void ComController::on_Model_Cleared() {
+void CommunicationController::on_Model_Cleared() {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     

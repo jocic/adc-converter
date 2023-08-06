@@ -1,6 +1,6 @@
 #include <QLineEdit>
 
-#include "converters/dec_converter.h"
+#include "converters/decimal_converter.h"
 #include "dec_model.h"
 #include "dec_controller.h"
 
@@ -18,14 +18,14 @@ void DecController::on_View_Changed() {
     ElementManager* manager = this->get_View()->get_ElementManager();
     DecModel*       model   = (DecModel*)this->get_Model();
     
-    DecConverter* converter = new DecConverter();
+    DecimalConverter* converter = new DecimalConverter();
     
     QLineEdit* txt_dec = (QLineEdit*)manager
         ->get(DecModel::FIELD_DECIMAL);
     
     QString input = txt_dec->text();
     
-    converter->set_ConversionType(DecConverter::Type::HEX);
+    converter->set_ConversionType(DecimalConverter::Type::HEX);
     
     if (input.startsWith('-')) {
         converter->set_Signed(true);

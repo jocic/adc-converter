@@ -1,10 +1,10 @@
-#ifndef ADC_INF_GEN_CONTROLLER_H
+#ifndef ADC_POPOVERS_PROCESSING_CONTROLLER_H
 
-#define ADC_INF_GEN_CONTROLLER_H
+#define ADC_POPOVERS_PROCESSING_CONTROLLER_H
 
 #include "mvc/abstract_controller.h"
 
-class GenController : public AbstractController {
+class ProcessingController : public AbstractController {
     
     public slots:
         void on_View_Initialized(ElementManager* manager) override;

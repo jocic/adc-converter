@@ -1,10 +1,10 @@
-#ifndef ADC_INF_GEN_MODEL_H
+#ifndef ADC_WIDGETS_GENERAL_MODEL_H
 
-#define ADC_INF_GEN_MODEL_H
+#define ADC_WIDGETS_GENERAL_MODEL_H
 
 #include "mvc/abstract_model.h"
 
-class GenModel : public AbstractModel {
+class GeneralModel : public AbstractModel {
     
     public:
         

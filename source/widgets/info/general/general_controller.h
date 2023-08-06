@@ -1,10 +1,10 @@
-#ifndef ADC_WIDGETS_COMMUNICATION_CONTROLLER_H
+#ifndef ADC_WIDGETS_GENERAL_CONTROLLER_H
 
-#define ADC_WIDGETS_COMMUNICATION_CONTROLLER_H
+#define ADC_WIDGETS_GENERAL_CONTROLLER_H
 
 #include "mvc/abstract_controller.h"
 
-class CommunicationController : public AbstractController {
+class GeneralController : public AbstractController {
     
     public slots:
         void on_View_Initialized(ElementManager* manager) override;

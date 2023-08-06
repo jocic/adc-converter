@@ -2,7 +2,7 @@
 #include <QLineEdit>
 #include <QCheckBox>
 
-#include "converters/hex_converter.h"
+#include "converters/hexadecimal_converter.h"
 #include "hex_model.h"
 #include "hex_controller.h"
 
@@ -25,7 +25,7 @@ void HexController::on_View_Changed() {
     ElementManager* manager = this->get_View()->get_ElementManager();
     HexModel*       model   = (HexModel*)this->get_Model();
     
-    HexConverter* converter = new HexConverter();
+    HexadecimalConverter* converter = new HexadecimalConverter();
     
     QLineEdit* txt_hex = (QLineEdit*)manager
         ->get(HexModel::FIELD_HEXADECIMAL);
@@ -35,7 +35,7 @@ void HexController::on_View_Changed() {
     QString input  = txt_hex->text();
     bool    is_sig = cb_sig->isChecked();
     
-    converter->set_ConversionType(HexConverter::Type::DEC);
+    converter->set_ConversionType(HexadecimalConverter::Type::DEC);
     converter->set_Signed(is_sig);
     
     QString output = converter->convert(input);

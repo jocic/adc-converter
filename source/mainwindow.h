@@ -1,6 +1,6 @@
-#ifndef ADC_COR_MAIN_WINDOW_H
+#ifndef ADC_MAIN_WINDOW_H
 
-#define ADC_COR_MAIN_WINDOW_H
+#define ADC_MAIN_WINDOW_H
 
 #include <QMainWindow>
 
@@ -15,6 +15,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    
+private slots:
+    void on_action_Load_triggered();
     
 private:
     Ui::MainWindow *ui;

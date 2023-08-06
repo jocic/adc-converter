@@ -1,8 +1,8 @@
 #include <QDebug>
 
-#include "hex_converter.h"
+#include "hexadecimal_converter.h"
 
-QString HexConverter::toDecimal(QString& input) {
+QString HexadecimalConverter::toDecimal(QString& input) {
     
     if (input.size() == 0) {
         return "";
@@ -41,9 +41,9 @@ QString HexConverter::toDecimal(QString& input) {
     return output;
 }
 
-QString HexConverter::convert(QString& input) {
+QString HexadecimalConverter::convert(QString& input) {
     
-    if (m_Type == HexConverter::Type::DEC) {
+    if (m_Type == HexadecimalConverter::Type::DEC) {
         return this->toDecimal(input);
     }
     

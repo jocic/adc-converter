@@ -77,6 +77,9 @@
           <property name="currentIndex">
            <number>1</number>
           </property>
+          <property name="elideMode">
+           <enum>Qt::ElideNone</enum>
+          </property>
           <property name="tabsClosable">
            <bool>true</bool>
           </property>
@@ -88,7 +91,7 @@
             <string>Scope</string>
            </attribute>
           </widget>
-          <widget class="SmpWidget" name="tab_Samples">
+          <widget class="SamplesWidget" name="tab_Samples">
            <attribute name="title">
             <string>Samples</string>
            </attribute>
@@ -358,7 +361,7 @@
    <widget class="QWidget" name="lay_Info">
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="GenWidget" name="wd_Info_GEN" native="true"/>
+      <widget class="GeneralWidget" name="wd_Info_GEN" native="true"/>
      </item>
      <item>
       <spacer name="vs_Info">
@@ -531,15 +534,15 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>GenWidget</class>
+   <class>GeneralWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/info/general/gen_widget.h</header>
+   <header>widgets/info/general/general_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>SmpWidget</class>
+   <class>SamplesWidget</class>
    <extends>QWidget</extends>
-   <header>views/samples/smp_widget.h</header>
+   <header>views/samples/samples_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

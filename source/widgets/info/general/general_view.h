@@ -1,12 +1,12 @@
-#ifndef ADC_INF_GEN_VIEW_H
+#ifndef ADC_WIDGETS_GENERAL_VIEW_H
 
-#define ADC_INF_GEN_VIEW_H
+#define ADC_WIDGETS_GENERAL_VIEW_H
 
 #include <QWidget>
 
 #include "mvc/abstract_view.h"
 
-class GenView : public AbstractView {
+class GeneralView : public AbstractView {
     
     public:
         void initialize(QWidget* parent) override;

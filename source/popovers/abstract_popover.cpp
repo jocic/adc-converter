@@ -1,9 +1,9 @@
 #include <QWidget>
 #include <QVBoxLayout>
 
-#include "widgets/abstract_widget.h"
+#include "popovers/abstract_popover.h"
 
-AbstractWidget::AbstractWidget(QWidget* parent) {
+AbstractPopover::AbstractPopover(QWidget* parent) {
     
     m_Parent = parent;
     
@@ -16,18 +16,18 @@ AbstractWidget::AbstractWidget(QWidget* parent) {
     this->layout()->setContentsMargins(0, 0, 0, 0);
 }
 
-const QWidget* AbstractWidget::parent() {
+const QWidget* AbstractPopover::parent() {
     return m_Parent;
 }
 
-const AbstractModel* AbstractWidget::model() {
+const AbstractModel* AbstractPopover::model() {
     return m_Model;
 }
 
-const AbstractView* AbstractWidget::view() {
+const AbstractView* AbstractPopover::view() {
     return m_View;
 }
 
-const AbstractController* AbstractWidget::controller() {
+const AbstractController* AbstractPopover::controller() {
     return m_Controller;
 }

@@ -1,19 +1,19 @@
 #include <QLabel>
 
-#include "gen_model.h"
-#include "gen_controller.h"
+#include "general_model.h"
+#include "general_controller.h"
 
-void GenController::on_View_Initialized(ElementManager* manager) {
+void GeneralController::on_View_Initialized(ElementManager* manager) {
     
     // Does nothing...
 }
 
-void GenController::on_View_Changed() {
+void GeneralController::on_View_Changed() {
     
     // Does nothing...
 }
 
-void GenController::on_Model_Changed(QString key, QString value) {
+void GeneralController::on_Model_Changed(QString key, QString value) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -21,23 +21,23 @@ void GenController::on_Model_Changed(QString key, QString value) {
         return;
     }
     
-    if (key == GenModel::FIELD_SAMPLES) {
+    if (key == GeneralModel::FIELD_SAMPLES) {
         
         QLabel* samples = (QLabel*)manager
-            ->get(GenModel::FIELD_SAMPLES);
+            ->get(GeneralModel::FIELD_SAMPLES);
         
         samples->setText(value);
     }
-    else if (key == GenModel::FIELD_DURATION) {
+    else if (key == GeneralModel::FIELD_DURATION) {
         
         QLabel* port = (QLabel*)manager
-            ->get(GenModel::FIELD_DURATION);
+            ->get(GeneralModel::FIELD_DURATION);
         
         port->setText(value);
     }
 }
 
-void GenController::on_Model_Cleared() {
+void GeneralController::on_Model_Cleared() {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -46,10 +46,10 @@ void GenController::on_Model_Cleared() {
     }
     
     QLabel* samples = (QLabel*)manager
-        ->get(GenModel::FIELD_SAMPLES);
+        ->get(GeneralModel::FIELD_SAMPLES);
     
     QLabel* duration = (QLabel*)manager
-        ->get(GenModel::FIELD_DURATION);
+        ->get(GeneralModel::FIELD_DURATION);
     
     samples->setText("N/D");
     duration->setText("N/D");

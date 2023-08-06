@@ -1,19 +1,19 @@
 #include <QWidget>
 
-#include "smp_widget.h"
-//#include "smp_model.h"
-#include "smp_view.h"
-//#include "smp_controller.h"
+#include "samples_widget.h"
+//#include "samples_model.h"
+#include "samples_view.h"
+//#include "samples_controller.h"
 
-SmpWidget::SmpWidget(QWidget* parent) : AbstractWidget(parent)  {
+SamplesWidget::SamplesWidget(QWidget* parent) : AbstractWidget(parent)  {
     
     // Nothing here, yet...
 }
 
-void SmpWidget::initialize() {
+void SamplesWidget::initialize() {
     
     //m_Model      = new SmpModel();
-    m_View       = new SmpView();
+    m_View       = new SamplesView();
     //m_Controller = new SmpController();
     
     //m_Controller->set_Model(m_Model);

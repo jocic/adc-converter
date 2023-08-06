@@ -55,19 +55,44 @@ set(PROJECT_SOURCES
     
     source/converters/abstract_converter.h
     source/converters/abstract_converter.cpp
-    source/converters/hex_converter.h
-    source/converters/hex_converter.cpp
-    source/converters/dec_converter.h
-    source/converters/dec_converter.cpp
+    source/converters/hexadecimal_converter.h
+    source/converters/hexadecimal_converter.cpp
+    source/converters/decimal_converter.h
+    source/converters/decimal_converter.cpp
+    
+    # Workers
+    
+    source/workers/file_worker.h
+    source/workers/load_worker.h
+    source/workers/file_worker.cpp
+    source/workers/load_worker.cpp
+    
+    ############
+    # POPOVERS #
+    ############
+    
+    source/popovers/abstract_popover.h
+    source/popovers/abstract_popover.cpp
+    
+    # Processing
+    
+    source/popovers/processing/processing_model.h
+    source/popovers/processing/processing_view.h
+    source/popovers/processing/processing_controller.h
+    source/popovers/processing/processing_popover.h
+    source/popovers/processing/processing_model.cpp
+    source/popovers/processing/processing_view.cpp
+    source/popovers/processing/processing_controller.cpp
+    source/popovers/processing/processing_popover.cpp
     
     ###################
     # VIEWS - SAMPLES #
     ###################
     
-    source/views/samples/smp_view.h
-    source/views/samples/smp_widget.h
-    source/views/samples/smp_view.cpp
-    source/views/samples/smp_widget.cpp
+    source/views/samples/samples_view.h
+    source/views/samples/samples_widget.h
+    source/views/samples/samples_view.cpp
+    source/views/samples/samples_widget.cpp
     
     #####################
     # WIDGETS - OPTIONS #
@@ -158,14 +183,14 @@ set(PROJECT_SOURCES
     
     # Info (General)
     
-    source/widgets/info/general/gen_model.h
-    source/widgets/info/general/gen_view.h
-    source/widgets/info/general/gen_controller.h
-    source/widgets/info/general/gen_widget.h
-    source/widgets/info/general/gen_model.cpp
-    source/widgets/info/general/gen_view.cpp
-    source/widgets/info/general/gen_controller.cpp
-    source/widgets/info/general/gen_widget.cpp
+    source/widgets/info/general/general_model.h
+    source/widgets/info/general/general_view.h
+    source/widgets/info/general/general_controller.h
+    source/widgets/info/general/general_widget.h
+    source/widgets/info/general/general_model.cpp
+    source/widgets/info/general/general_view.cpp
+    source/widgets/info/general/general_controller.cpp
+    source/widgets/info/general/general_widget.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -12,10 +12,10 @@
 #include <QLabel>
 
 #include "mvc/element_manager.h"
-//#include "smp_model.h"
-#include "smp_view.h"
+//#include "samples_model.h"
+#include "samples_view.h"
 
-void SmpView::initialize(QWidget* parent) {
+void SamplesView::initialize(QWidget* parent) {
     
     // Arrange View
     
@@ -49,10 +49,10 @@ void SmpView::initialize(QWidget* parent) {
     //manager->push(SmpView::FIELD_, );
     //manager->push(SmpView::FIELD_, );
     
-    emit SmpView::sig_View_Initialized(manager);
+    emit SamplesView::sig_View_Initialized(manager);
 }
 
-QWidget* SmpView::make_Overview() {
+QWidget* SamplesView::make_Overview() {
     
     QWidget*     wd_main  = new QWidget();
     QVBoxLayout* lay_main = new QVBoxLayout();
@@ -64,7 +64,7 @@ QWidget* SmpView::make_Overview() {
     return wd_main;
 }
 
-QWidget* SmpView::make_Navigator() {
+QWidget* SamplesView::make_Navigator() {
     
     // Prev & Next Controls
     
@@ -117,7 +117,7 @@ QWidget* SmpView::make_Navigator() {
     return wd_main;
 }
 
-QWidget* SmpView::make_Offseter() {
+QWidget* SamplesView::make_Offseter() {
     
     QWidget*     wd_main  = new QWidget();
     QHBoxLayout* lay_main = new QHBoxLayout();

@@ -1,10 +1,10 @@
-#ifndef ADC_CONV_HEX_CONVERTER_H
+#ifndef ADC_CONVERTERS_HEXADECIMAL_CONVERTER_H
 
-#define ADC_CONV_HEX_CONVERTER_H
+#define ADC_CONVERTERS_HEXADECIMAL_CONVERTER_H
 
 #include "abstract_converter.h"
 
-class HexConverter : public AbstractConverter {
+class HexadecimalConverter : public AbstractConverter {
     
     private:
         QString toDecimal(QString& input);

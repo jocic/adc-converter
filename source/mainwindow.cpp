@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "workers/load_worker.h"
 #include <QDebug>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -32,5 +33,14 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+#include "workers/file_worker.h"
+void MainWindow::on_action_Load_triggered()
+{
+    FileWorker* worker = new FileWorker();
+    
+    worker->start();
 }
 
