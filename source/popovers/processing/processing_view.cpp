@@ -1,10 +1,9 @@
 #include <QDebug>
 #include <QLayout>
-#include <QGroupBox>
-#include <QFormLayout>
+#include <QVBoxLayout>
 #include <QLabel>
-#include <QLineEdit>
-#include <QCheckBox>
+#include <QProgressBar>
+#include <QPushButton>
 
 #include "mvc/element_manager.h"
 #include "processing_model.h"
@@ -14,35 +13,42 @@ void ProcessingView::initialize(QWidget* parent) {
     
     // Arrange View
     
-    QGroupBox*   box        = new QGroupBox();
-    QFormLayout* layout     = new QFormLayout();
-    QLabel*      hex_label  = new QLabel();
-    QLineEdit*   hex_text   = new QLineEdit();
-    QLabel*      dec_label  = new QLabel();
-    QLineEdit*   dec_text   = new QLineEdit();
-    QCheckBox*   val_signed = new QCheckBox();
+    QWidget*      wd_main     = new QWidget();
+    QVBoxLayout*  lay_main    = new QVBoxLayout();
+    QLabel*       lbl_notice  = new QLabel();
+    QProgressBar* pb_progress = new QProgressBar();
+    QPushButton*  btn_cancel  = new QPushButton();
     
-    box->setLayout(layout);
-    box->setTitle("Hexadecimal Converter");
+    lbl_notice->setText(m_Notice);
     
-    hex_label->setText("HEX");
-    layout->addRow(hex_label, hex_text);
+    pb_progress->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+    pb_progress->setValue(0);
     
-    dec_label->setText("DEC");
-    layout->addRow(dec_label, dec_text);
+    btn_cancel->setText("Cancel");
     
-    val_signed->setText("Signed");
-    layout->addRow(val_signed);
+    lay_main->addWidget(lbl_notice);    
+    lay_main->addWidget(pb_progress);
+    lay_main->addWidget(this->make_HLine());
+    lay_main->addWidget(btn_cancel);
+    lay_main->setSpacing(10);
     
-    parent->layout()->addWidget(box);
+    wd_main->setLayout(lay_main);
+    
+    parent->layout()->addWidget(wd_main);
     
     // Push References
     
     ElementManager* manager = this->get_ElementManager();
     
-    manager->push(ProcessingModel::FIELD_DECIMAL, dec_text);
-    manager->push(ProcessingModel::FIELD_HEXADECIMAL, hex_text);
-    manager->push(ProcessingModel::FIELD_SIGNED, val_signed);
+    manager->push(ProcessingModel::FIELD_PROGRESS, pb_progress);
     
     emit ProcessingView::sig_View_Initialized(manager);
+}
+
+QString ProcessingView::get_Notice() {
+    return m_Notice;
+}
+
+void ProcessingView::set_Notice(QString value) {
+    m_Notice = value;
 }

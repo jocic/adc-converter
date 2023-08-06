@@ -16,18 +16,18 @@ AbstractPopover::AbstractPopover(QWidget* parent) {
     this->layout()->setContentsMargins(0, 0, 0, 0);
 }
 
-const QWidget* AbstractPopover::parent() {
+QWidget* AbstractPopover::parent() {
     return m_Parent;
 }
 
-const AbstractModel* AbstractPopover::model() {
+AbstractModel* AbstractPopover::model() {
     return m_Model;
 }
 
-const AbstractView* AbstractPopover::view() {
+AbstractView* AbstractPopover::view() {
     return m_View;
 }
 
-const AbstractController* AbstractPopover::controller() {
+AbstractController* AbstractPopover::controller() {
     return m_Controller;
 }

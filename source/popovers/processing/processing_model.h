@@ -8,16 +8,11 @@ class ProcessingModel : public AbstractModel {
     
     public:
     
-        static const QString FIELD_HEXADECIMAL;
-        static const QString FIELD_DECIMAL;
-        static const QString FIELD_SIGNED;
+        static const QString FIELD_PROGRESS;
         
-        QString get_Hexadecimal();
-        void set_Hexadecimal(QString value);
-        QString get_Decimal();
-        void set_Decimal(QString value);
-        bool get_Signed();
-        void set_Signed(bool value);
+        QString get_Progress();
+        void set_Progress(QString value);
+        void set_Progress(quint8 value);
 };
 
 #endif

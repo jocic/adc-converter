@@ -6,8 +6,13 @@
 
 class ProcessingView : public AbstractView {
     
+    protected:
+        QString m_Notice;
+    
     public:
         void initialize(QWidget* parent) override;
+        QString get_Notice();
+        void set_Notice(QString value);
 };
 
 #endif

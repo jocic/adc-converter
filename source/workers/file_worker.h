@@ -31,5 +31,27 @@ class FileWorker : public QObject {
         void stop();
         void pause();
 };
+#include "popovers/processing/processing_model.h"
+class TestWorker : public QThread {
+
+Q_OBJECT
+public:
+    ProcessingModel* model;
+    void run() override {
+       int curr = 0; 
+        while (true) {
+            
+            curr++;
+            
+            if (curr >= 100) {
+                curr = 0;
+            }
+            qDebug() << "?";
+            this->msleep(25);
+            
+            model->set_Progress(curr);
+        }
+    }
+};    
 
 #endif

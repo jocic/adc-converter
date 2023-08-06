@@ -1,49 +1,26 @@
 #include "processing_model.h"
 
-const QString ProcessingModel::FIELD_HEXADECIMAL = "txt_Hexadecimal";
-const QString ProcessingModel::FIELD_DECIMAL     = "txt_Decimal";
-const QString ProcessingModel::FIELD_SIGNED      = "check_Signed";
+const QString ProcessingModel::FIELD_PROGRESS = "pb_Progress";
 
-QString ProcessingModel::get_Hexadecimal() {
+QString ProcessingModel::get_Progress() {
     
-    QString value = this->get(FIELD_HEXADECIMAL);
+    QString value = this->get(FIELD_PROGRESS);
     
     return value;
 }
 
-void ProcessingModel::set_Hexadecimal(QString value) {
+void ProcessingModel::set_Progress(QString value) {
     
-    this->set(FIELD_HEXADECIMAL, value);
+    this->set(FIELD_PROGRESS, value);
     
-    emit ProcessingModel::sig_Model_Updated(FIELD_HEXADECIMAL, value);
+    emit ProcessingModel::sig_Model_Updated(FIELD_PROGRESS, value);
 }
 
-QString ProcessingModel::get_Decimal() {
+void ProcessingModel::set_Progress(quint8 value) {
     
-    QString value = this->get(FIELD_DECIMAL);
+    QString new_value = QString::asprintf("%u", value);
     
-    return value;
-}
-
-void ProcessingModel::set_Decimal(QString value) {
+    this->set(FIELD_PROGRESS, new_value);
     
-    this->set(FIELD_DECIMAL, value);
-    
-    emit ProcessingModel::sig_Model_Updated(FIELD_DECIMAL, value);
-}
-
-bool ProcessingModel::get_Signed() {
-    
-    QString value = this->get(FIELD_SIGNED);
-    
-    return value == "true";
-}
-
-void ProcessingModel::set_Signed(bool value) {
-    
-    QString new_value = value ? "true" : "false";
-    
-    this->set(FIELD_SIGNED, new_value);
-    
-    emit ProcessingModel::sig_Model_Updated(FIELD_SIGNED, new_value);
+    emit ProcessingModel::sig_Model_Updated(FIELD_PROGRESS, new_value);
 }
