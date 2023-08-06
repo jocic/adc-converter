@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>508</height>
+    <height>500</height>
    </rect>
   </property>
   <property name="baseSize">
@@ -41,6 +41,9 @@
       <property name="styleSheet">
        <string notr="true"/>
       </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
       <property name="tabsClosable">
        <bool>true</bool>
       </property>
@@ -52,7 +55,7 @@
         <string>Scope</string>
        </attribute>
       </widget>
-      <widget class="QWidget" name="tab_Samples">
+      <widget class="SmpWidget" name="tab_Samples">
        <attribute name="title">
         <string>Samples</string>
        </attribute>
@@ -494,6 +497,12 @@
    <class>GenWidget</class>
    <extends>QWidget</extends>
    <header>widgets/info/general/gen_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SmpWidget</class>
+   <extends>QWidget</extends>
+   <header>views/samples/smp_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

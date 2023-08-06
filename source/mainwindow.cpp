@@ -7,22 +7,26 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     
-    // Options
+    // Widgets - Options
     
     ui->wd_Options_STR->initialize();
     ui->wd_Options_REF->initialize();
     ui->wd_Options_SER->initialize();
     ui->wd_Options_COM->initialize();
     
-    // Tools
+    // Widgets - Tools
     
     ui->wd_Tools_PL->initialize();
     ui->wd_Tools_HEX->initialize();
     ui->wd_Tools_DEC->initialize();
     
-    // Info
+    // Widgets - Info
     
     ui->wd_Info_GEN->initialize();
+    
+    // Views
+    
+    ui->tab_Samples->initialize();
 }
 
 MainWindow::~MainWindow()

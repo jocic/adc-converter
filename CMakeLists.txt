@@ -60,6 +60,15 @@ set(PROJECT_SOURCES
     source/converters/dec_converter.h
     source/converters/dec_converter.cpp
     
+    ###################
+    # VIEWS - SAMPLES #
+    ###################
+    
+    source/views/samples/smp_view.h
+    source/views/samples/smp_widget.h
+    source/views/samples/smp_view.cpp
+    source/views/samples/smp_widget.cpp
+    
     #####################
     # WIDGETS - OPTIONS #
     #####################

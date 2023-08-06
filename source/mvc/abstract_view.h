@@ -3,8 +3,11 @@
 #define ADC_MVC_ABSTRACT_VIEW_H
 
 #include <QObject>
+#include <QFrame>
 #include <QWidget>
+#include <QFont>
 #include <QLayout>
+#include <QSpacerItem>
 
 #include "element_manager.h"
 
@@ -17,6 +20,11 @@ class AbstractView : public QObject {
     
     protected:
         QWidget* m_Parent;
+        QFont* make_BFont();
+        QFrame* make_HLine();
+        QFrame* make_VLine();
+        QSpacerItem* make_HSpacer();
+        QSpacerItem* make_VSpacer();
     
     public:
         ElementManager* get_ElementManager();
