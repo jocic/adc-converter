@@ -85,10 +85,10 @@ QWidget* SmpView::make_Navigator() {
     
     QFont* fnt_Bold = this->make_BFont();
     
-    lbl_samp->setText("Sample Range:");
+    lbl_samp->setText("Samples:");
     lbl_samp->setFont(*fnt_Bold);
     
-    lbl_time->setText("Time Range:");
+    lbl_time->setText("Time:");
     lbl_time->setFont(*fnt_Bold);
     
     lbl_sampv->setText("1 - 1001");
