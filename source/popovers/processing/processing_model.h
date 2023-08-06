@@ -2,12 +2,22 @@
 
 #define ADC_POPOVERS_PROCESSING_MODEL_H
 
-#include "mvc/abstract_view.h"
+#include "mvc/abstract_model.h"
 
-class ProcessingView : public AbstractView {
+class ProcessingModel : public AbstractModel {
     
     public:
-        void initialize(QWidget* parent) override;
+    
+        static const QString FIELD_HEXADECIMAL;
+        static const QString FIELD_DECIMAL;
+        static const QString FIELD_SIGNED;
+        
+        QString get_Hexadecimal();
+        void set_Hexadecimal(QString value);
+        QString get_Decimal();
+        void set_Decimal(QString value);
+        bool get_Signed();
+        void set_Signed(bool value);
 };
 
 #endif

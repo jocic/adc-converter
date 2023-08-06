@@ -36,11 +36,15 @@ MainWindow::~MainWindow()
 }
 
 
-#include "workers/file_worker.h"
+#include "popovers/processing/processing_popover.h"
+#include "app_icons.h"
 void MainWindow::on_action_Load_triggered()
 {
-    FileWorker* worker = new FileWorker();
-    
-    worker->start();
+    ProcessingPopover* test = new ProcessingPopover();
+    test->initialize();
+    test->setWindowTitle("Test Title");
+    test->setWindowIcon(*AppIcons::PLAY);
+    test->setModal(true);
+    test->setVisible(true);
 }
 

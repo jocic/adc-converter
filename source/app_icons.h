@@ -14,6 +14,9 @@ class AppIcons : public QObject {
         static const QIcon* PLAY;
         static const QIcon* STOP;
         static const QIcon* EXPORT;
+        static const QIcon* SYNC;
+        static const QIcon* UPLOAD;
+        static const QIcon* DOWNLOAD;
 };
 
 #endif
