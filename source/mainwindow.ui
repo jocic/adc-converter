@@ -174,16 +174,16 @@
       <number>12</number>
      </property>
      <item>
-      <widget class="StrWidget" name="wd_Options_STR" native="true"/>
+      <widget class="StreamWidget" name="wd_Options_STR" native="true"/>
      </item>
      <item>
-      <widget class="RefWidget" name="wd_Options_REF" native="true"/>
+      <widget class="ReferenceWidget" name="wd_Options_REF" native="true"/>
      </item>
      <item>
-      <widget class="SerWidget" name="wd_Options_SER" native="true"/>
+      <widget class="SerialWidget" name="wd_Options_SER" native="true"/>
      </item>
      <item>
-      <widget class="ComWidget" name="wd_Options_COM" native="true"/>
+      <widget class="CommunicationWidget" name="wd_Options_COM" native="true"/>
      </item>
      <item>
       <spacer name="vs_Options">
@@ -303,13 +303,13 @@
       <number>12</number>
      </property>
      <item>
-      <widget class="PlWidget" name="wd_Tools_PL" native="true"/>
+      <widget class="PlaybackWidget" name="wd_Tools_PL" native="true"/>
      </item>
      <item>
-      <widget class="HexWidget" name="wd_Tools_HEX" native="true"/>
+      <widget class="HexadecimalWidget" name="wd_Tools_HEX" native="true"/>
      </item>
      <item>
-      <widget class="DecWidget" name="wd_Tools_DEC" native="true"/>
+      <widget class="DecimalWidget" name="wd_Tools_DEC" native="true"/>
      </item>
      <item>
       <spacer name="vs_Tools">
@@ -492,45 +492,45 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PlWidget</class>
+   <class>PlaybackWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/tools/playback/pl_widget.h</header>
+   <header>widgets/tools/playback/playback_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>RefWidget</class>
+   <class>ReferenceWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/options/reference/ref_widget.h</header>
+   <header>widgets/options/reference/reference_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>HexWidget</class>
+   <class>HexadecimalWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/tools/hex-converter/hex_widget.h</header>
+   <header>widgets/tools/hexadecimal-converter/hexadecimal_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>DecWidget</class>
+   <class>DecimalWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/tools/dec-converter/dec_widget.h</header>
+   <header>widgets/tools/decimal-converter/decimal_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>SerWidget</class>
+   <class>SerialWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/options/serial/ser_widget.h</header>
+   <header>widgets/options/serial/serial_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>StrWidget</class>
+   <class>StreamWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/options/stream/str_widget.h</header>
+   <header>widgets/options/stream/stream_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>ComWidget</class>
+   <class>CommunicationWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/options/communication/com_widget.h</header>
+   <header>widgets/options/communication/communication_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

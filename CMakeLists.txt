@@ -100,47 +100,47 @@ set(PROJECT_SOURCES
     
     # Options (Stream)
     
-    source/widgets/options/stream/str_model.h
-    source/widgets/options/stream/str_view.h
-    source/widgets/options/stream/str_controller.h
-    source/widgets/options/stream/str_widget.h
-    source/widgets/options/stream/str_model.cpp
-    source/widgets/options/stream/str_view.cpp
-    source/widgets/options/stream/str_controller.cpp
-    source/widgets/options/stream/str_widget.cpp
+    source/widgets/options/stream/stream_model.h
+    source/widgets/options/stream/stream_view.h
+    source/widgets/options/stream/stream_controller.h
+    source/widgets/options/stream/stream_widget.h
+    source/widgets/options/stream/stream_model.cpp
+    source/widgets/options/stream/stream_view.cpp
+    source/widgets/options/stream/stream_controller.cpp
+    source/widgets/options/stream/stream_widget.cpp
     
     # Options (Reference)
     
-    source/widgets/options/reference/ref_model.h
-    source/widgets/options/reference/ref_view.h
-    source/widgets/options/reference/ref_controller.h
-    source/widgets/options/reference/ref_widget.h
-    source/widgets/options/reference/ref_model.cpp
-    source/widgets/options/reference/ref_view.cpp
-    source/widgets/options/reference/ref_controller.cpp
-    source/widgets/options/reference/ref_widget.cpp
+    source/widgets/options/reference/reference_model.h
+    source/widgets/options/reference/reference_view.h
+    source/widgets/options/reference/reference_controller.h
+    source/widgets/options/reference/reference_widget.h
+    source/widgets/options/reference/reference_model.cpp
+    source/widgets/options/reference/reference_view.cpp
+    source/widgets/options/reference/reference_controller.cpp
+    source/widgets/options/reference/reference_widget.cpp
     
     # Options (Serial)
     
-    source/widgets/options/serial/ser_model.h
-    source/widgets/options/serial/ser_view.h
-    source/widgets/options/serial/ser_controller.h
-    source/widgets/options/serial/ser_widget.h
-    source/widgets/options/serial/ser_model.cpp
-    source/widgets/options/serial/ser_view.cpp
-    source/widgets/options/serial/ser_controller.cpp
-    source/widgets/options/serial/ser_widget.cpp
+    source/widgets/options/serial/serial_model.h
+    source/widgets/options/serial/serial_view.h
+    source/widgets/options/serial/serial_controller.h
+    source/widgets/options/serial/serial_widget.h
+    source/widgets/options/serial/serial_model.cpp
+    source/widgets/options/serial/serial_view.cpp
+    source/widgets/options/serial/serial_controller.cpp
+    source/widgets/options/serial/serial_widget.cpp
     
     # Options (Communication)
     
-    source/widgets/options/communication/com_model.h
-    source/widgets/options/communication/com_view.h
-    source/widgets/options/communication/com_controller.h
-    source/widgets/options/communication/com_widget.h
-    source/widgets/options/communication/com_model.cpp
-    source/widgets/options/communication/com_view.cpp
-    source/widgets/options/communication/com_controller.cpp
-    source/widgets/options/communication/com_widget.cpp
+    source/widgets/options/communication/communication_model.h
+    source/widgets/options/communication/communication_view.h
+    source/widgets/options/communication/communication_controller.h
+    source/widgets/options/communication/communication_widget.h
+    source/widgets/options/communication/communication_model.cpp
+    source/widgets/options/communication/communication_view.cpp
+    source/widgets/options/communication/communication_controller.cpp
+    source/widgets/options/communication/communication_widget.cpp
     
     ###################
     # WIDGETS - TOOLS #
@@ -148,34 +148,34 @@ set(PROJECT_SOURCES
     
     # Tools (Playback)
     
-    source/widgets/tools/playback/pl_model.h
-    source/widgets/tools/playback/pl_view.h
-    source/widgets/tools/playback/pl_widget.h
-    source/widgets/tools/playback/pl_model.cpp
-    source/widgets/tools/playback/pl_view.cpp
-    source/widgets/tools/playback/pl_widget.cpp
+    source/widgets/tools/playback/playback_model.h
+    source/widgets/tools/playback/playback_view.h
+    source/widgets/tools/playback/playback_widget.h
+    source/widgets/tools/playback/playback_model.cpp
+    source/widgets/tools/playback/playback_view.cpp
+    source/widgets/tools/playback/playback_widget.cpp
     
     # Tools (Hex Converter)
     
-    source/widgets/tools/hex-converter/hex_model.h
-    source/widgets/tools/hex-converter/hex_view.h
-    source/widgets/tools/hex-converter/hex_controller.h
-    source/widgets/tools/hex-converter/hex_widget.h
-    source/widgets/tools/hex-converter/hex_model.cpp
-    source/widgets/tools/hex-converter/hex_view.cpp
-    source/widgets/tools/hex-converter/hex_controller.cpp
-    source/widgets/tools/hex-converter/hex_widget.cpp
+    source/widgets/tools/hexadecimal-converter/hexadecimal_model.h
+    source/widgets/tools/hexadecimal-converter/hexadecimal_view.h
+    source/widgets/tools/hexadecimal-converter/hexadecimal_controller.h
+    source/widgets/tools/hexadecimal-converter/hexadecimal_widget.h
+    source/widgets/tools/hexadecimal-converter/hexadecimal_model.cpp
+    source/widgets/tools/hexadecimal-converter/hexadecimal_view.cpp
+    source/widgets/tools/hexadecimal-converter/hexadecimal_controller.cpp
+    source/widgets/tools/hexadecimal-converter/hexadecimal_widget.cpp
     
     # Tools (Dec Converter)
     
-    source/widgets/tools/dec-converter/dec_model.h
-    source/widgets/tools/dec-converter/dec_view.h
-    source/widgets/tools/dec-converter/dec_controller.h
-    source/widgets/tools/dec-converter/dec_widget.h
-    source/widgets/tools/dec-converter/dec_model.cpp
-    source/widgets/tools/dec-converter/dec_view.cpp
-    source/widgets/tools/dec-converter/dec_controller.cpp
-    source/widgets/tools/dec-converter/dec_widget.cpp
+    source/widgets/tools/decimal-converter/decimal_model.h
+    source/widgets/tools/decimal-converter/decimal_view.h
+    source/widgets/tools/decimal-converter/decimal_controller.h
+    source/widgets/tools/decimal-converter/decimal_widget.h
+    source/widgets/tools/decimal-converter/decimal_model.cpp
+    source/widgets/tools/decimal-converter/decimal_view.cpp
+    source/widgets/tools/decimal-converter/decimal_controller.cpp
+    source/widgets/tools/decimal-converter/decimal_widget.cpp
     
     ##################
     # WIDGETS - INFO #
