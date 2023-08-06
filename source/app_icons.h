@@ -10,6 +10,7 @@ class AppIcons : public QObject {
     Q_OBJECT
     
     public:
+        static const QIcon* MAIN;
         static const QIcon* PLAY;
         static const QIcon* STOP;
         static const QIcon* EXPORT;

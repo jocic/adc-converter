@@ -1,8 +1,8 @@
-#include "mainwindow.h"
-
 #include <QApplication>
-
 #include <QDebug>
+
+#include "mainwindow.h"
+#include "app_icons.h"
 
 /*
  * TO-DO (Paid Version):
@@ -34,7 +34,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    
     MainWindow w;
+    w.setWindowIcon(*AppIcons::MAIN);
     w.show();
     return a.exec();
 }
