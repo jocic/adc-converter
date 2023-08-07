@@ -13,23 +13,16 @@ class LoadWorker : public FileWorker {
     
     Q_OBJECT
     
+    private:
+        quint64 get_OptimalChunkSize(QFile* file);
+    
     public:
-        
-        enum ErrorFlags {
-            ERR_NONE = 0,
-            ERR_OPEN = 1
-        };
-        
-        Q_ENUM(ErrorFlags);
-        
         void start(QFile* file, Priority priority = InheritPriority) override;
-        void stop() override;
-        void pause() override;
         void run() override;
     
     signals:
         void sig_Chunk_Read(QFile* file, QByteArray chunk);
-        void sig_Error(ErrorFlags flag);
+        void sig_Error(QFile::FileError error);
 };
 
 #endif

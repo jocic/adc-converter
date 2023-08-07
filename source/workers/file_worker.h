@@ -15,8 +15,6 @@ class FileWorker : public QThread {
     
     public:
         virtual void start(QFile* file, Priority priority = InheritPriority) = 0;
-        virtual void stop() = 0;
-        virtual void pause() = 0;
 };
 
 #endif

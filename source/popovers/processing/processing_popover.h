@@ -14,6 +14,9 @@ class ProcessingPopover : public AbstractPopover {
     
     public slots:
         void on_Popover_Close();
+    
+    signals:
+        void sig_Abort_Processing();
 };
 
 #endif

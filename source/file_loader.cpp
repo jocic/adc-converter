@@ -12,6 +12,7 @@ FileLoader::FileLoader() {
     
     // Initialize Core Member Variables
     
+    m_Buffer  = new QByteArray();
     m_Popover = new ProcessingPopover();
     m_Worker  = new LoadWorker();   
     
@@ -36,6 +37,13 @@ FileLoader::FileLoader() {
     
     connect(this, &FileLoader::sig_Progress_Update,
         progress_bar, &QProgressBar::setValue);
+    
+    connect(m_Popover, &ProcessingPopover::sig_Abort_Processing,
+        this, &FileLoader::on_Abort_Processing);
+}
+
+QByteArray* FileLoader::buffer() {
+    return m_Buffer;
 }
 
 void FileLoader::process() {
@@ -50,6 +58,8 @@ void FileLoader::process() {
     
     QFile* file = new QFile(files.front());
     
+    m_Buffer->clear();
+    
     m_Loaded = 0;
     
     m_Worker->start(file);
@@ -58,7 +68,8 @@ void FileLoader::process() {
     emit FileLoader::sig_Progress_Resize(0, 100);
 }
 
-void FileLoader::on_Read_Error(LoadWorker::ErrorFlags error) {
+void FileLoader::on_Read_Error(QFile::FileError error) {
+    
     
 }
 
@@ -73,4 +84,19 @@ void FileLoader::on_Chunk_Read(QFile* file, QByteArray chunk) {
     if (m_Loaded == file->size()) {
         m_Popover->setVisible(false);
     }
+    
+    if (m_Buffer->size() <= 256e6) {
+        *m_Buffer += chunk;
+    } else {
+        // abort processing
+        // display an error to the user - your file was partially loaded
+        // you can disable this limitation in options, bla bla
+    }
+}
+
+void FileLoader::on_Abort_Processing() {
+    
+    qDebug() << "Handled abort signal...";
+    
+    m_Worker->terminate();
 }
