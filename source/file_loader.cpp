@@ -39,6 +39,8 @@ FileLoader::FileLoader() {
     QProgressBar* progress_bar = (QProgressBar*)popover_manager
         ->get(ProcessingModel::FIELD_PROGRESS);
     
+    progress_bar->setValue(0);
+    
     // Connect Everything
     
     connect(m_Worker, &LoadWorker::sig_Error,
@@ -54,6 +56,9 @@ FileLoader::FileLoader() {
         progress_bar, &QProgressBar::setValue);
     
     connect(m_Popover, &ProcessingPopover::sig_Abort,
+        this, &FileLoader::on_Abort);
+    
+    connect(m_Popover, &ProcessingPopover::finished,
         this, &FileLoader::on_Abort);
 }
 
@@ -115,11 +120,23 @@ void FileLoader::on_Error(QFile::FileError error) {
 void FileLoader::on_Read(QByteArray chunk) {
     
     if (m_Buffer->size() <= 256e6) {
+        
         *m_Buffer += chunk;
-    } else {
-        // abort processing
-        // display an error to the user - your file was partially loaded
-        // you can disable this limitation in options, bla bla
+    }
+    else {
+        
+        m_Worker->terminate();
+        m_Popover->setVisible(false);
+        
+        QMessageBox alert;
+        
+        alert.setWindowTitle("I/O Warning");
+        alert.setText("Files are read and temporarily stored in RAM. "
+            "To prevent a crash, or a potential system failure, "
+            "files over 256M in size are only partially loaded. "
+            "You can disable this safety feature in options.");
+        
+        alert.exec();
     }
 }
 

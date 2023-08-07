@@ -27,7 +27,6 @@ MainWindow::MainWindow(QWidget *parent)
     // Views
     
     ui->tab_Samples->initialize();
-    
 }
 
 MainWindow::~MainWindow()
@@ -43,7 +42,6 @@ void MainWindow::on_action_Load_triggered()
     loader->exec();
     
     if (!loader->selectedFiles().empty()) {
-        
         loader->process();
     }
 }
