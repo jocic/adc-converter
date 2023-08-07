@@ -8,7 +8,7 @@
 
 ProcessingPopover::ProcessingPopover(QWidget* parent) : AbstractPopover(parent)  {
     
-    // Nothing here, yet...
+    m_Parent = parent;
 }
 
 void ProcessingPopover::initialize() {
@@ -17,6 +17,8 @@ void ProcessingPopover::initialize() {
     m_View       = new ProcessingView();
     m_Controller = new ProcessingController();
     
+    m_Controller->set_Parent(m_Parent);
+    m_Controller->set_Widget(this);
     m_Controller->set_Model(m_Model);
     m_Controller->set_View(m_View);
     
@@ -35,4 +37,9 @@ void ProcessingPopover::initialize() {
     ((ProcessingView*)m_View)->set_Notice("A process is being taken care, please wait...");
     
     m_View->initialize(this);
+}
+
+void ProcessingPopover::on_Popover_Close() {
+    
+    this->setVisible(false);
 }

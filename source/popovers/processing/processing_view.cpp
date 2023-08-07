@@ -41,6 +41,7 @@ void ProcessingView::initialize(QWidget* parent) {
     ElementManager* manager = this->get_ElementManager();
     
     manager->push(ProcessingModel::FIELD_PROGRESS, pb_progress);
+    manager->push(ProcessingModel::FIELD_CANCEL, btn_cancel);
     
     emit ProcessingView::sig_View_Initialized(manager);
 }

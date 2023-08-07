@@ -8,7 +8,8 @@ class ProcessingModel : public AbstractModel {
     
     public:
     
-        static const QString FIELD_PROGRESS;
+    static const QString FIELD_PROGRESS;
+    static const QString FIELD_CANCEL;
         
         QString get_Progress();
         void set_Progress(QString value);

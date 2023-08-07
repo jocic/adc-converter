@@ -6,6 +6,8 @@
 
 class ProcessingController : public AbstractController {
     
+    Q_OBJECT
+    
     public slots:
         void on_View_Initialized(ElementManager* manager) override;
         void on_View_Changed() override;

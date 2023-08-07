@@ -17,27 +17,29 @@
 
 void SamplesView::initialize(QWidget* parent) {
     
-    // Arrange View
+    // Arrange Controls
     
-    QWidget*     wd_main  = new QWidget();
     QWidget*     wd_ctl   = new QWidget();
-    QVBoxLayout* lay_main = new QVBoxLayout();
     QHBoxLayout* lay_ctl  = new QHBoxLayout();
     
     QWidget* wd_overview  = this->make_Overview();
     QWidget* wd_navigator = this->make_Navigator();
     QWidget* wd_offseter  = this->make_Offseter();
     
-    lay_main->addWidget(wd_overview);
-    
-    lay_ctl->setContentsMargins(0, 0, 0, 0);
-    
     lay_ctl->addWidget(wd_navigator);
     lay_ctl->addWidget(this->make_VLine());
-    lay_ctl->addWidget(wd_offseter);
+    lay_ctl->addWidget(wd_offseter);    
+    lay_ctl->setContentsMargins(0, 0, 0, 0);
     
-    wd_main->setLayout(lay_main);
     wd_ctl->setLayout(lay_ctl);
+    
+    // Arrange View
+    
+    QWidget*     wd_main  = new QWidget();
+    QVBoxLayout* lay_main = new QVBoxLayout();
+    
+    lay_main->addWidget(wd_overview);
+    wd_main->setLayout(lay_main);
     
     parent->layout()->addWidget(wd_main);
     parent->layout()->addWidget(wd_ctl);

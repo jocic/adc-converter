@@ -1,6 +1,7 @@
 #include "processing_model.h"
 
 const QString ProcessingModel::FIELD_PROGRESS = "pb_Progress";
+const QString ProcessingModel::FIELD_CANCEL   = "btn_Cancel";
 
 QString ProcessingModel::get_Progress() {
     

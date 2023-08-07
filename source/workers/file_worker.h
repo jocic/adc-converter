@@ -1,57 +1,22 @@
-#ifndef ADC_WRK_FILE_WORKER_H
+#ifndef ADC_WORKERS_FILE_WORKER_H
 
-#define ADC_WRK_FILE_WORKER_H
+#define ADC_WORKERS_FILE_WORKER_H
 
 #include <QObject>
-#include <QDialog>
 #include <QThread>
+#include <QFile>
 
-class Popover : public QDialog {
-    
-    public:
-        Popover();
-};
-
-class Worker : public QThread {
-    public:
-        void run() override;
-};
-
-class FileWorker : public QObject {
+class FileWorker : public QThread {
     
     Q_OBJECT
     
-    private:
-        
-        Worker*  m_Worker;
-        Popover* m_Popover;
+    protected:
+        QFile* m_File;
     
     public:
-        void start();
-        void stop();
-        void pause();
+        virtual void start(QFile* file, Priority priority = InheritPriority) = 0;
+        virtual void stop() = 0;
+        virtual void pause() = 0;
 };
-#include "popovers/processing/processing_model.h"
-class TestWorker : public QThread {
-
-Q_OBJECT
-public:
-    ProcessingModel* model;
-    void run() override {
-       int curr = 0; 
-        while (true) {
-            
-            curr++;
-            
-            if (curr >= 100) {
-                curr = 0;
-            }
-            qDebug() << "?";
-            this->msleep(25);
-            
-            model->set_Progress(curr);
-        }
-    }
-};    
 
 #endif

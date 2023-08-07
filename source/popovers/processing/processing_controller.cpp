@@ -1,12 +1,21 @@
 #include <QDebug>
+#include <QDialog>
 #include <QProgressBar>
+#include <QPushButton>
 
+#include "processing_popover.h"
 #include "processing_model.h"
 #include "processing_controller.h"
 
 void ProcessingController::on_View_Initialized(ElementManager* manager) {
     
-    // Does nothing...
+    QPushButton* cancel = (QPushButton*)manager
+        ->get(ProcessingModel::FIELD_CANCEL);
+    
+    ProcessingPopover* popover = (ProcessingPopover*)this->get_Widget();
+    
+    connect(cancel, &QPushButton::clicked,
+      popover, &ProcessingPopover::on_Popover_Close);
 }
 
 void ProcessingController::on_View_Changed() {

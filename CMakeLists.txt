@@ -30,6 +30,8 @@ set(PROJECT_SOURCES
     
     source/app_icons.h
     source/app_icons.cpp
+    source/file_loader.h
+    source/file_loader.cpp
     
     source/main.cpp
     

@@ -13,11 +13,17 @@ class AbstractController : public QObject {
     Q_OBJECT
     
     private:
+        QWidget*        m_Parent;
+        QWidget*        m_Widget;
         ElementManager* m_Manager;
         AbstractModel*  m_Model;
         AbstractView*   m_View;
     
     public:
+        QWidget* get_Parent();
+        void set_Parent(QWidget* parent);
+        QWidget* get_Widget();
+        void set_Widget(QWidget* widget);
         AbstractModel* get_Model();
         void set_Model(AbstractModel* model);
         AbstractView* get_View();

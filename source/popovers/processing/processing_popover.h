@@ -6,9 +6,14 @@
 
 class ProcessingPopover : public AbstractPopover {
     
+    Q_OBJECT
+    
     public:
         ProcessingPopover(QWidget* parent = NULL);
         void initialize() override;
+    
+    public slots:
+        void on_Popover_Close();
 };
 
 #endif
