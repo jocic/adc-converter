@@ -119,24 +119,28 @@ void FileLoader::on_Error(QFile::FileError error) {
 
 void FileLoader::on_Read(QByteArray chunk) {
     
+    static QMessageBox* alert = new QMessageBox();
+    
+    alert->setWindowTitle("I/O Warning");
+    alert->setText("Files are read and temporarily stored in RAM. "
+        "To prevent a crash, or a potential system failure, "
+        "files over 256M in size are only partially loaded. "
+        "You can disable this safety feature in options.");
+    
     if (m_Buffer->size() <= 256e6) {
-        
         *m_Buffer += chunk;
     }
     else {
         
-        m_Worker->terminate();
+        if (m_Worker->isRunning()) {
+            m_Worker->terminate();
+        }
+        
         m_Popover->setVisible(false);
         
-        QMessageBox alert;
-        
-        alert.setWindowTitle("I/O Warning");
-        alert.setText("Files are read and temporarily stored in RAM. "
-            "To prevent a crash, or a potential system failure, "
-            "files over 256M in size are only partially loaded. "
-            "You can disable this safety feature in options.");
-        
-        alert.exec();
+        if (!alert->isVisible()) {
+            alert->exec();
+        }
     }
 }
 
