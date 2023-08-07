@@ -39,9 +39,9 @@ void ProcessingPopover::initialize() {
     m_View->initialize(this);
 }
 
-void ProcessingPopover::on_Popover_Close() {
+void ProcessingPopover::on_Close() {
     
     this->setVisible(false);
     
-    emit ProcessingPopover::sig_Abort_Processing();
+    emit ProcessingPopover::sig_Abort();
 }

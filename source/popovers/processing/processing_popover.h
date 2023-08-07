@@ -13,10 +13,10 @@ class ProcessingPopover : public AbstractPopover {
         void initialize() override;
     
     public slots:
-        void on_Popover_Close();
+        void on_Close();
     
     signals:
-        void sig_Abort_Processing();
+        void sig_Abort();
 };
 
 #endif

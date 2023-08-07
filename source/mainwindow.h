@@ -3,6 +3,7 @@
 #define ADC_MAIN_WINDOW_H
 
 #include <QMainWindow>
+#include "file_loader.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

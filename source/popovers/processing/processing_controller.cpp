@@ -15,7 +15,7 @@ void ProcessingController::on_View_Initialized(ElementManager* manager) {
     ProcessingPopover* popover = (ProcessingPopover*)this->get_Widget();
     
     connect(cancel, &QPushButton::clicked,
-      popover, &ProcessingPopover::on_Popover_Close);
+      popover, &ProcessingPopover::on_Close);
 }
 
 void ProcessingController::on_View_Changed() {

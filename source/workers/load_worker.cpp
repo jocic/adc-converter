@@ -1,31 +1,6 @@
+#include <QDebug>
+
 #include "load_worker.h"
-
-quint64 LoadWorker::get_OptimalChunkSize(QFile* file) {
-    
-    quint64 chunk_size = 1;
-    
-    if (file->size() < 10e6) {
-        chunk_size = file->size() / 100;
-    } else if (file->size() < 100e6) {
-        chunk_size = file->size() / 1000;
-    } else {
-        chunk_size = file->size() / 10000;
-    }
-    
-    chunk_size += (512 - (chunk_size % 512));
-    
-    qDebug() << "Calculated chunk size of " << chunk_size
-        << " for " << file->size();
-    
-    return chunk_size;
-}
-
-void LoadWorker::start(QFile* file, Priority priority) {
-    
-    m_File = file;
-    
-    QThread::start();
-}
 
 void LoadWorker::run() {
     
@@ -40,9 +15,11 @@ void LoadWorker::run() {
         emit LoadWorker::sig_Error(error_code);
     }
     
+    quint64 read_bytes = 0;
+    
     // Read File
     
-    quint64 chunk_size = this->get_OptimalChunkSize(m_File);
+    quint64 chunk_size = this->get_OptimalChunkSize();
     
     while (!m_File->atEnd()) {
         
@@ -54,10 +31,17 @@ void LoadWorker::run() {
             emit LoadWorker::sig_Error(error_code); break;
         }
         
-        emit LoadWorker::sig_Chunk_Read(m_File, chunk);
+        read_bytes += chunk.size();
+        
+        quint8 progress = (double(read_bytes) / m_File->size()) * 100;
+        
+        emit LoadWorker::sig_Read(chunk);
+        emit LoadWorker::sig_Progressed(progress);
         
         this->usleep(1000);
     }
     
     qDebug() << "File read completely...";
+    
+    emit LoadWorker::sig_Done();
 }

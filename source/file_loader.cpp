@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QMutexLocker>
 #include <QProgressBar>
 #include <QMessageBox>
 #include <QStringList>
@@ -7,6 +8,20 @@
 #include "mvc/element_manager.h"
 #include "popovers/processing/processing_model.h"
 #include "file_loader.h"
+
+FileLoader* FileLoader::M_INSTANCE = NULL;
+QMutex      FileLoader::M_MUTEX;
+
+FileLoader* FileLoader::get_Instance() {
+    
+    QMutexLocker locker(&M_MUTEX);
+    
+    if (M_INSTANCE == NULL) {
+        M_INSTANCE = new FileLoader();
+    }
+    
+    return M_INSTANCE;
+}
 
 FileLoader::FileLoader() {
     
@@ -27,23 +42,45 @@ FileLoader::FileLoader() {
     // Connect Everything
     
     connect(m_Worker, &LoadWorker::sig_Error,
-        this, &FileLoader::on_Read_Error);
+        this, &FileLoader::on_Error);
     
-    connect(m_Worker, &LoadWorker::sig_Chunk_Read,
-        this, &FileLoader::on_Chunk_Read);
+    connect(m_Worker, &LoadWorker::sig_Read,
+        this, &FileLoader::on_Read);
     
-    connect(this, &FileLoader::sig_Progress_Resize,
-        progress_bar, &QProgressBar::setRange);
+    connect(m_Worker, &LoadWorker::sig_Done,
+        this, &FileLoader::on_Done);
     
-    connect(this, &FileLoader::sig_Progress_Update,
+    connect(m_Worker, &LoadWorker::sig_Progressed,
         progress_bar, &QProgressBar::setValue);
     
-    connect(m_Popover, &ProcessingPopover::sig_Abort_Processing,
-        this, &FileLoader::on_Abort_Processing);
+    connect(m_Popover, &ProcessingPopover::sig_Abort,
+        this, &FileLoader::on_Abort);
 }
 
-QByteArray* FileLoader::buffer() {
+QByteArray* FileLoader::get_Buffer() {
     return m_Buffer;
+}
+
+QByteArray FileLoader::get_Chunk(quint64 off, quint64 len) {
+    
+    QByteArray chunk;
+    
+    if (off >= 0 && m_Buffer->size() >= (off + len)) {
+        
+        for (quint64 i = off, j = off + len; i < j; i++) {
+            chunk.push_back(m_Buffer[i]);
+        }
+    }
+    
+    return chunk;
+}
+
+ProcessingPopover* FileLoader::get_Popover() {
+    return m_Popover;
+}
+
+LoadWorker* FileLoader::get_Worker() {
+    return m_Worker;
 }
 
 void FileLoader::process() {
@@ -60,30 +97,22 @@ void FileLoader::process() {
     
     m_Buffer->clear();
     
-    m_Loaded = 0;
+    m_Worker->set_File(file);
+    m_Worker->start();
     
-    m_Worker->start(file);
     m_Popover->setVisible(true);
-    
-    emit FileLoader::sig_Progress_Resize(0, 100);
 }
 
-void FileLoader::on_Read_Error(QFile::FileError error) {
-    
-    
+void FileLoader::clear() {
+    m_Buffer->clear();
 }
 
-void FileLoader::on_Chunk_Read(QFile* file, QByteArray chunk) {
+void FileLoader::on_Error(QFile::FileError error) {
     
-    m_Loaded += chunk.size();
-    
-    quint8 progress = (double(m_Loaded) / file->size()) * 100;
-    
-    emit FileLoader::sig_Progress_Update(progress);
-    
-    if (m_Loaded == file->size()) {
-        m_Popover->setVisible(false);
-    }
+    // Does nothing...
+}
+
+void FileLoader::on_Read(QByteArray chunk) {
     
     if (m_Buffer->size() <= 256e6) {
         *m_Buffer += chunk;
@@ -94,9 +123,14 @@ void FileLoader::on_Chunk_Read(QFile* file, QByteArray chunk) {
     }
 }
 
-void FileLoader::on_Abort_Processing() {
+void FileLoader::on_Abort() {
     
     qDebug() << "Handled abort signal...";
     
     m_Worker->terminate();
+}
+
+void FileLoader::on_Done() {
+    
+    m_Popover->setVisible(false);
 }
