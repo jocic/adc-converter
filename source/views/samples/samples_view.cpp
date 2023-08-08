@@ -33,8 +33,6 @@ void SamplesView::initialize(QWidget* parent) {
     
     wd_ctl->setLayout(lay_ctl);
     
-    
-    
     // Arrange View
     
     QWidget*     wd_main  = new QWidget();
@@ -75,7 +73,82 @@ QWidget* SamplesView::make_Overview() {
 
 QWidget* SamplesView::make_Table() {
     
+    // Arrange Columns
+    
+    QWidget*     wd_offset = new QWidget();
+    QVBoxLayout* lay_offset = new QVBoxLayout();
+    QWidget*     wd_samples = new QWidget();
+    QVBoxLayout* lay_samples = new QVBoxLayout();
+    QWidget*     wd_convs = new QWidget();
+    QVBoxLayout* lay_convs = new QVBoxLayout();
+    
+    wd_offset->setStyleSheet("background: #e3e6e8");
+    wd_offset->setLayout(lay_offset);
+    
+    wd_samples->setStyleSheet("background: #fff");
+    wd_samples->setLayout(lay_samples);
+    
+    wd_convs->setStyleSheet("background: #fff");
+    wd_convs->setLayout(lay_convs);
+    
+    lay_offset->setContentsMargins(0, 0, 0, 0);
+    lay_samples->setContentsMargins(0, 0, 0, 0);
+    lay_convs->setContentsMargins(0, 0, 0, 0);
+    
+    // Arrange Labels (240k smple rate @ max supported)
+    
+    for (int i = 0; i < 90; i++) {
+        
+        QWidget*     wd_off  = new QWidget();
+        QHBoxLayout* lay_off = new QHBoxLayout();
+        QWidget*     wd_hex  = new QWidget();
+        QHBoxLayout* lay_hex = new QHBoxLayout();
+        QWidget*     wd_dec  = new QWidget();
+        QHBoxLayout* lay_dec = new QHBoxLayout();
+        
+        QLabel* lbl_offset = new QLabel();
+        
+        lbl_offset->setText("00000000");
+        
+        lay_off->setContentsMargins(6, 3, 6, 3);
+        lay_hex->setContentsMargins(6, 3, 6, 3);
+        lay_dec->setContentsMargins(6, 3, 6, 3);
+        
+        wd_off->setLayout(lay_off);
+        wd_hex->setLayout(lay_hex);
+        wd_dec->setLayout(lay_dec);
+        
+        lay_off->addWidget(lbl_offset);
+        
+        for (int j = 0; j < 8; j++) {
+            
+            QLabel* lbl_hex  = new QLabel();
+            QLabel* lbl_dec = new QLabel();
+            
+            lbl_hex->setText("0xFF");
+            lbl_dec->setText("255");
+            
+            lay_hex->addWidget(lbl_hex);
+            lay_dec->addWidget(lbl_dec);
+        }
+        
+        lay_offset->addWidget(wd_off);
+        lay_samples->addWidget(wd_hex);
+        lay_convs->addWidget(wd_dec);
+    }
+    
+    // Arrange Elements
+    
     QWidget*     wd_main  = new QWidget();
+    QHBoxLayout* lay_main = new QHBoxLayout();
+    
+    lay_main->setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
+    
+    lay_main->addWidget(wd_offset);
+    lay_main->addWidget(wd_samples);
+    lay_main->addWidget(wd_convs);
+    
+    wd_main->setLayout(lay_main);
     
     return wd_main;
     

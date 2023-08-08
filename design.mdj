@@ -9452,6 +9452,24 @@
 					]
 				}
 			]
+		},
+		{
+			"_type": "UMLSubsystem",
+			"_id": "AAAAAAGJ09wYBVq77Dg=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Views",
+			"ownedElements": [
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAGJ09w711q/Nuo=",
+					"_parent": {
+						"$ref": "AAAAAAGJ09wYBVq77Dg="
+					},
+					"name": "Samples"
+				}
+			]
 		}
 	]
 }
