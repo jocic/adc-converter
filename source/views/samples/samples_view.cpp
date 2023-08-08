@@ -95,9 +95,9 @@ QWidget* SamplesView::make_Table() {
     lay_samples->setContentsMargins(0, 0, 0, 0);
     lay_convs->setContentsMargins(0, 0, 0, 0);
     
-    // Arrange Labels (240k smple rate @ max supported)
+    // Arrange Labels
     
-    for (int i = 0; i < 90; i++) {
+    for (int i = 0; i < 80; i++) {
         
         QWidget*     wd_off  = new QWidget();
         QHBoxLayout* lay_off = new QHBoxLayout();
@@ -122,11 +122,18 @@ QWidget* SamplesView::make_Table() {
         
         for (int j = 0; j < 8; j++) {
             
-            QLabel* lbl_hex  = new QLabel();
+            QLabel* lbl_hex = new QLabel();
             QLabel* lbl_dec = new QLabel();
             
-            lbl_hex->setText("0xFF");
-            lbl_dec->setText("255");
+            lbl_hex->setText(".");
+            lbl_hex->setMinimumWidth(15);
+            lbl_hex->setAlignment(Qt::AlignHCenter);
+            lbl_hex->setMouseTracking(true);
+            
+            
+            lbl_dec->setText(".");
+            lbl_dec->setMinimumWidth(15);
+            lbl_dec->setAlignment(Qt::AlignHCenter);
             
             lay_hex->addWidget(lbl_hex);
             lay_dec->addWidget(lbl_dec);
@@ -151,7 +158,6 @@ QWidget* SamplesView::make_Table() {
     wd_main->setLayout(lay_main);
     
     return wd_main;
-    
 }
 
 QWidget* SamplesView::make_Navigator() {

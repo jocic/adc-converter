@@ -77,3 +77,9 @@ void DecimalController::on_Model_Cleared() {
     decimal->setText("");
     hexadecimal->setText("");
 }
+
+void DecimalController::on_Mediator_Notify(QString topic,
+    QMap<QString,QString> params) {
+    
+    // Does nothing...
+}

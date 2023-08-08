@@ -95,3 +95,9 @@ void HexadecimalController::on_Model_Cleared() {
     decimal->setText("");
     val_signed->setChecked(false);
 }
+
+void HexadecimalController::on_Mediator_Notify(QString topic,
+    QMap<QString,QString> params) {
+    
+    // Does nothing...
+}

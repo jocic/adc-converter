@@ -54,3 +54,9 @@ void ReferenceController::on_Model_Cleared() {
     positive->setText("5000");
     negative->setText("0");
 }
+
+void ReferenceController::on_Mediator_Notify(QString topic,
+    QMap<QString,QString> params) {
+    
+    // Does nothing...
+}

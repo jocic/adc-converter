@@ -65,3 +65,9 @@ void CommunicationController::on_Model_Cleared() {
         port->setCurrentIndex(0);
     }
 }
+
+void CommunicationController::on_Mediator_Notify(QString topic,
+    QMap<QString,QString> params) {
+    
+    // Does nothing...
+}

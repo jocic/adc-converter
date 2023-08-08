@@ -53,3 +53,9 @@ void ProcessingController::on_Model_Cleared() {
     
     progress->setValue(0);
 }
+
+void ProcessingController::on_Mediator_Notify(QString topic,
+    QMap<QString,QString> params) {
+    
+    // Does nothing...
+}

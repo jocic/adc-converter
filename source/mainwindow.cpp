@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "./app_mediator.h"
 #include "./ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -6,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    
+    ////////////////////////////////////////
     
     // Widgets - Options
     
@@ -27,6 +30,14 @@ MainWindow::MainWindow(QWidget *parent)
     // Views
     
     ui->tab_Samples->initialize();
+    
+    ////////////////////////////////////////
+    
+    AppMediator* mediator = AppMediator::get_Instance();
+    
+    mediator->add_Provider(ui->wd_Options_STR->controller(), "stream_info");
+    
+    mediator->add_Consumer(ui->tab_Samples->controller(), "stream_info");
 }
 
 MainWindow::~MainWindow()

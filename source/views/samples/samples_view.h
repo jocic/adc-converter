@@ -8,6 +8,8 @@
 
 class SamplesView : public AbstractView {
     
+    Q_OBJECT
+    
     public:
         void initialize(QWidget* parent) override;
     

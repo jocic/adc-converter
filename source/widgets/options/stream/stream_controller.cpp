@@ -74,3 +74,9 @@ void StreamController::on_Model_Cleared() {
     
     sample_signed->setChecked(false);
 }
+
+void StreamController::on_Mediator_Notify(QString topic,
+    QMap<QString,QString> params) {
+    
+    // Does nothing...
+}

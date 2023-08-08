@@ -54,3 +54,9 @@ void GeneralController::on_Model_Cleared() {
     samples->setText("N/D");
     duration->setText("N/D");
 }
+
+void GeneralController::on_Mediator_Notify(QString topic,
+    QMap<QString,QString> params) {
+    
+    // Does nothing...
+}

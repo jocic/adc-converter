@@ -131,3 +131,9 @@ void SerialController::on_Model_Cleared() {
         }
     }
 }
+
+void SerialController::on_Mediator_Notify(QString topic,
+    QMap<QString,QString> params) {
+    
+    // Does nothing...
+}
