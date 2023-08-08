@@ -34,8 +34,6 @@ void ProcessingPopover::initialize() {
     connect(m_View, &ProcessingView::sig_View_Changed,
         (ProcessingController*)m_Controller, &ProcessingController::on_View_Changed);
     
-    ((ProcessingView*)m_View)->set_Notice("A process is being taken care, please wait...");
-    
     m_View->initialize(this);
 }
 

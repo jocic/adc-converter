@@ -27,18 +27,21 @@ class FileLoader : public QFileDialog {
     
     private slots:
         void on_Error(QFile::FileError error);
-        void on_Read(QByteArray chunk);
         void on_Abort();
         void on_Done();
     
     public:
         static FileLoader* get_Instance();
         QByteArray* get_Buffer();
-        QByteArray get_Chunk(quint64 off, quint64 len);
+        void get_Chunk(QByteArray& buffer, quint64 off, quint64 len);
         ProcessingPopover* get_Popover();
         LoadWorker* get_Worker();
-        void process();
+        void process(QString& filename);
         void clear();
+    
+    public slots:
+        void on_Write(QByteArray chunk);
+        void on_Read(QByteArray& buffer, quint64 offset, quint64 length);
 };
 
 #endif

@@ -47,7 +47,7 @@ FileLoader::FileLoader() {
         this, &FileLoader::on_Error);
     
     connect(m_Worker, &LoadWorker::sig_Read,
-        this, &FileLoader::on_Read);
+        this, &FileLoader::on_Write);
     
     connect(m_Worker, &LoadWorker::sig_Done,
         this, &FileLoader::on_Done);
@@ -66,18 +66,16 @@ QByteArray* FileLoader::get_Buffer() {
     return m_Buffer;
 }
 
-QByteArray FileLoader::get_Chunk(quint64 off, quint64 len) {
+void FileLoader::get_Chunk(QByteArray& buffer, quint64 off, quint64 len) {
     
-    QByteArray chunk;
+    buffer.clear();
     
     if (off >= 0 && m_Buffer->size() >= (off + len)) {
         
         for (quint64 i = off, j = off + len; i < j; i++) {
-            chunk.push_back(m_Buffer[i]);
+            buffer.push_back(m_Buffer[i]);
         }
     }
-    
-    return chunk;
 }
 
 ProcessingPopover* FileLoader::get_Popover() {
@@ -88,17 +86,15 @@ LoadWorker* FileLoader::get_Worker() {
     return m_Worker;
 }
 
-void FileLoader::process() {
+void FileLoader::process(QString& filename) {
     
-    QStringList files = this->selectedFiles();
+    qDebug() << "Processing:" << filename;
     
-    qDebug() << "Selected files:" << files.size();
-    
-    if (files.size() == 0) {
+    if (filename.isEmpty()) {
         return;
     }
     
-    QFile* file = new QFile(files.front());
+    QFile* file = new QFile(filename);
     
     m_Buffer->clear();
     
@@ -117,14 +113,14 @@ void FileLoader::on_Error(QFile::FileError error) {
     // Does nothing...
 }
 
-void FileLoader::on_Read(QByteArray chunk) {
+void FileLoader::on_Write(QByteArray chunk) {
     
     static QMessageBox* alert = new QMessageBox();
     
     alert->setWindowTitle("I/O Warning");
     alert->setText("Files are read and temporarily stored in RAM. "
         "To prevent a crash, or a potential system failure, "
-        "files over 256M in size are only partially loaded. "
+        "files exceeding a certain size are only partially loaded. "
         "You can disable this safety feature in options.");
     
     if (m_Buffer->size() <= 256e6) {
@@ -144,14 +140,19 @@ void FileLoader::on_Read(QByteArray chunk) {
     }
 }
 
+void FileLoader::on_Read(QByteArray& buffer, quint64 offset, quint64 length) {
+    this->get_Chunk(buffer, offset, length);
+}
+
 void FileLoader::on_Abort() {
     
     qDebug() << "Handled abort signal...";
     
-    m_Worker->terminate();
+    if (m_Worker->isRunning()) {
+        m_Worker->terminate();
+    }
 }
 
 void FileLoader::on_Done() {
-    
     m_Popover->setVisible(false);
 }

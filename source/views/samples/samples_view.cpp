@@ -33,6 +33,8 @@ void SamplesView::initialize(QWidget* parent) {
     
     wd_ctl->setLayout(lay_ctl);
     
+    
+    
     // Arrange View
     
     QWidget*     wd_main  = new QWidget();
@@ -60,10 +62,23 @@ QWidget* SamplesView::make_Overview() {
     QVBoxLayout* lay_main = new QVBoxLayout();
     QScrollArea* sa_main  = new QScrollArea();
     
+    QWidget* wd_table = this->make_Table();
+    
+    sa_main->setWidgetResizable(true);
+    sa_main->setWidget(wd_table);
+    
     lay_main->addWidget(sa_main);
     wd_main->setLayout(lay_main);
     
     return wd_main;
+}
+
+QWidget* SamplesView::make_Table() {
+    
+    QWidget*     wd_main  = new QWidget();
+    
+    return wd_main;
+    
 }
 
 QWidget* SamplesView::make_Navigator() {

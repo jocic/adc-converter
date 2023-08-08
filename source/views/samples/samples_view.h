@@ -13,6 +13,7 @@ class SamplesView : public AbstractView {
     
     private:
         QWidget* make_Overview();
+        QWidget* make_Table();
         QWidget* make_Navigator();
         QWidget* make_Offseter();
 };

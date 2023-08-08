@@ -38,11 +38,13 @@ void MainWindow::on_action_Load_triggered()
 {    
     FileLoader* loader = FileLoader::get_Instance(); 
     
-    loader->setWindowTitle("Load Dump");
-    loader->exec();
     
-    if (!loader->selectedFiles().empty()) {
-        loader->process();
+    loader->setWindowTitle("Load Dump");
+    
+    QString wtf = loader->getOpenFileName();
+    
+    if (!wtf.isEmpty()) {
+        loader->process(wtf);
     }
 }
 

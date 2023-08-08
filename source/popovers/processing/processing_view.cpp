@@ -19,14 +19,18 @@ void ProcessingView::initialize(QWidget* parent) {
     QProgressBar* pb_progress = new QProgressBar();
     QPushButton*  btn_cancel  = new QPushButton();
     
-    lbl_notice->setText(m_Notice);
+    if (m_Notice.size() == 0) {
+        lbl_notice->setText("A process is being taken care of, please wait...");
+    } else {
+        lbl_notice->setText(m_Notice);
+    }
     
     pb_progress->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
     pb_progress->setValue(0);
     
     btn_cancel->setText("Cancel");
     
-    lay_main->addWidget(lbl_notice);    
+    lay_main->addWidget(lbl_notice);
     lay_main->addWidget(pb_progress);
     lay_main->addWidget(this->make_HLine());
     lay_main->addWidget(btn_cancel);
