@@ -2,6 +2,7 @@
 
 #define ADC_MVC_ABSTRACT_CONTROLLER_H
 
+#include <QDebug>
 #include <QObject>
 
 #include "abstract_model.h"
@@ -34,10 +35,12 @@ class AbstractController : public QObject {
         virtual void on_View_Changed() = 0;
         virtual void on_Model_Changed(QString key, QString value) = 0;
         virtual void on_Model_Cleared() = 0;
+        virtual void on_Mediator_Notify(QString topic, QMap<QString,QString> params) = 0;
         
     signals:
         void sig_Controller_Connected();
         void sig_Controller_Configured();
+        void sig_Mediator_Notify(QString topic, QMap<QString,QString> params);
 };
 
 #endif
