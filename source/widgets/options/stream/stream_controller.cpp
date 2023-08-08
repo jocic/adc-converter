@@ -1,3 +1,4 @@
+#include <QMap>
 #include <QLineEdit>
 #include <QComboBox>
 #include <QCheckBox>
@@ -7,12 +8,73 @@
 
 void StreamController::on_View_Initialized(ElementManager* manager) {
     
-    // Does nothing...
+    // Sample Rate
+    
+    QLineEdit* sample_rate = (QLineEdit*)manager
+        ->get(StreamModel::FIELD_SAMPLE_RATE);
+    
+    connect(sample_rate, &QLineEdit::textChanged,
+        this, &StreamController::on_View_Changed);
+    
+    // Bits per Sample
+    
+    QComboBox* bits_per_sample = (QComboBox*)manager
+        ->get(StreamModel::FIELD_BITS_PER_SAMPLE);
+    
+    connect(bits_per_sample, &QComboBox::currentIndexChanged,
+        this, &StreamController::on_View_Changed);
+    
+    // Sample Signed
+    
+    QCheckBox* sample_signed = (QCheckBox*)manager
+        ->get(StreamModel::FIELD_SIGNED);
+    
+    connect(sample_signed, &QCheckBox::stateChanged,
+        this, &StreamController::on_View_Changed);
 }
 
 void StreamController::on_View_Changed() {
     
-    // Does nothing...
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    // Sample Rate
+    
+    QLineEdit* txt_sample = (QLineEdit*)manager
+        ->get(StreamModel::FIELD_SAMPLE_RATE);
+    
+    QString sample_rate = txt_sample->text();
+    
+    this->get_Model()->set(StreamModel::FIELD_SAMPLE_RATE, sample_rate);
+    
+    // Bits per Sample
+    
+    QComboBox* combo_bits = (QComboBox*)manager
+        ->get(StreamModel::FIELD_BITS_PER_SAMPLE);
+    
+    QString bits_per_sample = combo_bits->currentText();
+    
+    this->get_Model()->set(StreamModel::FIELD_BITS_PER_SAMPLE, bits_per_sample);
+    
+    sample_rate = txt_sample->text();
+    
+    // Sample Signed
+    
+    QCheckBox* cb_signed = (QCheckBox*)manager
+        ->get(StreamModel::FIELD_SIGNED);
+    
+    QString sample_signed = cb_signed->isChecked() ? "true" : "false";
+    
+    this->get_Model()->set(StreamModel::FIELD_SIGNED, sample_signed);
+    
+    // Combile & Broadcast Data
+    
+    QMap<QString,QString> data;
+    
+    data.insert(StreamModel::FIELD_SAMPLE_RATE, sample_rate);
+    data.insert(StreamModel::FIELD_BITS_PER_SAMPLE, bits_per_sample);
+    data.insert(StreamModel::FIELD_SIGNED, sample_signed);
+    
+    emit StreamController::sig_Mediator_Notify("stream_info", data);
 }
 
 void StreamController::on_Model_Changed(QString key, QString value) {
