@@ -12,10 +12,10 @@ class AbstractWidget : public QWidget {
     
     public:
         AbstractWidget(QWidget* parent = NULL);
-        const QWidget* parent();
-        const AbstractModel* model();
-        const AbstractView* view();
-        const AbstractController* controller();
+        QWidget* parent();
+        AbstractModel* model();
+        AbstractView* view();
+        AbstractController* controller();
         virtual void initialize() = 0;
         
     protected:

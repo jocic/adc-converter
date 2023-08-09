@@ -8,29 +8,14 @@
 
 void StreamController::on_View_Initialized(ElementManager* manager) {
     
-    // Sample Rate
+    this->registerField(StreamModel::FIELD_SAMPLE_RATE,
+        QLineEdit::staticMetaObject.className());
     
-    QLineEdit* sample_rate = (QLineEdit*)manager
-        ->get(StreamModel::FIELD_SAMPLE_RATE);
+    this->registerField(StreamModel::FIELD_BITS_PER_SAMPLE,
+        QLineEdit::staticMetaObject.className());
     
-    connect(sample_rate, &QLineEdit::textChanged,
-        this, &StreamController::on_View_Changed);
-    
-    // Bits per Sample
-    
-    QComboBox* bits_per_sample = (QComboBox*)manager
-        ->get(StreamModel::FIELD_BITS_PER_SAMPLE);
-    
-    connect(bits_per_sample, &QComboBox::currentIndexChanged,
-        this, &StreamController::on_View_Changed);
-    
-    // Sample Signed
-    
-    QCheckBox* sample_signed = (QCheckBox*)manager
-        ->get(StreamModel::FIELD_SIGNED);
-    
-    connect(sample_signed, &QCheckBox::stateChanged,
-        this, &StreamController::on_View_Changed);
+    this->registerField(StreamModel::FIELD_SIGNED,
+        QLineEdit::staticMetaObject.className());
 }
 
 void StreamController::on_View_Changed() {

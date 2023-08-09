@@ -23,6 +23,8 @@ AppMediator::AppMediator() {
 
 void AppMediator::add_Provider(const AbstractController* ctl, QString topic) {
     
+    qDebug() << "Adding provider for topic:" << topic;
+    
     connect(ctl, &AbstractController::sig_Mediator_Notify,
         this, &AppMediator::on_Notify);
 }
@@ -33,16 +35,15 @@ void AppMediator::add_Consumer(const AbstractController* ctl, QString topic) {
     
     if (ctl != NULL) {
         
-        qDebug() << "Registering topic...";
+        qDebug() << "Registering to topic...";
         m_Subscriptions[topic].push_back(ctl);
         
+        connect(this, &AppMediator::sig_Notify,
+            ctl, &AbstractController::on_Mediator_Notify);
+        
         if (!m_Consumers.contains(ctl)) {
-            
             qDebug() << "Registering reference...";
             m_Consumers.insert(ctl);
-            
-            connect(this, &AppMediator::sig_Notify,
-                ctl, &AbstractController::on_Mediator_Notify);
         }
     }
 }
@@ -51,7 +52,7 @@ void AppMediator::on_Notify(QString topic, QMap<QString,QString> params) {
     
     auto search = m_Subscriptions.find(topic);
     
-    qDebug() << "Notification received (topic, params)"
+    qDebug() << "Notification received: (topic, params)"
         << topic << params;
     
     if (search != m_Subscriptions.end()) {

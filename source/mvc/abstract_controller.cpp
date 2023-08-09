@@ -1,4 +1,7 @@
 #include <QDebug>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QCheckBox>
 
 #include "abstract_controller.h"
 
@@ -43,5 +46,30 @@ void AbstractController::set_View(AbstractView* view) {
     
     if (view != NULL) {
         m_View = view;
+    }
+}
+
+void AbstractController::registerField(QString name, QString type) {
+    
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    if (manager == NULL) {
+        return;
+    }
+    
+    qDebug() << "Registering field:" << name << type;
+    
+    if (type == "QLineEdit") {
+        QLineEdit* field = (QLineEdit*)manager->get(name);    
+        connect(field, &QLineEdit::textChanged,
+            this, &AbstractController::on_View_Changed);
+    } else if (type == "QComboBox") {
+        QComboBox* field = (QComboBox*)manager->get(name);    
+        connect(field, &QComboBox::currentIndexChanged,
+            this, &AbstractController::on_View_Changed);
+    } else if (type == "QComboBox") {
+        QCheckBox* field = (QCheckBox*)manager->get(name);    
+        connect(field, &QCheckBox::stateChanged,
+            this, &AbstractController::on_View_Changed);
     }
 }

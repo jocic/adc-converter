@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "./app_mediator.h"
 #include "./ui_mainwindow.h"
-
+#include "widgets/options/stream/stream_model.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     ////////////////////////////////////////
     
     AppMediator* mediator = AppMediator::get_Instance();
+    FileLoader*  loader   = FileLoader::get_Instance();
     
     mediator->add_Provider(ui->wd_Options_STR->controller(), "stream_info");
     

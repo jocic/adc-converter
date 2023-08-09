@@ -16,18 +16,18 @@ AbstractWidget::AbstractWidget(QWidget* parent) {
     this->layout()->setContentsMargins(0, 0, 0, 0);
 }
 
-const QWidget* AbstractWidget::parent() {
+QWidget* AbstractWidget::parent() {
     return m_Parent;
 }
 
-const AbstractModel* AbstractWidget::model() {
+AbstractModel* AbstractWidget::model() {
     return m_Model;
 }
 
-const AbstractView* AbstractWidget::view() {
+AbstractView* AbstractWidget::view() {
     return m_View;
 }
 
-const AbstractController* AbstractWidget::controller() {
+AbstractController* AbstractWidget::controller() {
     return m_Controller;
 }

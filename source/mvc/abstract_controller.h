@@ -29,6 +29,7 @@ class AbstractController : public QObject {
         void set_Model(AbstractModel* model);
         AbstractView* get_View();
         void set_View(AbstractView* view);
+        void registerField(QString name, QString type);
     
     public slots:
         virtual void on_View_Initialized(ElementManager* manager) = 0;

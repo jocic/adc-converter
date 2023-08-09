@@ -274,5 +274,7 @@ QWidget* SamplesView::make_Offseter() {
     
     wd_main->setLayout(lay_main);
     
+    get_ElementManager()->push(":D", btn_offset);
+    
     return wd_main;
 }
