@@ -47,7 +47,7 @@ void SamplesModel::set_RangeSpan(quint64 value) {
     
     QString new_value = QString::asprintf("%llu", value);
     
-    this->set(FIELD_OFFSET_START, new_value);
+    this->set(FIELD_RANGE_SPAN, new_value);
     
     emit SamplesModel::sig_Model_Updated(FIELD_RANGE_SPAN, new_value);
 }

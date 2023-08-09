@@ -36,9 +36,9 @@ MainWindow::MainWindow(QWidget *parent)
     AppMediator* mediator = AppMediator::get_Instance();
     FileLoader*  loader   = FileLoader::get_Instance();
     
-    mediator->add_Provider(ui->wd_Options_STR->controller(), "stream_info");
+    mediator->add_Provider(ui->wd_Options_STR->controller(), "wd_stream_data");
     
-    mediator->add_Consumer(ui->tab_Samples->controller(), "stream_info");
+    mediator->add_Consumer(ui->tab_Samples->controller(), "wd_stream_data");
 }
 
 MainWindow::~MainWindow()

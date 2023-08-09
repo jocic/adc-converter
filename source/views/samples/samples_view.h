@@ -3,6 +3,8 @@
 #define ADC_VEWS_SAMPLES_VIEW_H
 
 #include <QWidget>
+#include <QLabel>
+#include <QVector>
 
 #include "mvc/abstract_view.h"
 
@@ -12,6 +14,7 @@ class SamplesView : public AbstractView {
     
     public:
         void initialize(QWidget* parent) override;
+        QVector<QLabel*>* test();
     
     private:
         QWidget* make_Overview();

@@ -10,10 +10,13 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QLabel>
+#include <QVector>
 
 #include "mvc/element_manager.h"
-//#include "samples_model.h"
+#include "samples_model.h"
 #include "samples_view.h"
+
+QVector<QLabel*> hexvals;
 
 void SamplesView::initialize(QWidget* parent) {
     
@@ -130,6 +133,8 @@ QWidget* SamplesView::make_Table() {
             lbl_hex->setAlignment(Qt::AlignHCenter);
             lbl_hex->setMouseTracking(true);
             
+            hexvals.push_back(lbl_hex);
+            hexvals.push_back(lbl_dec);
             
             lbl_dec->setText(".");
             lbl_dec->setMinimumWidth(15);
@@ -210,6 +215,13 @@ QWidget* SamplesView::make_Navigator() {
     
     wd_main->setLayout(lay_main);
     
+    // Push References
+    
+    ElementManager* manager = this->get_ElementManager();
+    
+    manager->push(SamplesModel::FIELD_PREV, btn_prev);
+    manager->push(SamplesModel::FIELD_NEXT, btn_next);
+    
     return wd_main;
 }
 
@@ -225,8 +237,8 @@ QWidget* SamplesView::make_Offseter() {
     QLabel*      lbl_start = new QLabel();
     QLineEdit*   txt_start = new QLineEdit();
     
-    lbl_start->setText("Range Start");
-    txt_start->setText("1");
+    lbl_start->setText("Offset Start");
+    txt_start->setText("0");
     txt_start->setMaximumWidth(75);
     
     lay_start->addWidget(lbl_start);
@@ -242,7 +254,7 @@ QWidget* SamplesView::make_Offseter() {
     QComboBox*   cb_span  = new QComboBox();
     
     lbl_span->setText("Range Span");
-    cb_span->addItems({ "1000", "2000", "3000", "4000" });
+    cb_span->addItems({ "28", "56", "112" });
     cb_span->setMaximumWidth(100);
     
     lay_span->addWidget(lbl_span);
@@ -274,7 +286,18 @@ QWidget* SamplesView::make_Offseter() {
     
     wd_main->setLayout(lay_main);
     
-    get_ElementManager()->push(":D", btn_offset);
+    // Push References
+    
+    ElementManager* manager = this->get_ElementManager();
+    
+    manager->push(SamplesModel::FIELD_OFFSET_START, txt_start);
+    manager->push(SamplesModel::FIELD_RANGE_SPAN, cb_span);
+    manager->push(SamplesModel::FIELD_OFFSET, btn_offset);
     
     return wd_main;
+}
+
+
+QVector<QLabel*>* SamplesView::test() {
+    return &hexvals;
 }

@@ -67,9 +67,11 @@ void AbstractController::registerField(QString name, QString type) {
         QComboBox* field = (QComboBox*)manager->get(name);    
         connect(field, &QComboBox::currentIndexChanged,
             this, &AbstractController::on_View_Changed);
-    } else if (type == "QComboBox") {
+    } else if (type == "QCheckBox") {
         QCheckBox* field = (QCheckBox*)manager->get(name);    
         connect(field, &QCheckBox::stateChanged,
             this, &AbstractController::on_View_Changed);
+    } else {
+        qDebug() << "Field type not supported...";
     }
 }

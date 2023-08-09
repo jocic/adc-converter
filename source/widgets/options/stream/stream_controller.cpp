@@ -12,10 +12,10 @@ void StreamController::on_View_Initialized(ElementManager* manager) {
         QLineEdit::staticMetaObject.className());
     
     this->registerField(StreamModel::FIELD_BITS_PER_SAMPLE,
-        QLineEdit::staticMetaObject.className());
+        QComboBox::staticMetaObject.className());
     
     this->registerField(StreamModel::FIELD_SIGNED,
-        QLineEdit::staticMetaObject.className());
+        QCheckBox::staticMetaObject.className());
 }
 
 void StreamController::on_View_Changed() {
@@ -59,7 +59,7 @@ void StreamController::on_View_Changed() {
     data.insert(StreamModel::FIELD_BITS_PER_SAMPLE, bits_per_sample);
     data.insert(StreamModel::FIELD_SIGNED, sample_signed);
     
-    emit StreamController::sig_Mediator_Notify("stream_info", data);
+    emit StreamController::sig_Mediator_Notify("wd_stream_data", data);
 }
 
 void StreamController::on_Model_Changed(QString key, QString value) {
