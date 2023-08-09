@@ -7,6 +7,7 @@
 #include <QVector>
 
 #include "mvc/abstract_view.h"
+#include "elements/hex_viewer.h"
 
 class SamplesView : public AbstractView {
     
@@ -14,11 +15,12 @@ class SamplesView : public AbstractView {
     
     public:
         void initialize(QWidget* parent) override;
-        QVector<QLabel*>* test();
-    
+        HexViewer* get_HexViewer();
     private:
+        
+        HexViewer* m_Viewer;
+        
         QWidget* make_Overview();
-        QWidget* make_Table();
         QWidget* make_Navigator();
         QWidget* make_Offseter();
 };

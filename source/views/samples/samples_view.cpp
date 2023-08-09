@@ -21,6 +21,10 @@ QVector<QLabel*> hexvals;
 
 void SamplesView::initialize(QWidget* parent) {
     
+    // Initialize Hex Viewer
+    
+    m_Viewer = new HexViewer();
+    
     // Arrange Controls
     
     QWidget*     wd_ctl   = new QWidget();
@@ -52,10 +56,11 @@ void SamplesView::initialize(QWidget* parent) {
     
     ElementManager* manager = this->get_ElementManager();
     
-    //manager->push(SmpView::FIELD_, );
-    //manager->push(SmpView::FIELD_, );
-    
     emit SamplesView::sig_View_Initialized(manager);
+}
+
+HexViewer* SamplesView::get_HexViewer() {
+    return m_Viewer;
 }
 
 QWidget* SamplesView::make_Overview() {
@@ -64,104 +69,14 @@ QWidget* SamplesView::make_Overview() {
     QVBoxLayout* lay_main = new QVBoxLayout();
     QScrollArea* sa_main  = new QScrollArea();
     
-    QWidget* wd_table = this->make_Table();
-    
-    sa_main->setWidgetResizable(true);
-    sa_main->setWidget(wd_table);
-    
-    lay_main->addWidget(sa_main);
-    wd_main->setLayout(lay_main);
-    
-    return wd_main;
-}
-
-QWidget* SamplesView::make_Table() {
-    
-    return new HexViewer(100);
-    // Arrange Columns
-    
-    QWidget*     wd_offset = new QWidget();
-    QVBoxLayout* lay_offset = new QVBoxLayout();
-    QWidget*     wd_samples = new QWidget();
-    QVBoxLayout* lay_samples = new QVBoxLayout();
-    QWidget*     wd_convs = new QWidget();
-    QVBoxLayout* lay_convs = new QVBoxLayout();
-    
-    wd_offset->setStyleSheet("background: #e3e6e8");
-    wd_offset->setLayout(lay_offset);
-    
-    wd_samples->setStyleSheet("background: #fff");
-    wd_samples->setLayout(lay_samples);
-    
-    wd_convs->setStyleSheet("background: #fff");
-    wd_convs->setLayout(lay_convs);
-    
-    lay_offset->setContentsMargins(0, 0, 0, 0);
-    lay_samples->setContentsMargins(0, 0, 0, 0);
-    lay_convs->setContentsMargins(0, 0, 0, 0);
-    
-    // Arrange Labels
-    
-    for (int i = 0; i < 80; i++) {
-        
-        QWidget*     wd_off  = new QWidget();
-        QHBoxLayout* lay_off = new QHBoxLayout();
-        QWidget*     wd_hex  = new QWidget();
-        QHBoxLayout* lay_hex = new QHBoxLayout();
-        QWidget*     wd_dec  = new QWidget();
-        QHBoxLayout* lay_dec = new QHBoxLayout();
-        
-        QLabel* lbl_offset = new QLabel();
-        
-        lbl_offset->setText("00000000");
-        
-        lay_off->setContentsMargins(6, 3, 6, 3);
-        lay_hex->setContentsMargins(6, 3, 6, 3);
-        lay_dec->setContentsMargins(6, 3, 6, 3);
-        
-        wd_off->setLayout(lay_off);
-        wd_hex->setLayout(lay_hex);
-        wd_dec->setLayout(lay_dec);
-        
-        lay_off->addWidget(lbl_offset);
-        
-        for (int j = 0; j < 8; j++) {
-            
-            QLabel* lbl_hex = new QLabel();
-            QLabel* lbl_dec = new QLabel();
-            
-            lbl_hex->setText(".");
-            lbl_hex->setMinimumWidth(15);
-            lbl_hex->setAlignment(Qt::AlignHCenter);
-            lbl_hex->setMouseTracking(true);
-            
-            hexvals.push_back(lbl_hex);
-            hexvals.push_back(lbl_dec);
-            
-            lbl_dec->setText(".");
-            lbl_dec->setMinimumWidth(15);
-            lbl_dec->setAlignment(Qt::AlignHCenter);
-            
-            lay_hex->addWidget(lbl_hex);
-            lay_dec->addWidget(lbl_dec);
-        }
-        
-        lay_offset->addWidget(wd_off);
-        lay_samples->addWidget(wd_hex);
-        lay_convs->addWidget(wd_dec);
+    if (m_Viewer == NULL) {
+        m_Viewer = new HexViewer();
     }
     
-    // Arrange Elements
+    sa_main->setWidgetResizable(true);
+    sa_main->setWidget(m_Viewer);
     
-    QWidget*     wd_main  = new QWidget();
-    QHBoxLayout* lay_main = new QHBoxLayout();
-    
-    lay_main->setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
-    
-    lay_main->addWidget(wd_offset);
-    lay_main->addWidget(wd_samples);
-    lay_main->addWidget(wd_convs);
-    
+    lay_main->addWidget(sa_main);
     wd_main->setLayout(lay_main);
     
     return wd_main;
@@ -297,9 +212,4 @@ QWidget* SamplesView::make_Offseter() {
     manager->push(SamplesModel::FIELD_OFFSET, btn_offset);
     
     return wd_main;
-}
-
-
-QVector<QLabel*>* SamplesView::test() {
-    return &hexvals;
 }

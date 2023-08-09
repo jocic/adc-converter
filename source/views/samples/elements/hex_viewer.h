@@ -30,7 +30,7 @@ class HexViewer : public QWidget {
         QWidget* make_Values(quint64 len);
         
     public:
-        HexViewer(quint64 len);
+        HexViewer(quint64 len = 128);
         ~HexViewer();
         bool set_Data(QByteArray& data, quint8 bytes);
         QVector<quint64>& get_Data();

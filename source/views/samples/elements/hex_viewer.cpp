@@ -63,6 +63,29 @@ HexViewer::~HexViewer() {
 }
 
 bool HexViewer::set_Data(QByteArray& data, quint8 bytes) {
+    
+    if (data.size() > 0) {
+        
+        quint64 i = 0;
+        
+        for (const auto& n : data) {
+            
+            QString hex_val = QString::asprintf("%02X", n & 0xFF);
+            
+            if (i < m_Values.size()) {
+                m_Values.at(i++)->setText(hex_val);
+            } else {
+                break;
+            }
+        }
+        
+        while (i++ < m_Values.size()) {
+            m_Values.at(i)->setText("..");
+        }
+        
+        return true;
+    }
+    
     return false;
 }
 
@@ -88,7 +111,7 @@ QWidget* HexViewer::make_Offsets(quint64 len) {
         
         HexOffset* lbl_offset = new HexOffset();
         
-        lbl_offset->setText("00000000");
+        lbl_offset->setText(QString::asprintf("%08llu", i * HEX_VIEWER_ROW_WIDTH));
         lay_off->addWidget(lbl_offset);
         
         m_Offsets.push_back(lbl_offset);

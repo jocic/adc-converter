@@ -112,19 +112,13 @@ void SamplesController::on_Mediator_Notify(QString topic,
 
 void SamplesController::on_Clicked_Offset() {
     
-    SamplesView* view = (SamplesView*)this->get_View();
+    SamplesView* view   = (SamplesView*)this->get_View();
+    FileLoader*  loader = FileLoader::get_Instance();
     
-    QVector<QLabel*>* test = view->test();
+    QByteArray* data_buffer = loader->get_Buffer();
+    HexViewer*  hex_viewer  = view->get_HexViewer();
     
-    FileLoader* loader = FileLoader::get_Instance();
-    
-    for (int i = 0; i < loader->get_Buffer()->size() && i < 1280; i++) {
-        
-        quint8 word = loader->get_Buffer()->at(i);
-        
-        test->at(i)->setVisible(true);
-        test->at(i)->setText(QString::asprintf("%02X", word));
-    }
+    hex_viewer->set_Data(*data_buffer, 1);
 }
 
 void SamplesController::on_Clicked_Prev() {
