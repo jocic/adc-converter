@@ -93,6 +93,8 @@ set(PROJECT_SOURCES
     # VIEWS - SAMPLES #
     ###################
     
+    source/views/samples/elements/hex_viewer.h
+    source/views/samples/elements/hex_viewer.cpp
     source/views/samples/samples_model.h
     source/views/samples/samples_view.h
     source/views/samples/samples_controller.h

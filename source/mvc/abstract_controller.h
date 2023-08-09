@@ -16,7 +16,6 @@ class AbstractController : public QObject {
     private:
         QWidget*        m_Parent;
         QWidget*        m_Widget;
-        ElementManager* m_Manager;
         AbstractModel*  m_Model;
         AbstractView*   m_View;
     

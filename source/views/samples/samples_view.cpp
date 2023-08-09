@@ -13,6 +13,7 @@
 #include <QVector>
 
 #include "mvc/element_manager.h"
+#include "elements/hex_viewer.h"
 #include "samples_model.h"
 #include "samples_view.h"
 
@@ -76,6 +77,7 @@ QWidget* SamplesView::make_Overview() {
 
 QWidget* SamplesView::make_Table() {
     
+    return new HexViewer(100);
     // Arrange Columns
     
     QWidget*     wd_offset = new QWidget();
