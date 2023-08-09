@@ -93,9 +93,11 @@ set(PROJECT_SOURCES
     # VIEWS - SAMPLES #
     ###################
     
+    source/views/samples/samples_model.h
     source/views/samples/samples_view.h
     source/views/samples/samples_controller.h
     source/views/samples/samples_widget.h
+    source/views/samples/samples_model.cpp
     source/views/samples/samples_view.cpp
     source/views/samples/samples_controller.cpp
     source/views/samples/samples_widget.cpp
