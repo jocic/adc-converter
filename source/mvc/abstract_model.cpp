@@ -11,11 +11,13 @@ QString AbstractModel::get(QString key) {
     return search.value();
 }
 
-void AbstractModel::set(QString key, QString value) {
+void AbstractModel::set(QString key, QString value, bool silent) {
     
     m_Attributes[key] = value;
     
-    emit AbstractModel::sig_Model_Updated(key, value);
+    if (!silent) {
+        emit AbstractModel::sig_Model_Updated(key, value);
+    }
 }
 
 bool AbstractModel::exists(QString key) {

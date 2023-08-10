@@ -14,7 +14,7 @@ class AbstractModel : public QObject {
     
     public:
         QString get(QString key);
-        void set(QString key, QString value);
+        void set(QString key, QString value, bool silent = false);
         bool exists(QString key);
         void clear();
     

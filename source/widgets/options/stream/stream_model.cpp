@@ -4,14 +4,14 @@ const QString StreamModel::FIELD_SAMPLE_RATE     = "txt_SampleRate";
 const QString StreamModel::FIELD_BITS_PER_SAMPLE = "comb_BitsPerSample";
 const QString StreamModel::FIELD_SIGNED          = "check_Signed";
 
-quint32 StreamModel::get_SampleRate() {
+quint64 StreamModel::get_SampleRate() {
     
     QString value = this->get(FIELD_SAMPLE_RATE);
     
     return value.toUInt(NULL, 10);
 }
 
-void StreamModel::set_SampleRate(quint32 value) {
+void StreamModel::set_SampleRate(quint64 value) {
     
     QString new_value = QString::asprintf("%d", value);
     

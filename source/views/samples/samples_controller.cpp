@@ -18,7 +18,7 @@ void SamplesController::on_View_Initialized(ElementManager* manager) {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     
     model->set_OffsetStart(0);
-    model->set_RangeSpan(16);
+    model->set_RangeSpan(368);
     model->set_BitsPerSample(8);
     
     // Register Fields
@@ -69,12 +69,24 @@ void SamplesController::on_View_Changed() {
     
     QString offset_start = txt_offset_start->text();
     
-    this->get_Model()->set(SamplesModel::FIELD_OFFSET_START, offset_start);
+    this->get_Model()->set(SamplesModel::FIELD_OFFSET_START, offset_start, true);
+    
+    // Range Span
+    
+    QComboBox* comb_range_span = (QComboBox*)manager
+        ->get(SamplesModel::FIELD_RANGE_SPAN);
+    
+    QString range_span = comb_range_span->currentText();
+    
+    this->get_Model()->set(SamplesModel::FIELD_RANGE_SPAN, range_span, true);
 }
 
 void SamplesController::on_Model_Changed(QString key, QString value) {
     
-    ElementManager* manager = this->get_View()->get_ElementManager();
+    SamplesModel* model = (SamplesModel*)this->get_Model();
+    SamplesView*  view  = (SamplesView*)this->get_View();
+    
+    ElementManager* manager = view->get_ElementManager();
     
     if (manager == NULL) {
         return;
@@ -92,16 +104,13 @@ void SamplesController::on_Model_Changed(QString key, QString value) {
         QComboBox* cb_span = (QComboBox*)manager
             ->get(SamplesModel::FIELD_RANGE_SPAN);
         
-        quint64 range = value.toUInt();
-        
-        cb_span->clear();
-        
-        for (quint8 i = 0; i < 3 & range <= 1280; i++) {
-            cb_span->addItem(QString::asprintf("%llu", range));
-            range *= 2;
+        for (quint8 i = 0; i < cb_span->count(); i++) {
+            
+            if (cb_span->itemText(i) == value) {
+                cb_span->setCurrentIndex(i); break;
+            }
         }
     }
-
 }
 
 void SamplesController::on_Model_Cleared() {
@@ -117,6 +126,11 @@ void SamplesController::on_Mediator_Notify(QString topic,
     if (topic == "wd_stream_data") {
         
         SamplesModel* model = (SamplesModel*)this->get_Model();
+        SamplesView*  view  = (SamplesView*)this->get_View();
+        
+        ElementManager* manager = view->get_ElementManager();
+        
+        HexViewer* hex_viewer = view->get_HexViewer();
         
         quint64 sample_rate     = 0;
         quint8  bits_per_sample = 0;
@@ -129,11 +143,20 @@ void SamplesController::on_Mediator_Notify(QString topic,
             bits_per_sample = params["comb_BitsPerSample"].toUInt();
         }
         
-        quint64 range = qMin(1280, qMax(16, qCeil(sample_rate / 8000)));
+        quint64 range = qMax(1, qCeil(sample_rate / double(1000)));
         
-        if ((range % 16) != 0) {
-            range += (16 - (range % 16));
+        if ((range % 8) != 0) {
+            range += (8 - (range % 8));
         }
+        
+        QComboBox* cb_span = (QComboBox*)manager
+            ->get(SamplesModel::FIELD_RANGE_SPAN);
+        
+        for (quint64 i = 0, j = range; i < 3; i++, j += range) {
+            cb_span->setItemText(i, QString::asprintf("%llu", j));
+        }
+        
+        hex_viewer->set_VisibleRows(range / 8);
         
         model->set_OffsetStart(0);
         model->set_RangeSpan(range);
@@ -141,7 +164,6 @@ void SamplesController::on_Mediator_Notify(QString topic,
         
         this->on_Data_Loaded(); // Reset Hex Viewer
     }
-    
 }
 
 void SamplesController::on_Data_Loaded() {
@@ -149,19 +171,18 @@ void SamplesController::on_Data_Loaded() {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     SamplesView*  view  = (SamplesView*)this->get_View();
     
-    model->set_OffsetStart(0);
-    model->set_RangeSpan("16");
-    
     FileLoader* loader     = FileLoader::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
     
+    quint64 rs    = model->get_RangeSpan();
     quint8  bps   = model->get_BitsPerSample();
     quint8  bytes = bps / 8;
     
     QByteArray buffer;
-    loader->get_Chunk(buffer, 0, hex_viewer->get_Length() * bytes);
+    loader->get_Chunk(buffer, 0, rs * bytes);
     
     hex_viewer->set_Offset(0);
+    hex_viewer->set_VisibleRows(rs / 8);
     hex_viewer->set_Data(buffer, bytes);
 }
 
@@ -176,14 +197,16 @@ void SamplesController::on_Clicked_Offset() {
     HexViewer*  hex_viewer = view->get_HexViewer();
     
     quint64 offset = model->get_OffsetStart();
+    quint64 rs     = model->get_RangeSpan();
     quint8  bps    = model->get_BitsPerSample();
     quint8  bytes  = bps / 8;
     
     QByteArray buffer;
     
-    loader->get_Chunk(buffer, offset * bytes, hex_viewer->get_Length() * bytes);
+    loader->get_Chunk(buffer, offset * bytes, rs * bytes);
     
     hex_viewer->set_Offset(offset);
+    hex_viewer->set_VisibleRows(rs / 8);
     hex_viewer->set_Data(buffer, bytes);
 }
 

@@ -23,7 +23,7 @@ void SamplesView::initialize(QWidget* parent) {
     
     // Initialize Hex Viewer
     
-    m_Viewer = new HexViewer();
+    m_Viewer = new HexViewer(6000);
     
     // Arrange Controls
     
@@ -171,7 +171,7 @@ QWidget* SamplesView::make_Offseter() {
     QComboBox*   cb_span  = new QComboBox();
     
     lbl_span->setText("Range Span");
-    cb_span->addItems({ "28", "56", "112" });
+    cb_span->addItems({ "368", "736", "1104" });
     cb_span->setMaximumWidth(100);
     
     lay_span->addWidget(lbl_span);

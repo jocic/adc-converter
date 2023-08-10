@@ -21,43 +21,50 @@ void StreamController::on_View_Initialized(ElementManager* manager) {
 void StreamController::on_View_Changed() {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
+    StreamModel*    model   = (StreamModel*)this->get_Model();
+    
     
     // Sample Rate
     
     QLineEdit* txt_sample = (QLineEdit*)manager
         ->get(StreamModel::FIELD_SAMPLE_RATE);
     
-    QString sample_rate = txt_sample->text();
+    quint64 sample_rate = txt_sample->text().toUInt();
     
-    this->get_Model()->set(StreamModel::FIELD_SAMPLE_RATE, sample_rate);
+    if (sample_rate < 0) {
+        sample_rate = 0;
+    } else if (sample_rate > 250000) {
+        sample_rate = 250000;
+    }
+    
+    model->set_SampleRate(sample_rate);
     
     // Bits per Sample
     
     QComboBox* combo_bits = (QComboBox*)manager
         ->get(StreamModel::FIELD_BITS_PER_SAMPLE);
     
-    QString bits_per_sample = combo_bits->currentText();
+    quint8 bits_per_sample = combo_bits->currentText().toUInt();
     
-    this->get_Model()->set(StreamModel::FIELD_BITS_PER_SAMPLE, bits_per_sample);
-    
-    sample_rate = txt_sample->text();
+    model->set_BitsPerSample(bits_per_sample);
     
     // Sample Signed
     
     QCheckBox* cb_signed = (QCheckBox*)manager
         ->get(StreamModel::FIELD_SIGNED);
     
-    QString sample_signed = cb_signed->isChecked() ? "true" : "false";
-    
-    this->get_Model()->set(StreamModel::FIELD_SIGNED, sample_signed);
+    model->set_Signed(cb_signed->isChecked());
     
     // Combile & Broadcast Data
     
     QMap<QString,QString> data;
     
-    data.insert(StreamModel::FIELD_SAMPLE_RATE, sample_rate);
-    data.insert(StreamModel::FIELD_BITS_PER_SAMPLE, bits_per_sample);
-    data.insert(StreamModel::FIELD_SIGNED, sample_signed);
+    data.insert(StreamModel::FIELD_SAMPLE_RATE,
+        QString::asprintf("%llu", sample_rate));
+    data.insert(StreamModel::FIELD_BITS_PER_SAMPLE,
+        QString::asprintf("%u", bits_per_sample));
+    data.insert(StreamModel::FIELD_SIGNED,
+        cb_signed->isChecked() ? "true" : "false");
     
     emit StreamController::sig_Mediator_Notify("wd_stream_data", data);
 }

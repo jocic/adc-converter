@@ -1,4 +1,5 @@
 #include <QtMath>
+#include <QSpacerItem>
 #include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -9,9 +10,10 @@ HexViewer::HexViewer(quint64 len) {
     
     // Core Parameters
     
-    m_Rows   = qCeil(len / double(HEX_VIEWER_ROW_WIDTH));
-    m_Length = len;
-    m_Offset = 0;
+    m_Rows        = qCeil(len / double(HEX_VIEWER_ROW_WIDTH));
+    m_RowsVisible = 32;
+    m_Length      = len;
+    m_Offset      = 0;
     
     quint64 filler_count = 0;
     
@@ -156,6 +158,29 @@ quint64 HexViewer::get_Length() {
     return m_Length;
 }
 
+void HexViewer::set_VisibleRows(quint64 value) {
+    
+    if (value > 0 && value <= m_Rows) {
+        
+        for (quint64 i = 0; i < m_Rows; i++) {
+            
+            if (i < value) {
+                m_Offsets[i]->setVisible(true);
+                m_Wrappers[i]->setVisible(true);
+            } else {
+                m_Offsets[i]->setVisible(false);
+                m_Wrappers[i]->setVisible(false);
+            }
+        }
+        
+        m_RowsVisible = value;
+    }
+}
+
+quint64 HexViewer::get_VisibleRows() {
+    return m_RowsVisible;
+}
+
 QWidget* HexViewer::make_Offsets(quint64 len) {
     
     QWidget*     wd_off  = new QWidget();
@@ -172,6 +197,11 @@ QWidget* HexViewer::make_Offsets(quint64 len) {
         
         lbl_offset->setText(QString::asprintf("%08llu", i * HEX_VIEWER_ROW_WIDTH));
         lbl_offset->setFont(*m_Font);
+        
+        if (i > 31) {
+            lbl_offset->setVisible(false);
+        }
+        
         lay_off->addWidget(lbl_offset);
         
         m_Offsets.push_back(lbl_offset);
@@ -200,6 +230,10 @@ QWidget* HexViewer::make_Values(quint64 len) {
         
         wd_vals_in->setLayout(lay_vals_in);
         
+        if (i > 31) {
+            wd_vals_in->setVisible(false);
+        }
+        
         for (quint64 j = 0; j < HEX_VIEWER_ROW_WIDTH; j++) {
             
             HexValue* lbl_value = new HexValue();
@@ -214,6 +248,8 @@ QWidget* HexViewer::make_Values(quint64 len) {
         }
         
         lay_vals->addWidget(wd_vals_in);
+        
+        m_Wrappers.push_back(wd_vals_in);
     }
     
     return wd_vals;
