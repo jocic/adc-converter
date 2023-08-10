@@ -8,6 +8,9 @@ const QString SamplesModel::FIELD_OFFSET       = "btn_Offset";
 
 const QString SamplesModel::VALUE_BITS_PER_SAMPLE = "val_BitsPerSample";
 
+const QString SamplesModel::VALUE_SAMPLES = "lbl_Samples";
+const QString SamplesModel::VALUE_TIME    = "lbl_Time";
+
 quint64 SamplesModel::get_OffsetStart() {
     
     QString value = this->get(FIELD_OFFSET_START);

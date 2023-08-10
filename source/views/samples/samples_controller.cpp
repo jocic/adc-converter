@@ -18,7 +18,7 @@ void SamplesController::on_View_Initialized(ElementManager* manager) {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     
     model->set_OffsetStart(0);
-    model->set_RangeSpan(368);
+    model->set_RangeSpan(48);
     model->set_BitsPerSample(8);
     
     // Register Fields
@@ -62,6 +62,8 @@ void SamplesController::on_View_Changed() {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
+    SamplesView* view  = (SamplesView*)this->get_View();
+    
     // Offset Start
     
     QLineEdit* txt_offset_start = (QLineEdit*)manager
@@ -79,6 +81,34 @@ void SamplesController::on_View_Changed() {
     QString range_span = comb_range_span->currentText();
     
     this->get_Model()->set(SamplesModel::FIELD_RANGE_SPAN, range_span, true);
+    
+    HexViewer* hex_viewer = view->get_HexViewer();
+    
+    hex_viewer->set_VisibleRows(range_span.toUInt() / 8);
+    
+    // Samples
+    
+    QLabel* lbl_samples = (QLabel*)manager->get(SamplesModel::VALUE_SAMPLES);
+    
+    quint64 range_span_val = range_span.toUInt();
+    quint64 off_start_val  = offset_start.toUInt();
+    quint64 off_end_val    = off_start_val + range_span_val;
+    
+    QString offset_end = QString::asprintf("%llu", off_start_val + off_end_val);
+    
+    lbl_samples->setText(offset_start + " - " + offset_end);
+    
+    // Time
+    
+    QLabel* lbl_time = (QLabel*)manager->get(SamplesModel::VALUE_TIME);
+    
+    quint8 range_ind = comb_range_span->currentIndex();
+    
+    quint64 time_start_val = (off_start_val / (range_span_val / (range_ind + 1))) * 5;
+    quint64 time_end_val   = time_start_val + 5 + range_ind * 5;
+    
+    lbl_time->setText(QString::asprintf("%llu", time_start_val) +
+        " - " + QString::asprintf("%llu", time_end_val));
 }
 
 void SamplesController::on_Model_Changed(QString key, QString value) {
@@ -191,8 +221,6 @@ void SamplesController::on_Clicked_Offset() {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     SamplesView*  view  = (SamplesView*)this->get_View();
     
-    // Get Data
-    
     FileLoader* loader     = FileLoader::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
     
@@ -211,9 +239,73 @@ void SamplesController::on_Clicked_Offset() {
 }
 
 void SamplesController::on_Clicked_Prev() {
-    qDebug() << "prev clicked";
+    
+    SamplesModel* model = (SamplesModel*)this->get_Model();
+    SamplesView*  view  = (SamplesView*)this->get_View();
+    
+    FileLoader* loader     = FileLoader::get_Instance();
+    HexViewer*  hex_viewer = view->get_HexViewer();
+    
+    quint64 offset = model->get_OffsetStart();
+    quint64 rs     = model->get_RangeSpan();
+    quint8  bps    = model->get_BitsPerSample();
+    quint8  bytes  = bps / 8;
+    
+    if (offset % rs != 0) {
+        offset += (rs - offset % rs);
+    }
+    
+    if (offset < rs) {
+        offset = 0;
+    } else {
+        offset -= rs;
+    }
+    
+    qDebug() << "Prev:" << offset;
+    
+    model->set_OffsetStart(offset);
+    
+    QByteArray buffer;
+    
+    loader->get_Chunk(buffer, offset * bytes, rs * bytes);
+    
+    hex_viewer->set_Offset(offset);
+    hex_viewer->set_VisibleRows(rs / 8);
+    hex_viewer->set_Data(buffer, bytes);
+    
+    this->on_View_Changed();
 }
 
 void SamplesController::on_Clicked_Next() {
-    qDebug() << "next clicked";
+    
+    SamplesModel* model = (SamplesModel*)this->get_Model();
+    SamplesView*  view  = (SamplesView*)this->get_View();
+    
+    FileLoader* loader     = FileLoader::get_Instance();
+    HexViewer*  hex_viewer = view->get_HexViewer();
+    
+    quint64 offset = model->get_OffsetStart();
+    quint64 rs     = model->get_RangeSpan();
+    quint8  bps    = model->get_BitsPerSample();
+    quint8  bytes  = bps / 8;
+    
+    if (offset % rs != 0) {
+        offset += (rs - offset % rs);
+    }
+    
+    offset += rs;
+    
+    qDebug() << "Next:" << offset;
+    
+    model->set_OffsetStart(offset);
+    
+    QByteArray buffer;
+    
+    loader->get_Chunk(buffer, offset * bytes, rs * bytes);
+    
+    hex_viewer->set_Offset(offset);
+    hex_viewer->set_VisibleRows(rs / 8);
+    hex_viewer->set_Data(buffer, bytes);
+    
+    this->on_View_Changed();
 }

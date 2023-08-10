@@ -139,6 +139,9 @@ QWidget* SamplesView::make_Navigator() {
     manager->push(SamplesModel::FIELD_PREV, btn_prev);
     manager->push(SamplesModel::FIELD_NEXT, btn_next);
     
+    manager->push(SamplesModel::VALUE_SAMPLES, lbl_sampv);
+    manager->push(SamplesModel::VALUE_TIME, lbl_timev);
+    
     return wd_main;
 }
 
@@ -171,7 +174,7 @@ QWidget* SamplesView::make_Offseter() {
     QComboBox*   cb_span  = new QComboBox();
     
     lbl_span->setText("Range Span");
-    cb_span->addItems({ "368", "736", "1104" });
+    cb_span->addItems({ "48", "96", "144" });
     cb_span->setMaximumWidth(100);
     
     lay_span->addWidget(lbl_span);

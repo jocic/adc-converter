@@ -11,7 +11,7 @@ HexViewer::HexViewer(quint64 len) {
     // Core Parameters
     
     m_Rows        = qCeil(len / double(HEX_VIEWER_ROW_WIDTH));
-    m_RowsVisible = 32;
+    m_RowsVisible = 6;
     m_Length      = len;
     m_Offset      = 0;
     

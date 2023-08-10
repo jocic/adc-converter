@@ -6,6 +6,7 @@
 
 /*
  * TO-DO (Paid Version):
+ *   - Samples view wasn't thought through - do some work with the software and see what can be done to improve it
  *   - Reuse the existing code but restructure the core of the application model/view/controller and split it
  *     into sections/modules that communicate through signals/slots - make it maintainable
  *   - Add an Icon

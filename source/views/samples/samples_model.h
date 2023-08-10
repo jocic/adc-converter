@@ -15,6 +15,8 @@ class SamplesModel : public AbstractModel {
         static const QString FIELD_OFFSET;
         
         static const QString VALUE_BITS_PER_SAMPLE;
+        static const QString VALUE_SAMPLES;
+        static const QString VALUE_TIME;
         
         quint64 get_OffsetStart();
         void set_OffsetStart(QString value);
