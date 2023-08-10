@@ -17,6 +17,12 @@ HexViewer::HexViewer(quint64 len) {
         m_Length += HEX_VIEWER_ROW_WIDTH - filler_count;
     }
     
+    // Font
+    
+    m_Font = new QFont();
+    
+    m_Font->setFamily("Noto Mono");
+    
     // Arrange Offset & Hex Collumns
     
     QWidget*     wd_off  = new QWidget();
@@ -64,29 +70,63 @@ HexViewer::~HexViewer() {
 
 bool HexViewer::set_Data(QByteArray& data, quint8 bytes) {
     
-    if (data.size() > 0) {
+    quint64 i = 0, j = 0;
+    
+    QString val_none = "..";
+    
+    if (bytes == 4) {
+        val_none = "........";
+    } else if (bytes == 3) {
+        val_none = "......";
+    } else if (bytes == 2) {
+        val_none = "....";
+    }
+    
+    while (i < m_Values.size()) {
         
-        quint64 i = 0;
+        QString hex_val = val_none;
+        quint64 raw_val = 0;
         
-        for (const auto& n : data) {
+        if (j + (bytes - 1) < data.size()) {
             
-            QString hex_val = QString::asprintf("%02X", n & 0xFF);
-            
-            if (i < m_Values.size()) {
-                m_Values.at(i++)->setText(hex_val);
-            } else {
-                break;
+            if (bytes == 4) {
+                
+                raw_val |= ((data[j++] & 0xFF)      );
+                raw_val |= ((data[j++] & 0xFF) <<  8);
+                raw_val |= ((data[j++] & 0xFF) << 16);
+                raw_val |= ((data[j++] & 0xFF) << 24);
+                
+                hex_val = QString::asprintf("%08llX", raw_val & 0xFFFFFFFF);
+            }
+            else if (bytes == 3) {
+                
+                raw_val |= ((data[j++] & 0xFF)      );
+                raw_val |= ((data[j++] & 0xFF) <<  8);
+                raw_val |= ((data[j++] & 0xFF) << 16);
+                
+                hex_val = QString::asprintf("%06llX", raw_val & 0xFFFFFF);
+            }
+            else if (bytes == 2) {
+                
+                raw_val |= ((data[j++] & 0xFF)      );
+                raw_val |= ((data[j++] & 0xFF) <<  8);
+                
+                hex_val = QString::asprintf("%04llX", raw_val & 0xFFFF);
+            }
+            else {
+                
+                raw_val |= ((data[j++] & 0xFF)      );
+                
+                hex_val = QString::asprintf("%02llX", raw_val & 0xFF);
             }
         }
         
-        while (i++ < m_Values.size()) {
-            m_Values.at(i)->setText("..");
-        }
+        m_Values.at(i)->setText(hex_val);
         
-        return true;
+        i++;
     }
     
-    return false;
+    return true;
 }
 
 QVector<quint64>& HexViewer::get_Data() {
@@ -103,7 +143,7 @@ QWidget* HexViewer::make_Offsets(quint64 len) {
     QVBoxLayout* lay_off = new QVBoxLayout();
     
     lay_off->setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
-    lay_off->setContentsMargins(6, 3, 6, 3);
+    lay_off->setContentsMargins(8, 4, 8, 4);
     
     wd_off->setLayout(lay_off);
     
@@ -112,6 +152,7 @@ QWidget* HexViewer::make_Offsets(quint64 len) {
         HexOffset* lbl_offset = new HexOffset();
         
         lbl_offset->setText(QString::asprintf("%08llu", i * HEX_VIEWER_ROW_WIDTH));
+        lbl_offset->setFont(*m_Font);
         lay_off->addWidget(lbl_offset);
         
         m_Offsets.push_back(lbl_offset);
@@ -126,7 +167,7 @@ QWidget* HexViewer::make_Values(quint64 len) {
     QVBoxLayout* lay_vals = new QVBoxLayout();
     
     lay_vals->setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
-    lay_vals->setContentsMargins(6, 3, 6, 3);
+    lay_vals->setContentsMargins(8, 4, 8, 4);
     
     wd_vals->setLayout(lay_vals);
     
@@ -144,8 +185,8 @@ QWidget* HexViewer::make_Values(quint64 len) {
             
             HexValue* lbl_value = new HexValue();
             
-            lbl_value->setText(".");
-            lbl_value->setMinimumWidth(15);
+            lbl_value->setText("..");
+            lbl_value->setFont(*m_Font);
             lbl_value->setAlignment(Qt::AlignmentFlag::AlignHCenter);
             
             lay_vals_in->addWidget(lbl_value);

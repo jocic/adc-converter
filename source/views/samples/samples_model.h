@@ -14,12 +14,17 @@ class SamplesModel : public AbstractModel {
         static const QString FIELD_RANGE_SPAN;
         static const QString FIELD_OFFSET;
         
+        static const QString VALUE_BITS_PER_SAMPLE;
+        
         quint64 get_OffsetStart();
         void set_OffsetStart(QString value);
         void set_OffsetStart(quint64 value);
         quint64 get_RangeSpan();
         void set_RangeSpan(QString value);
         void set_RangeSpan(quint64 value);
+        quint8 get_BitsPerSample();
+        void set_BitsPerSample(quint8 value);
+        void set_BitsPerSample(QString value);
 };
 
 #endif

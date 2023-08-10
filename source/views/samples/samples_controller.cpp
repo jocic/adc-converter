@@ -9,8 +9,17 @@
 #include "samples_view.h"
 #include "samples_controller.h"
 #include "file_loader.h"
+#include "workers/load_worker.h"
 
 void SamplesController::on_View_Initialized(ElementManager* manager) {
+    
+    // Init Model
+    
+    SamplesModel* model = (SamplesModel*)this->get_Model();
+    
+    model->set_OffsetStart(0);
+    model->set_RangeSpan(16);
+    model->set_BitsPerSample(8);
     
     // Register Fields
     
@@ -39,6 +48,14 @@ void SamplesController::on_View_Initialized(ElementManager* manager) {
     
     connect(btn_next, &QPushButton::clicked,
         this, &SamplesController::on_Clicked_Next);
+    
+    // Connect Loader
+    
+    FileLoader* loader = FileLoader::get_Instance();
+    LoadWorker* worker = loader->get_Worker();
+    
+    connect(worker, &LoadWorker::sig_Done,
+        this, &SamplesController::on_Data_Loaded);
 }
 
 void SamplesController::on_View_Changed() {
@@ -92,10 +109,15 @@ void SamplesController::on_Mediator_Notify(QString topic,
         
         SamplesModel* model = (SamplesModel*)this->get_Model();
         
-        quint64 sample_rate = 0;
+        quint64 sample_rate     = 0;
+        quint8  bits_per_sample = 0;
         
         if (params.contains("txt_SampleRate")) {
             sample_rate = params["txt_SampleRate"].toUInt();
+        }
+        
+        if (params.contains("comb_BitsPerSample")) {
+            bits_per_sample = params["comb_BitsPerSample"].toUInt();
         }
         
         quint64 range = qMin(1280, qMax(16, qCeil(sample_rate / 8000)));
@@ -106,19 +128,48 @@ void SamplesController::on_Mediator_Notify(QString topic,
         
         model->set_OffsetStart(0);
         model->set_RangeSpan(range);
+        model->set_BitsPerSample(bits_per_sample);
     }
     
 }
 
+void SamplesController::on_Data_Loaded() {
+    
+    SamplesModel* model = (SamplesModel*)this->get_Model();
+    SamplesView*  view  = (SamplesView*)this->get_View();
+    
+    model->set_OffsetStart(0);
+    
+    FileLoader* loader     = FileLoader::get_Instance();
+    HexViewer*  hex_viewer = view->get_HexViewer();
+    
+    quint8  bps   = model->get_BitsPerSample();
+    quint8  bytes = bps / 8;
+    
+    QByteArray buffer;
+    loader->get_Chunk(buffer, 0, hex_viewer->get_Length() * bytes);
+    
+    hex_viewer->set_Data(buffer, bytes);
+}
+
 void SamplesController::on_Clicked_Offset() {
     
-    SamplesView* view   = (SamplesView*)this->get_View();
-    FileLoader*  loader = FileLoader::get_Instance();
+    SamplesModel* model = (SamplesModel*)this->get_Model();
+    SamplesView*  view  = (SamplesView*)this->get_View();
     
-    QByteArray* data_buffer = loader->get_Buffer();
-    HexViewer*  hex_viewer  = view->get_HexViewer();
+    // Get Data
     
-    hex_viewer->set_Data(*data_buffer, 1);
+    FileLoader* loader     = FileLoader::get_Instance();
+    HexViewer*  hex_viewer = view->get_HexViewer();
+    
+    quint64 offset = model->get_OffsetStart();
+    quint8  bps    = model->get_BitsPerSample();
+    quint8  bytes  = bps / 8;
+    
+    QByteArray buffer;
+    loader->get_Chunk(buffer, offset, hex_viewer->get_Length() * bytes);
+    
+    hex_viewer->set_Data(buffer, bytes);
 }
 
 void SamplesController::on_Clicked_Prev() {

@@ -6,6 +6,8 @@ const QString SamplesModel::FIELD_OFFSET_START = "txt_OffsetStart";
 const QString SamplesModel::FIELD_RANGE_SPAN   = "comb_RangeSpan";
 const QString SamplesModel::FIELD_OFFSET       = "btn_Offset";
 
+const QString SamplesModel::VALUE_BITS_PER_SAMPLE = "val_BitsPerSample";
+
 quint64 SamplesModel::get_OffsetStart() {
     
     QString value = this->get(FIELD_OFFSET_START);
@@ -50,4 +52,27 @@ void SamplesModel::set_RangeSpan(quint64 value) {
     this->set(FIELD_RANGE_SPAN, new_value);
     
     emit SamplesModel::sig_Model_Updated(FIELD_RANGE_SPAN, new_value);
+}
+
+quint8 SamplesModel::get_BitsPerSample() {
+    
+    QString value = this->get(VALUE_BITS_PER_SAMPLE);
+    
+    return value.toUInt(NULL, 10);
+}
+
+void SamplesModel::set_BitsPerSample(quint8 value) {
+    
+    QString new_value = QString::asprintf("%u", value);
+    
+    this->set(VALUE_BITS_PER_SAMPLE, new_value);
+    
+    emit SamplesModel::sig_Model_Updated(VALUE_BITS_PER_SAMPLE, new_value);
+}
+
+void SamplesModel::set_BitsPerSample(QString value) {
+    
+    this->set(VALUE_BITS_PER_SAMPLE, value);
+    
+    emit SamplesModel::sig_Model_Updated(VALUE_BITS_PER_SAMPLE, value);
 }

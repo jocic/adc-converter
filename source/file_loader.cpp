@@ -68,13 +68,15 @@ QByteArray* FileLoader::get_Buffer() {
 
 void FileLoader::get_Chunk(QByteArray& buffer, quint64 off, quint64 len) {
     
-    buffer.clear();
+    if (off < 0) {
+        return;
+    }
     
-    if (off >= 0 && m_Buffer->size() >= (off + len)) {
-        
-        for (quint64 i = off, j = off + len; i < j; i++) {
-            buffer.push_back(m_Buffer[i]);
-        }
+    quint64 i = off;
+    quint64 j = off + len;
+    
+    while (i < j && i < m_Buffer->size()) {
+        buffer.push_back(m_Buffer->at(i++));
     }
 }
 

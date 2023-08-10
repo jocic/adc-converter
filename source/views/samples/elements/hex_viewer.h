@@ -7,6 +7,7 @@
 #include <QWidget>
 #include <QVector>
 #include <QLabel>
+#include <QFont>
 
 class HexOffset : public QLabel {
     // Does nothing atm...
@@ -20,6 +21,7 @@ class HexViewer : public QWidget {
     
     private:
         
+        QFont*              m_Font;
         QVector<HexOffset*> m_Offsets;
         QVector<HexValue*>  m_Values;
         quint64             m_Rows;

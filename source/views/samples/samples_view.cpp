@@ -36,7 +36,7 @@ void SamplesView::initialize(QWidget* parent) {
     
     lay_ctl->addWidget(wd_navigator);
     lay_ctl->addWidget(this->make_VLine());
-    lay_ctl->addWidget(wd_offseter);    
+    lay_ctl->addWidget(wd_offseter);
     lay_ctl->setContentsMargins(0, 0, 0, 0);
     
     wd_ctl->setLayout(lay_ctl);
