@@ -25,6 +25,7 @@ class HexViewer : public QWidget {
         QVector<HexOffset*> m_Offsets;
         QVector<HexValue*>  m_Values;
         quint64             m_Rows;
+        quint64             m_Offset;
         quint64             m_Length;
         QVector<quint64>    m_Data;
         
@@ -34,7 +35,9 @@ class HexViewer : public QWidget {
     public:
         HexViewer(quint64 len = 128);
         ~HexViewer();
-        bool set_Data(QByteArray& data, quint8 bytes);
+        void set_Offset(quint64 offset);
+        quint64 get_Offset();
+        void set_Data(QByteArray& data, quint8 bytes);
         QVector<quint64>& get_Data();
         quint64 get_Rows();
         quint64 get_Length();

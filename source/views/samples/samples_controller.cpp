@@ -60,7 +60,16 @@ void SamplesController::on_View_Initialized(ElementManager* manager) {
 
 void SamplesController::on_View_Changed() {
     
-    // Does nothing...
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    // Offset Start
+    
+    QLineEdit* txt_offset_start = (QLineEdit*)manager
+        ->get(SamplesModel::FIELD_OFFSET_START);
+    
+    QString offset_start = txt_offset_start->text();
+    
+    this->get_Model()->set(SamplesModel::FIELD_OFFSET_START, offset_start);
 }
 
 void SamplesController::on_Model_Changed(QString key, QString value) {
@@ -129,6 +138,8 @@ void SamplesController::on_Mediator_Notify(QString topic,
         model->set_OffsetStart(0);
         model->set_RangeSpan(range);
         model->set_BitsPerSample(bits_per_sample);
+        
+        this->on_Data_Loaded(); // Reset Hex Viewer
     }
     
 }
@@ -139,6 +150,7 @@ void SamplesController::on_Data_Loaded() {
     SamplesView*  view  = (SamplesView*)this->get_View();
     
     model->set_OffsetStart(0);
+    model->set_RangeSpan("16");
     
     FileLoader* loader     = FileLoader::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
@@ -149,6 +161,7 @@ void SamplesController::on_Data_Loaded() {
     QByteArray buffer;
     loader->get_Chunk(buffer, 0, hex_viewer->get_Length() * bytes);
     
+    hex_viewer->set_Offset(0);
     hex_viewer->set_Data(buffer, bytes);
 }
 
@@ -167,8 +180,10 @@ void SamplesController::on_Clicked_Offset() {
     quint8  bytes  = bps / 8;
     
     QByteArray buffer;
-    loader->get_Chunk(buffer, offset, hex_viewer->get_Length() * bytes);
     
+    loader->get_Chunk(buffer, offset * bytes, hex_viewer->get_Length() * bytes);
+    
+    hex_viewer->set_Offset(offset);
     hex_viewer->set_Data(buffer, bytes);
 }
 

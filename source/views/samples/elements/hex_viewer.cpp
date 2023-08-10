@@ -1,4 +1,5 @@
 #include <QtMath>
+#include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
@@ -10,6 +11,7 @@ HexViewer::HexViewer(quint64 len) {
     
     m_Rows   = qCeil(len / double(HEX_VIEWER_ROW_WIDTH));
     m_Length = len;
+    m_Offset = 0;
     
     quint64 filler_count = 0;
     
@@ -19,9 +21,11 @@ HexViewer::HexViewer(quint64 len) {
     
     // Font
     
+    QFont sys_font = QFontDatabase::systemFont(QFontDatabase::SystemFont::FixedFont);
+    
     m_Font = new QFont();
     
-    m_Font->setFamily("Noto Mono");
+    m_Font->setFamily(sys_font.family());
     
     // Arrange Offset & Hex Collumns
     
@@ -68,7 +72,24 @@ HexViewer::~HexViewer() {
     }
 }
 
-bool HexViewer::set_Data(QByteArray& data, quint8 bytes) {
+void HexViewer::set_Offset(quint64 offset) {
+    
+    if (offset >= 0) {
+        
+        m_Offset = offset;
+        
+        for (const auto lbl_off : m_Offsets) {
+            lbl_off->setText(QString::asprintf("%08llu", offset));
+            offset += 8;
+        }
+    }
+}
+
+quint64 HexViewer::get_Offset() {
+    return m_Offset;
+}
+
+void HexViewer::set_Data(QByteArray& data, quint8 bytes) {
     
     quint64 i = 0, j = 0;
     
@@ -125,8 +146,6 @@ bool HexViewer::set_Data(QByteArray& data, quint8 bytes) {
         
         i++;
     }
-    
-    return true;
 }
 
 QVector<quint64>& HexViewer::get_Data() {
