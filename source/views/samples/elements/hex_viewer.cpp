@@ -218,6 +218,7 @@ QWidget* HexViewer::make_Values(quint64 len) {
     lay_vals->setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
     lay_vals->setContentsMargins(8, 4, 8, 4);
     
+    wd_vals->setStyleSheet("QLabel:hover { background: #eee; }");
     wd_vals->setLayout(lay_vals);
     
     for (quint64 i = 0; i < len; i++) {

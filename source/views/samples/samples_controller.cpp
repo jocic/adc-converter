@@ -193,6 +193,8 @@ void SamplesController::on_Mediator_Notify(QString topic,
         model->set_BitsPerSample(bits_per_sample);
         
         this->on_Data_Loaded(); // Reset Hex Viewer
+        
+        this->on_View_Changed();
     }
 }
 

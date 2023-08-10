@@ -109,8 +109,8 @@ QWidget* SamplesView::make_Navigator() {
     lbl_time->setText("Time:");
     lbl_time->setFont(*fnt_Bold);
     
-    lbl_sampv->setText("1 - 1001");
-    lbl_timev->setText("0 - 1");
+    lbl_sampv->setText("1 - 48");
+    lbl_timev->setText("0 - 5");
     
     lay_details->addWidget(lbl_samp, 0, 0);
     lay_details->addWidget(lbl_sampv, 0, 1);
