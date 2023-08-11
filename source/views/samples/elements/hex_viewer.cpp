@@ -1,10 +1,28 @@
 #include <QtMath>
+#include <QMap>
 #include <QSpacerItem>
 #include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
 #include "hex_viewer.h"
+#include "app_mediator.h"
+
+HexValue::HexValue() {
+    this->setMouseTracking(true);
+}
+
+
+void HexValue::mousePressEvent(QMouseEvent *ev) {
+    
+    QMap<QString,QString> data;
+    
+    data.insert("val", this->text());
+    
+    AppMediator* mediator = AppMediator::get_Instance();
+    
+    emit mediator->sig_Notify("hex_selected", data);
+}
 
 HexViewer::HexViewer(quint64 len) {
     

@@ -99,5 +99,13 @@ void HexadecimalController::on_Model_Cleared() {
 void HexadecimalController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
-    // Does nothing...
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    if (topic == "hex_selected") {
+        
+        QLineEdit* hexadecimal = (QLineEdit*)manager
+            ->get(HexadecimalModel::FIELD_HEXADECIMAL);
+        
+        hexadecimal->setText(params["val"]);
+    }
 }

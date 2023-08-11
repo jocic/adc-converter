@@ -14,7 +14,15 @@ class HexOffset : public QLabel {
 };
 
 class HexValue : public QLabel {
-    // Does nothing atm...
+    
+    protected:
+        void mousePressEvent(QMouseEvent *ev) override;
+    
+    public:
+        HexValue();
+    
+    signals:
+        void sig_Clicked(QString value);
 };
 
 class HexViewer : public QWidget {
