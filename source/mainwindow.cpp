@@ -1,3 +1,5 @@
+#include <QApplication>
+
 #include "mainwindow.h"
 #include "./app_mediator.h"
 #include "./ui_mainwindow.h"
@@ -59,4 +61,8 @@ void MainWindow::on_action_Load_triggered()
     }
 }
 
+void MainWindow::on_action_Exit_triggered() {
+    
+    QApplication::exit(0);
+}
 
