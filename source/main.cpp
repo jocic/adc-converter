@@ -4,6 +4,11 @@
 #include "mainwindow.h"
 #include "app_icons.h"
 
+// Widget initialization should be common for all controllers, maybe put the code
+// the constructor of the AbstractWidget and remove the member function
+
+// controllers should inherit a notifier class used for generating simple pop-up notifications
+
 /*
  * TO-DO (Paid Version):
  *   - Samples view wasn't thought through - do some work with the software and see what can be done to improve it

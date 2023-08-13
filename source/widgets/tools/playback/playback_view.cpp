@@ -8,7 +8,7 @@
 
 #include "mvc/element_manager.h"
 #include "app_icons.h"
-//#include "playback_model.h"
+#include "playback_model.h"
 #include "playback_view.h"
 
 void PlaybackView::initialize(QWidget* parent) {
@@ -42,8 +42,9 @@ void PlaybackView::initialize(QWidget* parent) {
     
     ElementManager* manager = this->get_ElementManager();
     
-    //manager->push(BpsModel::FIELD_BITS_PER_SAMPLE, combo);
-    //manager->push(BpsModel::FIELD_SIGNED, check);
+    manager->push(PlaybackModel::FIELD_PLAYBACK_TIME, slider);
+    manager->push(PlaybackModel::FIELD_TOGGLE, toggle);
+    manager->push(PlaybackModel::FIELD_EXPORT, save);
     
     emit PlaybackView::sig_View_Initialized(manager);
 }

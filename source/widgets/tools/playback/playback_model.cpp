@@ -1,6 +1,8 @@
 #include "playback_model.h"
 
 const QString PlaybackModel::FIELD_PLAYBACK_TIME = "slide_PlaybackTime";
+const QString PlaybackModel::FIELD_TOGGLE        = "btn_Toggle";
+const QString PlaybackModel::FIELD_EXPORT        = "btn_Export";
 
 qreal PlaybackModel::get_PlaybackTime() {
     

@@ -160,9 +160,11 @@ set(PROJECT_SOURCES
     
     source/widgets/tools/playback/playback_model.h
     source/widgets/tools/playback/playback_view.h
+    source/widgets/tools/playback/playback_controller.h
     source/widgets/tools/playback/playback_widget.h
     source/widgets/tools/playback/playback_model.cpp
     source/widgets/tools/playback/playback_view.cpp
+    source/widgets/tools/playback/playback_controller.cpp
     source/widgets/tools/playback/playback_widget.cpp
     
     # Tools (Hex Converter)
