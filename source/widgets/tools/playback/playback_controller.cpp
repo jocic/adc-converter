@@ -64,6 +64,18 @@ void PlaybackController::on_Mediator_Notify(QString topic,
         
         qDebug() << "Received:" << m_SampleRate << m_BitsPerSample;
     }
+    else if (topic == "wd_playback_request") {
+        
+        QString request = "none";
+        
+        if (params.contains("request")) {
+            request = params["request"];
+        }
+        
+        if (request == "export") {
+            this->on_Clicked_Export();
+        }
+    }
 }
 
 void PlaybackController::on_Clicked_Toggle() {
@@ -84,10 +96,15 @@ void PlaybackController::on_Clicked_Export() {
     export_dialog.selectFile(export_filename);
     export_dialog.exec();
     
+    if (export_dialog.result() == 0) { // Cancelled
+        return;
+    }
+    
     if (export_dialog.selectedFiles().size() == 0) {
         QMessageBox* alert = new QMessageBox();
         alert->setWindowTitle("I/O Warning");
         alert->setText("You haven't selected a file.");
+        alert->exec();
         return;
     }
     
@@ -100,6 +117,7 @@ void PlaybackController::on_Clicked_Export() {
         QMessageBox* alert = new QMessageBox();
         alert->setWindowTitle("I/O Error");
         alert->setText("File couldn't be generated.");
+        alert->exec();
         return;
     }
     
@@ -132,4 +150,5 @@ void PlaybackController::on_Clicked_Export() {
     QMessageBox* alert = new QMessageBox();
     alert->setWindowTitle("App Notice");
     alert->setText("Audio exported.");
+    alert->exec();
 }

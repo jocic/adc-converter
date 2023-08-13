@@ -43,6 +43,9 @@ MainWindow::MainWindow(QWidget *parent)
     mediator->add_Consumer(ui->tab_Samples->controller(), "wd_stream_data");
     mediator->add_Consumer(ui->wd_Tools_PL->controller(), "wd_stream_data");
     mediator->add_Consumer(ui->wd_Info_GEN->controller(), "wd_stream_data");
+    
+    mediator->add_Consumer(ui->wd_Tools_PL->controller(), "wd_playback_request");
+    
     mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "hex_selected");
 }
 
@@ -63,7 +66,18 @@ void MainWindow::on_action_Load_triggered()
 }
 
 void MainWindow::on_action_Exit_triggered() {
-    
     QApplication::exit(0);
+}
+
+
+void MainWindow::on_action_Export_triggered() {
+    
+    QMap<QString,QString> params;
+    
+    params.insert("request", "export");
+    
+    emit AppMediator::get_Instance()->sig_Notify("wd_playback_request", params);
+    
+    return;
 }
 
