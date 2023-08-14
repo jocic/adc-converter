@@ -32,6 +32,8 @@ set(PROJECT_SOURCES
     source/app_icons.cpp
     source/app_mediator.h
     source/app_mediator.cpp
+    source/file_manager.h
+    source/file_manager.cpp
     source/file_loader.h
     source/file_loader.cpp
     
