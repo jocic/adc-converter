@@ -55,7 +55,7 @@ void FileManager::set_Popover(ProcessingPopover* pop) {
     }
 }
 
-FileWorker* FileManager::get_Worker() {
+AbstractWorker* FileManager::get_Worker() {
     return m_Worker;
 }
 
