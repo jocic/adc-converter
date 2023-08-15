@@ -8,7 +8,7 @@
 void GeneralController::on_View_Initialized(ElementManager* manager) {
     
     FileLoader* loader = FileLoader::get_Instance();
-    LoadWorker* worker = loader->get_Worker();
+    LoadWorker* worker = (LoadWorker*)loader->get_Worker();
     
     connect(worker, &LoadWorker::sig_Done,
         this, &GeneralController::on_Data_Loaded);

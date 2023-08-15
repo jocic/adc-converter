@@ -102,7 +102,6 @@ void FileManager::on_Done() {
     qDebug() << "Handled done signal...";
     
     if (m_Popover != NULL) {
-        
         m_Popover->setVisible(false);
     }
 }

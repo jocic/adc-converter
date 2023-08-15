@@ -9919,7 +9919,7 @@
 											"top": 423,
 											"width": 175,
 											"height": 13,
-											"text": "-on_Error(code)",
+											"text": "#on_Error(code)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9936,7 +9936,7 @@
 											"top": 438,
 											"width": 175,
 											"height": 13,
-											"text": "-on_Abort()",
+											"text": "#on_Abort()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9953,7 +9953,7 @@
 											"top": 453,
 											"width": 175,
 											"height": 13,
-											"text": "-on_Done()",
+											"text": "#on_Done()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10009,7 +10009,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": -896,
-									"top": 56,
+									"top": 48,
 									"width": 10,
 									"height": 10
 								},
@@ -10025,7 +10025,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": -896,
-									"top": 56,
+									"top": 48,
 									"width": 10,
 									"height": 10
 								}
@@ -11554,7 +11554,7 @@
 								"$ref": "AAAAAAGJ8pkpAUs7CZU="
 							},
 							"name": "on_Error",
-							"visibility": "private",
+							"visibility": "protected",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -11573,7 +11573,7 @@
 								"$ref": "AAAAAAGJ8pkpAUs7CZU="
 							},
 							"name": "on_Abort",
-							"visibility": "private"
+							"visibility": "protected"
 						},
 						{
 							"_type": "UMLOperation",
@@ -11582,7 +11582,7 @@
 								"$ref": "AAAAAAGJ8pkpAUs7CZU="
 							},
 							"name": "on_Done",
-							"visibility": "private"
+							"visibility": "protected"
 						},
 						{
 							"_type": "UMLOperation",

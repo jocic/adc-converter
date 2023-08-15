@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QMutex>
 #include <QByteArray>
+#include <QObject>
 #include <QFile>
 
 #include "popovers/processing/processing_popover.h"
@@ -19,15 +20,15 @@ class FileManager : public QFileDialog {
         ProcessingPopover* m_Popover;
         FileWorker*        m_Worker;
         
-    private slots:
-        void on_Error(QFile::FileError error);
-        void on_Abort();
-        void on_Done();
-        
     protected:
         void set_Buffer(QByteArray* buf);
         void set_Popover(ProcessingPopover* pop);
         void set_Worker(FileWorker* wrk);
+        
+    protected slots:
+        void on_Error(QFile::FileError error);
+        void on_Abort();
+        void on_Done();
         
     public:
         FileManager();

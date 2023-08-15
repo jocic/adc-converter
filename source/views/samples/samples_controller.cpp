@@ -52,7 +52,7 @@ void SamplesController::on_View_Initialized(ElementManager* manager) {
     // Connect Loader
     
     FileLoader* loader = FileLoader::get_Instance();
-    LoadWorker* worker = loader->get_Worker();
+    LoadWorker* worker = (LoadWorker*)loader->get_Worker();
     
     connect(worker, &LoadWorker::sig_Done,
         this, &SamplesController::on_Data_Loaded);

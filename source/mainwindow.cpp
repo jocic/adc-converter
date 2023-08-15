@@ -54,14 +54,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_action_Load_triggered()
-{    
+void MainWindow::on_action_Load_triggered() {
+    
     FileLoader* loader = FileLoader::get_Instance(); 
     
-    QString file_selected = loader->getOpenFileName(this, "Load Samples");
+    loader->exec();
     
-    if (!file_selected.isEmpty()) {
-        loader->process(file_selected);
+    if (loader->is_Selected()) {
+        loader->process();
     }
 }
 
