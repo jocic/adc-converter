@@ -3,7 +3,6 @@
 #define ADC_MAIN_WINDOW_H
 
 #include <QMainWindow>
-#include "file_loader.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +22,8 @@ private slots:
     void on_action_Exit_triggered();
     
     void on_action_Export_triggered();
+    
+    void on_action_Save_triggered();
     
 private:
     Ui::MainWindow *ui;

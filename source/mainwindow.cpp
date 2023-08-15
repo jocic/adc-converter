@@ -1,9 +1,12 @@
 #include <QApplication>
 
 #include "mainwindow.h"
-#include "./app_mediator.h"
 #include "./ui_mainwindow.h"
-#include "widgets/options/stream/stream_model.h"
+
+#include "app_mediator.h"
+#include "file_loader.h"
+#include "file_saver.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -52,6 +55,19 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+void MainWindow::on_action_Save_triggered() {
+    
+    FileLoader* loader = FileLoader::get_Instance();
+    FileSaver*  saver  = FileSaver::get_Instance();
+    
+    saver->exec();
+    
+    if (saver->is_Selected()) {
+        saver->process(loader->get_Buffer());
+    }
 }
 
 void MainWindow::on_action_Load_triggered() {

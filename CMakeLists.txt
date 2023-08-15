@@ -36,11 +36,13 @@ set(PROJECT_SOURCES
     source/file_manager.cpp
     source/file_loader.h
     source/file_loader.cpp
+    source/file_saver.h
+    source/file_saver.cpp
     
     source/main.cpp
     
-    source/mainwindow.cpp
     source/mainwindow.h
+    source/mainwindow.cpp
     source/mainwindow.ui
     
     source/widgets/abstract_widget.h
@@ -49,12 +51,12 @@ set(PROJECT_SOURCES
     # MVC
     
     source/mvc/element_manager.h
-    source/mvc/abstract_model.h
-    source/mvc/abstract_view.h
-    source/mvc/abstract_controller.h
     source/mvc/element_manager.cpp
+    source/mvc/abstract_model.h
     source/mvc/abstract_model.cpp
+    source/mvc/abstract_view.h
     source/mvc/abstract_view.cpp
+    source/mvc/abstract_controller.h
     source/mvc/abstract_controller.cpp
     
     # Converters
@@ -68,10 +70,12 @@ set(PROJECT_SOURCES
     
     # Workers
     
-    source/workers/file_worker.h
+    source/workers/abstract_worker.h
+    source/workers/abstract_worker.cpp
     source/workers/load_worker.h
-    source/workers/file_worker.cpp
     source/workers/load_worker.cpp
+    source/workers/save_worker.h
+    source/workers/save_worker.cpp
     
     ############
     # POPOVERS #

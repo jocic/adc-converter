@@ -29,6 +29,13 @@ quint64 SaveWorker::get_OptimalChunkSize() {
 
 void SaveWorker::run() {
     
+    // Check Member Variables
+    
+    if (m_File == NULL || m_Buffer == NULL) {
+        emit SaveWorker::sig_Done();
+        return;
+    }
+    
     // Open File
     
     if (!m_File->isOpen() && !m_File->open(
@@ -39,6 +46,9 @@ void SaveWorker::run() {
         QFile::FileError error_code = m_File->error();
         
         emit SaveWorker::sig_Error(error_code);
+        emit SaveWorker::sig_Done();
+        
+        return;
     }
     
     quint64 wrote_bytes = 0;
@@ -49,19 +59,29 @@ void SaveWorker::run() {
     
     for (quint64 i = 0; i < m_Buffer->size(); i+=chunk_size) {
         
-        QByteArray chunk = m_Buffer->sliced(i, chunk_size);
+        QByteArray chunk;
+        
+        quint64 max_slice = qMin(m_Buffer->size() - i, chunk_size);
+        
+        chunk += m_Buffer->sliced(i, max_slice);
         
         m_File->write(chunk);
         
         QFile::FileError error_code = m_File->error();
         
         if (error_code != QFile::FileError::NoError) {
-            emit SaveWorker::sig_Error(error_code); break;
+            
+            m_File->close();
+            
+            emit SaveWorker::sig_Error(error_code);
+            emit SaveWorker::sig_Done();
+            
+            return;
         }
         
         wrote_bytes += chunk_size;
         
-        quint8 progress = (double(wrote_bytes) / m_File->size()) * 100;
+        quint8 progress = (double(wrote_bytes) / m_Buffer->size()) * 100;
         
         emit SaveWorker::sig_Wrote(chunk);
         emit SaveWorker::sig_Progressed(progress);
@@ -70,6 +90,8 @@ void SaveWorker::run() {
     }
     
     qDebug() << "File written completely...";
+    
+    m_File->close();
     
     emit SaveWorker::sig_Done();
 }

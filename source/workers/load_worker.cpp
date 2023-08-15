@@ -30,6 +30,13 @@ quint64 LoadWorker::get_OptimalChunkSize() {
 
 void LoadWorker::run() {
     
+    // Check Member Variables
+    
+    if (m_File == NULL) {
+        emit LoadWorker::sig_Done();
+        return;
+    }
+    
     // Open File
     
     if (!m_File->isOpen() && !m_File->open(QFile::OpenModeFlag::ReadOnly)) {
@@ -39,6 +46,9 @@ void LoadWorker::run() {
         QFile::FileError error_code = m_File->error();
         
         emit LoadWorker::sig_Error(error_code);
+        emit LoadWorker::sig_Done();
+        
+        return;
     }
     
     quint64 read_bytes = 0;
@@ -54,7 +64,13 @@ void LoadWorker::run() {
         QFile::FileError error_code = m_File->error();
         
         if (error_code != QFile::FileError::NoError) {
-            emit LoadWorker::sig_Error(error_code); break;
+            
+            m_File->close();
+            
+            emit LoadWorker::sig_Error(error_code);
+            emit LoadWorker::sig_Done();
+            
+            return;
         }
         
         read_bytes += chunk.size();
@@ -68,6 +84,8 @@ void LoadWorker::run() {
     }
     
     qDebug() << "File read completely...";
+    
+    m_File->close();
     
     emit LoadWorker::sig_Done();
 }
