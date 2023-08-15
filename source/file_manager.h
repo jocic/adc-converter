@@ -9,7 +9,7 @@
 #include <QFile>
 
 #include "popovers/processing/processing_popover.h"
-#include "workers/abstract_worker.h"
+#include "app/workers/abstract_worker.h"
 
 class FileManager : public QFileDialog {
     

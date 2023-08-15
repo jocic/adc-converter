@@ -26,10 +26,6 @@ include_directories(source)
 
 set(PROJECT_SOURCES
     
-    # General
-    
-    source/app_icons.h
-    source/app_icons.cpp
     source/app_mediator.h
     source/app_mediator.cpp
     source/file_manager.h
@@ -48,18 +44,14 @@ set(PROJECT_SOURCES
     source/widgets/abstract_widget.h
     source/widgets/abstract_widget.cpp
     
-    # Workers
-    
-    source/workers/abstract_worker.h
-    source/workers/abstract_worker.cpp
-    source/workers/load_worker.h
-    source/workers/load_worker.cpp
-    source/workers/save_worker.h
-    source/workers/save_worker.cpp
-    
     #######
     # APP #
     #######
+    
+    # General
+    
+    source/app_icons.h
+    source/app_icons.cpp
     
     # Converters
     
@@ -80,6 +72,15 @@ set(PROJECT_SOURCES
     source/app/mvc/abstract_view.cpp
     source/app/mvc/abstract_controller.h
     source/app/mvc/abstract_controller.cpp
+    
+    # Workers
+    
+    source/app/workers/abstract_worker.h
+    source/app/workers/abstract_worker.cpp
+    source/app/workers/load_worker.h
+    source/app/workers/load_worker.cpp
+    source/app/workers/save_worker.h
+    source/app/workers/save_worker.cpp
     
     ############
     # POPOVERS #

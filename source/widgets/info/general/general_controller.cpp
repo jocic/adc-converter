@@ -3,7 +3,7 @@
 #include "general_model.h"
 #include "general_controller.h"
 #include "file_loader.h"
-#include "workers/load_worker.h"
+#include "app/workers/load_worker.h"
 
 void GeneralController::on_View_Initialized(ElementManager* manager) {
     

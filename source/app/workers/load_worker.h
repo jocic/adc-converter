@@ -5,7 +5,7 @@
 #include <QObject>
 #include <QFile>
 
-#include "workers/abstract_worker.h"
+#include "app/workers/abstract_worker.h"
 
 class LoadWorker : public AbstractWorker {
     

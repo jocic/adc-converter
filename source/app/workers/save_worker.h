@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QByteArray>
 
-#include "workers/abstract_worker.h"
+#include "app/workers/abstract_worker.h"
 
 class SaveWorker : public AbstractWorker {
     
