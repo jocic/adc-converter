@@ -26,6 +26,19 @@ include_directories(source)
 
 set(PROJECT_SOURCES
     
+    #######
+    # APP #
+    #######
+    
+    # Converters
+    
+    source/app/converters/abstract_converter.h
+    source/app/converters/abstract_converter.cpp
+    source/app/converters/hexadecimal_converter.h
+    source/app/converters/hexadecimal_converter.cpp
+    source/app/converters/decimal_converter.h
+    source/app/converters/decimal_converter.cpp
+    
     # General
     
     source/app_icons.h
@@ -58,15 +71,6 @@ set(PROJECT_SOURCES
     source/mvc/abstract_view.cpp
     source/mvc/abstract_controller.h
     source/mvc/abstract_controller.cpp
-    
-    # Converters
-    
-    source/converters/abstract_converter.h
-    source/converters/abstract_converter.cpp
-    source/converters/hexadecimal_converter.h
-    source/converters/hexadecimal_converter.cpp
-    source/converters/decimal_converter.h
-    source/converters/decimal_converter.cpp
     
     # Workers
     

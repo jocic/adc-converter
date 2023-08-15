@@ -1,6 +1,6 @@
 #include <QLineEdit>
 
-#include "converters/decimal_converter.h"
+#include "app/converters/decimal_converter.h"
 #include "decimal_model.h"
 #include "decimal_controller.h"
 

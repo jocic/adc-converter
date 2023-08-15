@@ -216,7 +216,7 @@ QWidget* HexViewer::make_Offsets(quint64 len) {
         lbl_offset->setText(QString::asprintf("%08llu", i * HEX_VIEWER_ROW_WIDTH));
         lbl_offset->setFont(*m_Font);
         
-        if (i > 31) {
+        if (i >= m_RowsVisible) {
             lbl_offset->setVisible(false);
         }
         
@@ -249,7 +249,7 @@ QWidget* HexViewer::make_Values(quint64 len) {
         
         wd_vals_in->setLayout(lay_vals_in);
         
-        if (i > 31) {
+        if (i >= m_RowsVisible) {
             wd_vals_in->setVisible(false);
         }
         

@@ -2,7 +2,7 @@
 #include <QLineEdit>
 #include <QCheckBox>
 
-#include "converters/hexadecimal_converter.h"
+#include "app/converters/hexadecimal_converter.h"
 #include "hexadecimal_model.h"
 #include "hexadecimal_controller.h"
 

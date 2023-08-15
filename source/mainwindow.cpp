@@ -52,8 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
     mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "hex_selected");
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
