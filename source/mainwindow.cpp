@@ -80,11 +80,6 @@ void MainWindow::on_action_Load_triggered() {
     }
 }
 
-void MainWindow::on_action_Exit_triggered() {
-    QApplication::exit(0);
-}
-
-
 void MainWindow::on_action_Export_triggered() {
     
     QMap<QString,QString> params;
@@ -94,5 +89,35 @@ void MainWindow::on_action_Export_triggered() {
     emit AppMediator::get_Instance()->sig_Notify("wd_playback_request", params);
     
     return;
+}
+
+void MainWindow::on_action_Exit_triggered() {
+    QApplication::exit(0);
+}
+
+void MainWindow::on_action_Scope_triggered() {
+    
+    quint8 tab_index = ui->tab_General->indexOf(ui->tab_Scope);
+    
+    if (ui->action_Scope->isChecked()) {
+        ui->tab_General->addTab(ui->tab_Scope, "Scope");
+        tab_index = ui->tab_General->indexOf(ui->tab_Scope);
+        ui->tab_General->setCurrentIndex(tab_index);
+    } else {
+        ui->tab_General->removeTab(tab_index);
+    }
+}
+
+void MainWindow::on_action_Samples_triggered() {
+    
+    quint8 tab_index = ui->tab_General->indexOf(ui->tab_Samples);
+    
+    if (ui->action_Samples->isChecked()) {
+        ui->tab_General->addTab(ui->tab_Samples, "Samples");
+        tab_index = ui->tab_General->indexOf(ui->tab_Samples);
+        ui->tab_General->setCurrentIndex(tab_index);
+    } else {
+        ui->tab_General->removeTab(tab_index);
+    }
 }
 

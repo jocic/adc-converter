@@ -25,6 +25,10 @@ private slots:
     
     void on_action_Save_triggered();
     
+    void on_action_Scope_triggered();
+    
+    void on_action_Samples_triggered();
+    
 private:
     Ui::MainWindow *ui;
 };

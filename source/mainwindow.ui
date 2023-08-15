@@ -81,7 +81,7 @@
            <enum>Qt::ElideNone</enum>
           </property>
           <property name="tabsClosable">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="movable">
            <bool>true</bool>
@@ -228,8 +228,6 @@
      </property>
      <addaction name="action_Scope"/>
      <addaction name="action_Samples"/>
-     <addaction name="action_FFT"/>
-     <addaction name="action_Terminal"/>
     </widget>
     <addaction name="menu_View"/>
     <addaction name="menu_Widgets"/>
@@ -409,6 +407,9 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Scope</string>
    </property>
@@ -417,24 +418,11 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Samples</string>
-   </property>
-  </action>
-  <action name="action_FFT">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>FFT</string>
-   </property>
-  </action>
-  <action name="action_Terminal">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Terminal</string>
    </property>
   </action>
   <action name="action_Exit">
