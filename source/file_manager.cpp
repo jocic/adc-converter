@@ -59,7 +59,7 @@ AbstractWorker* FileManager::get_Worker() {
     return m_Worker;
 }
 
-void FileManager::set_Worker(FileWorker* wrk) {
+void FileManager::set_Worker(AbstractWorker* wrk) {
     
     if (wrk != NULL) {
         delete m_Worker;

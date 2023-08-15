@@ -28,7 +28,7 @@ FileLoader::FileLoader() {
     
     // Initialize Core Member Variables
     
-    QByteArray*        buffer = new QByteArray();
+    QByteArray*        buffer  = new QByteArray();
     ProcessingPopover* popover = new ProcessingPopover();
     LoadWorker*        worker  = new LoadWorker();   
     
@@ -70,7 +70,7 @@ FileLoader::FileLoader() {
 }
 
 void FileLoader::process() {
-    qDebug() << "?";
+    
     if (!this->is_Selected()) {
         return;
     }
