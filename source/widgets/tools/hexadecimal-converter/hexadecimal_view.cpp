@@ -6,7 +6,7 @@
 #include <QLineEdit>
 #include <QCheckBox>
 
-#include "mvc/element_manager.h"
+#include "app/mvc/element_manager.h"
 #include "hexadecimal_model.h"
 #include "hexadecimal_view.h"
 

@@ -4,7 +4,7 @@
 
 #include <QWidget>
 
-#include "mvc/abstract_view.h"
+#include "app/mvc/abstract_view.h"
 
 class SerialView : public AbstractView {
     

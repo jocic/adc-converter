@@ -4,9 +4,9 @@
 
 #include <QWidget>
 
-#include "mvc/abstract_model.h"
-#include "mvc/abstract_view.h"
-#include "mvc/abstract_controller.h"
+#include "app/mvc/abstract_model.h"
+#include "app/mvc/abstract_view.h"
+#include "app/mvc/abstract_controller.h"
 
 class AbstractWidget : public QWidget {
     

@@ -9,7 +9,7 @@
 #include <QMap>
 #include <QVector>
 
-#include "mvc/abstract_controller.h"
+#include "app/mvc/abstract_controller.h"
 
 class AppMediator : public QObject {
     

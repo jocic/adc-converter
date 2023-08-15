@@ -26,19 +26,6 @@ include_directories(source)
 
 set(PROJECT_SOURCES
     
-    #######
-    # APP #
-    #######
-    
-    # Converters
-    
-    source/app/converters/abstract_converter.h
-    source/app/converters/abstract_converter.cpp
-    source/app/converters/hexadecimal_converter.h
-    source/app/converters/hexadecimal_converter.cpp
-    source/app/converters/decimal_converter.h
-    source/app/converters/decimal_converter.cpp
-    
     # General
     
     source/app_icons.h
@@ -61,17 +48,6 @@ set(PROJECT_SOURCES
     source/widgets/abstract_widget.h
     source/widgets/abstract_widget.cpp
     
-    # MVC
-    
-    source/mvc/element_manager.h
-    source/mvc/element_manager.cpp
-    source/mvc/abstract_model.h
-    source/mvc/abstract_model.cpp
-    source/mvc/abstract_view.h
-    source/mvc/abstract_view.cpp
-    source/mvc/abstract_controller.h
-    source/mvc/abstract_controller.cpp
-    
     # Workers
     
     source/workers/abstract_worker.h
@@ -80,6 +56,30 @@ set(PROJECT_SOURCES
     source/workers/load_worker.cpp
     source/workers/save_worker.h
     source/workers/save_worker.cpp
+    
+    #######
+    # APP #
+    #######
+    
+    # Converters
+    
+    source/app/converters/abstract_converter.h
+    source/app/converters/abstract_converter.cpp
+    source/app/converters/hexadecimal_converter.h
+    source/app/converters/hexadecimal_converter.cpp
+    source/app/converters/decimal_converter.h
+    source/app/converters/decimal_converter.cpp
+    
+    # MVC
+    
+    source/app/mvc/element_manager.h
+    source/app/mvc/element_manager.cpp
+    source/app/mvc/abstract_model.h
+    source/app/mvc/abstract_model.cpp
+    source/app/mvc/abstract_view.h
+    source/app/mvc/abstract_view.cpp
+    source/app/mvc/abstract_controller.h
+    source/app/mvc/abstract_controller.cpp
     
     ############
     # POPOVERS #

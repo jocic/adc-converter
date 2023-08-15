@@ -2,7 +2,7 @@
 
 #define ADC_WIDGETS_STREAM_MODEL_H
 
-#include "mvc/abstract_model.h"
+#include "app/mvc/abstract_model.h"
 
 class StreamModel : public AbstractModel {
     

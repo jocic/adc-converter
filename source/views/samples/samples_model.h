@@ -2,7 +2,7 @@
 
 #define ADC_VIEWS_SAMPLES_MODEL_H
 
-#include "mvc/abstract_model.h"
+#include "app/mvc/abstract_model.h"
 
 class SamplesModel : public AbstractModel {
     

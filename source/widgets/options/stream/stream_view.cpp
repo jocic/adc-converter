@@ -7,7 +7,7 @@
 #include <QComboBox>
 #include <QCheckBox>
 
-#include "mvc/element_manager.h"
+#include "app/mvc/element_manager.h"
 #include "stream_model.h"
 #include "stream_view.h"
 

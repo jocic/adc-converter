@@ -7,7 +7,7 @@
 #include <QComboBox>
 #include <QPushButton>
 
-#include "mvc/element_manager.h"
+#include "app/mvc/element_manager.h"
 #include "communication_model.h"
 #include "communication_view.h"
 

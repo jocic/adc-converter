@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QComboBox>
 
-#include "mvc/element_manager.h"
+#include "app/mvc/element_manager.h"
 #include "serial_model.h"
 #include "serial_view.h"
 

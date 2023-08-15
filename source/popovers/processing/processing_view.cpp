@@ -5,7 +5,7 @@
 #include <QProgressBar>
 #include <QPushButton>
 
-#include "mvc/element_manager.h"
+#include "app/mvc/element_manager.h"
 #include "processing_model.h"
 #include "processing_view.h"
 

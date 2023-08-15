@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QLineEdit>
 
-#include "mvc/element_manager.h"
+#include "app/mvc/element_manager.h"
 #include "reference_model.h"
 #include "reference_view.h"
 

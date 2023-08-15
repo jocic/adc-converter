@@ -4,7 +4,7 @@
 #include <QFormLayout>
 #include <QLabel>
 
-#include "mvc/element_manager.h"
+#include "app/mvc/element_manager.h"
 #include "general_model.h"
 #include "general_view.h"
 

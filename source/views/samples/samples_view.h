@@ -6,7 +6,7 @@
 #include <QLabel>
 #include <QVector>
 
-#include "mvc/abstract_view.h"
+#include "app/mvc/abstract_view.h"
 #include "elements/hex_viewer.h"
 
 class SamplesView : public AbstractView {

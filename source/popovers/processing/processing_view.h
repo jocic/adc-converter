@@ -2,7 +2,7 @@
 
 #define ADC_POPOVERS_PROCESSING_VIEW_H
 
-#include "mvc/abstract_view.h"
+#include "app/mvc/abstract_view.h"
 
 class ProcessingView : public AbstractView {
     

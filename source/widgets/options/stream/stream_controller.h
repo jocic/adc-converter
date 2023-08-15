@@ -2,7 +2,7 @@
 
 #define ADC_WIDGETS_STREAM_CONTROLLER_H
 
-#include "mvc/abstract_controller.h"
+#include "app/mvc/abstract_controller.h"
 
 class StreamController : public AbstractController {
     

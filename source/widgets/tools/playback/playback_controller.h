@@ -2,7 +2,7 @@
 
 #define ADC_WIDGETS_PLAYBACK_CONTROLLER_H
 
-#include "mvc/abstract_controller.h"
+#include "app/mvc/abstract_controller.h"
 
 class PlaybackController : public AbstractController {
     

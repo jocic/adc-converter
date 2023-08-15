@@ -12,7 +12,7 @@
 #include <QLabel>
 #include <QVector>
 
-#include "mvc/element_manager.h"
+#include "app/mvc/element_manager.h"
 #include "elements/hex_viewer.h"
 #include "samples_model.h"
 #include "samples_view.h"

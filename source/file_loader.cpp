@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <QFile>
 
-#include "mvc/element_manager.h"
+#include "app/mvc/element_manager.h"
 #include "popovers/processing/processing_model.h"
 #include "workers/load_worker.h"
 #include "file_loader.h"

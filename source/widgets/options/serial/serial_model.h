@@ -4,7 +4,7 @@
 
 #include <QSerialPort>
 
-#include "mvc/abstract_model.h"
+#include "app/mvc/abstract_model.h"
 
 class SerialModel : public AbstractModel {
     

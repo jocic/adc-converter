@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QLineEdit>
 
-#include "mvc/element_manager.h"
+#include "app/mvc/element_manager.h"
 #include "decimal_model.h"
 #include "decimal_view.h"
 
