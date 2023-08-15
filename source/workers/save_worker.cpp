@@ -2,31 +2,6 @@
 
 #include "save_worker.h"
 
-quint64 SaveWorker::get_OptimalChunkSize() {
-    
-    if (m_Buffer == NULL) {
-        qDebug() << "No buffer set...";
-        return 0;
-    }
-    
-    quint64 chunk_size = 1;
-    
-    if (m_Buffer->size() < 10e6) {
-        chunk_size = m_Buffer->size() / 100;
-    } else if (m_Buffer->size() < 100e6) {
-        chunk_size = m_Buffer->size() / 1000;
-    } else {
-        chunk_size = m_Buffer->size() / 10000;
-    }
-    
-    chunk_size += (512 - (chunk_size % 512));
-    
-    qDebug() << "Calculated chunk size of " << chunk_size
-        << " for " << m_Buffer->size();
-    
-    return chunk_size;
-}
-
 void SaveWorker::run() {
     
     // Check Member Variables
@@ -55,7 +30,7 @@ void SaveWorker::run() {
     
     // Read File
     
-    quint64 chunk_size = this->get_OptimalChunkSize();
+    quint64 chunk_size = this->calc_ChunkSize(m_Buffer->size());
     
     for (quint64 i = 0; i < m_Buffer->size(); i+=chunk_size) {
         
