@@ -29,6 +29,18 @@ private slots:
     
     void on_action_Samples_triggered();
     
+    void on_action_Options_triggered();
+    
+    void on_action_Tools_triggered();
+    
+    void on_action_Info_triggered();
+    
+    void on_dock_Options_visibilityChanged(bool visible);
+    
+    void on_dock_Tools_visibilityChanged(bool visible);
+    
+    void on_dock_Info_visibilityChanged(bool visible);
+    
 private:
     Ui::MainWindow *ui;
 };

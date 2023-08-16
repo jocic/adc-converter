@@ -137,3 +137,33 @@ void MainWindow::on_action_Samples_triggered() {
     }
 }
 
+void MainWindow::on_action_Options_triggered() {
+    
+    if (ui->action_Options->isChecked()) {
+        this->addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, ui->dock_Options);
+        ui->dock_Options->setVisible(true);
+    } else {
+        this->removeDockWidget(ui->dock_Options);
+    }
+}
+
+void MainWindow::on_action_Tools_triggered() {
+    
+    if (ui->action_Tools->isChecked()) {
+        this->addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, ui->dock_Tools);
+        ui->dock_Tools->setVisible(true);
+    } else {
+        this->removeDockWidget(ui->dock_Tools);
+    }
+}
+
+void MainWindow::on_action_Info_triggered() {
+    
+    if (ui->action_Info->isChecked()) {
+        this->addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, ui->dock_Info);
+        ui->dock_Info->setVisible(true);
+    } else {
+        this->removeDockWidget(ui->dock_Info);
+    }
+}
+
