@@ -28,7 +28,7 @@ void SaveWorker::run() {
     
     quint64 wrote_bytes = 0;
     
-    // Read File
+    // Write File
     
     quint64 chunk_size = this->calc_ChunkSize(m_Buffer->size());
     

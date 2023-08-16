@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QByteArray>
 
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
@@ -6,6 +7,9 @@
 #include "app/app_mediator.h"
 #include "app/app_loader.h"
 #include "app/app_saver.h"
+#include "app/app_exporter.h"
+
+#include "widgets/options/stream/stream_model.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -82,13 +86,25 @@ void MainWindow::on_action_Load_triggered() {
 
 void MainWindow::on_action_Export_triggered() {
     
-    QMap<QString,QString> params;
+    // Get Stream Data
     
-    params.insert("request", "export");
+    StreamModel* model  = (StreamModel*)ui->wd_Options_STR->model();
     
-    emit AppMediator::get_Instance()->sig_Notify("wd_playback_request", params);
+    quint64 sample_rate     = model->get_SampleRate();
+    quint8  bits_per_sample = model->get_BitsPerSample();
+    bool    signed_samples  = model->get_Signed();
     
-    return;
+    // Show Dialog
+    
+    AppLoader*   loader   = AppLoader::get_Instance();
+    AppExporter* exporter = AppExporter::get_Instance();
+    
+    exporter->exec();
+    
+    if (exporter->is_Selected()) {
+        exporter->process(loader->get_Buffer(),
+            sample_rate, bits_per_sample, signed_samples);
+    }
 }
 
 void MainWindow::on_action_Exit_triggered() {

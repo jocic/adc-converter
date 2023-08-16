@@ -44,8 +44,13 @@ AppSaver::AppSaver() {
     
     // Setup Dialog
     
+    QString dump_filename = "dump_" +
+        QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss") + ".dat";
+    
     this->setWindowTitle("Save Dump");
+    this->setAcceptMode(QFileDialog::AcceptSave);
     this->setLabelText(QFileDialog::DialogLabel::Accept, "Save");
+    this->selectFile(dump_filename);
     
     // Connect Everything
     
