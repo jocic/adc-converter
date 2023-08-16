@@ -8,7 +8,7 @@
 #include "samples_model.h"
 #include "samples_view.h"
 #include "samples_controller.h"
-#include "app/file_loader.h"
+#include "app/app_loader.h"
 #include "app/workers/load_worker.h"
 
 void SamplesController::on_View_Initialized(ElementManager* manager) {
@@ -51,7 +51,7 @@ void SamplesController::on_View_Initialized(ElementManager* manager) {
     
     // Connect Loader
     
-    FileLoader* loader = FileLoader::get_Instance();
+    AppLoader* loader = AppLoader::get_Instance();
     LoadWorker* worker = (LoadWorker*)loader->get_Worker();
     
     connect(worker, &LoadWorker::sig_Done,
@@ -203,7 +203,7 @@ void SamplesController::on_Data_Loaded() {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     SamplesView*  view  = (SamplesView*)this->get_View();
     
-    FileLoader* loader     = FileLoader::get_Instance();
+    AppLoader* loader     = AppLoader::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
     
     quint64 rs    = model->get_RangeSpan();
@@ -223,7 +223,7 @@ void SamplesController::on_Clicked_Offset() {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     SamplesView*  view  = (SamplesView*)this->get_View();
     
-    FileLoader* loader     = FileLoader::get_Instance();
+    AppLoader* loader     = AppLoader::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
     
     quint64 offset = model->get_OffsetStart();
@@ -245,7 +245,7 @@ void SamplesController::on_Clicked_Prev() {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     SamplesView*  view  = (SamplesView*)this->get_View();
     
-    FileLoader* loader     = FileLoader::get_Instance();
+    AppLoader* loader     = AppLoader::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
     
     quint64 offset = model->get_OffsetStart();
@@ -283,7 +283,7 @@ void SamplesController::on_Clicked_Next() {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     SamplesView*  view  = (SamplesView*)this->get_View();
     
-    FileLoader* loader     = FileLoader::get_Instance();
+    AppLoader* loader     = AppLoader::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
     
     quint64 offset = model->get_OffsetStart();

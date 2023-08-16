@@ -8,23 +8,23 @@
 #include "app/mvc/element_manager.h"
 #include "popovers/processing/processing_model.h"
 #include "app/workers/save_worker.h"
-#include "app/file_saver.h"
+#include "app/app_saver.h"
 
-FileSaver* FileSaver::M_INSTANCE = NULL;
-QMutex     FileSaver::M_MUTEX;
+AppSaver* AppSaver::M_INSTANCE = NULL;
+QMutex     AppSaver::M_MUTEX;
 
-FileSaver* FileSaver::get_Instance() {
+AppSaver* AppSaver::get_Instance() {
     
     QMutexLocker locker(&M_MUTEX);
     
     if (M_INSTANCE == NULL) {
-        M_INSTANCE = new FileSaver();
+        M_INSTANCE = new AppSaver();
     }
     
     return M_INSTANCE;
 }
 
-FileSaver::FileSaver() {
+AppSaver::AppSaver() {
     
     // Initialize Core Member Variables
     
@@ -50,19 +50,19 @@ FileSaver::FileSaver() {
     // Connect Everything
     
     connect(worker, &SaveWorker::sig_Error,
-        this, &FileSaver::on_Error);
+        this, &AppSaver::on_Error);
     
     connect(worker, &SaveWorker::sig_Done,
-        this, &FileSaver::on_Done);
+        this, &AppSaver::on_Done);
     
     connect(worker, &SaveWorker::sig_Progressed,
         progress_bar, &QProgressBar::setValue);
     
     connect(popover, &ProcessingPopover::sig_Abort,
-        this, &FileSaver::on_Abort);
+        this, &AppSaver::on_Abort);
     
     connect(popover, &ProcessingPopover::finished,
-        this, &FileSaver::on_Abort);
+        this, &AppSaver::on_Abort);
     
     // Set References
     
@@ -71,7 +71,7 @@ FileSaver::FileSaver() {
     this->set_Worker(worker);
 }
 
-void FileSaver::process(QByteArray* buffer) {
+void AppSaver::process(QByteArray* buffer) {
     
     if (!this->is_Selected()) {
         return;

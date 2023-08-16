@@ -2,12 +2,12 @@
 
 #include "general_model.h"
 #include "general_controller.h"
-#include "app/file_loader.h"
+#include "app/app_loader.h"
 #include "app/workers/load_worker.h"
 
 void GeneralController::on_View_Initialized(ElementManager* manager) {
     
-    FileLoader* loader = FileLoader::get_Instance();
+    AppLoader* loader = AppLoader::get_Instance();
     LoadWorker* worker = (LoadWorker*)loader->get_Worker();
     
     connect(worker, &LoadWorker::sig_Done,
@@ -68,7 +68,7 @@ void GeneralController::on_Mediator_Notify(QString topic,
     
     if (topic == "wd_stream_data") {
         
-        FileLoader* loader = FileLoader::get_Instance();
+        AppLoader* loader = AppLoader::get_Instance();
         
         QLabel* samples = (QLabel*)manager
             ->get(GeneralModel::FIELD_SAMPLES);
@@ -116,7 +116,7 @@ void GeneralController::on_Data_Loaded() {
     QLabel* duration = (QLabel*)manager
         ->get(GeneralModel::FIELD_DURATION);
     
-    FileLoader* loader = FileLoader::get_Instance();
+    AppLoader* loader = AppLoader::get_Instance();
     
     quint64 buffer_size = loader->get_Buffer()->size();
     

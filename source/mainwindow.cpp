@@ -4,8 +4,8 @@
 #include "./ui_mainwindow.h"
 
 #include "app/app_mediator.h"
-#include "app/file_loader.h"
-#include "app/file_saver.h"
+#include "app/app_loader.h"
+#include "app/app_saver.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     ////////////////////////////////////////
     
     AppMediator* mediator = AppMediator::get_Instance();
-    FileLoader*  loader   = FileLoader::get_Instance();
+    AppLoader*  loader   = AppLoader::get_Instance();
     
     mediator->add_Provider(ui->wd_Options_STR->controller(), "wd_stream_data");
     
@@ -59,8 +59,8 @@ MainWindow::~MainWindow() {
 
 void MainWindow::on_action_Save_triggered() {
     
-    FileLoader* loader = FileLoader::get_Instance();
-    FileSaver*  saver  = FileSaver::get_Instance();
+    AppLoader* loader = AppLoader::get_Instance();
+    AppSaver*  saver  = AppSaver::get_Instance();
     
     saver->exec();
     
@@ -71,7 +71,7 @@ void MainWindow::on_action_Save_triggered() {
 
 void MainWindow::on_action_Load_triggered() {
     
-    FileLoader* loader = FileLoader::get_Instance(); 
+    AppLoader* loader = AppLoader::get_Instance(); 
     
     loader->exec();
     

@@ -10,7 +10,7 @@
 #include "playback_model.h"
 #include "playback_view.h"
 #include "playback_controller.h"
-#include "app/file_loader.h"
+#include "app/app_loader.h"
 
 void PlaybackController::on_View_Initialized(ElementManager* manager) {
     
@@ -125,7 +125,7 @@ void PlaybackController::on_Clicked_Export() {
     wav_set_SampleRate(&export_wav, m_SampleRate);
     wav_set_BitsPerSample(&export_wav, m_BitsPerSample);
     
-    QByteArray* buffer = FileLoader::get_Instance()->get_Buffer();
+    QByteArray* buffer = AppLoader::get_Instance()->get_Buffer();
     
     WAV_PCM32 sample = 0;
     

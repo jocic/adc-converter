@@ -1,27 +1,27 @@
 #include <QDebug>
 #include <QMessageBox>
 
-#include "file_manager.h"
+#include "app/app_io.h"
 
-FileManager::FileManager() {
+AppIO::AppIO() {
     
     m_Buffer  = NULL;
     m_Popover = NULL;
     m_Worker  = NULL;
 }
 
-FileManager::~FileManager() {
+AppIO::~AppIO() {
     
     delete m_Buffer;
     delete m_Popover;
     delete m_Worker;
 }
 
-QByteArray* FileManager::get_Buffer() {
+QByteArray* AppIO::get_Buffer() {
     return m_Buffer;
 }
 
-void FileManager::set_Buffer(QByteArray* buf) {
+void AppIO::set_Buffer(QByteArray* buf) {
     
     if (buf != NULL) {
         delete m_Buffer;
@@ -29,7 +29,7 @@ void FileManager::set_Buffer(QByteArray* buf) {
     }
 }
 
-void FileManager::get_Chunk(QByteArray& buf, quint64 off, quint64 len) {
+void AppIO::get_Chunk(QByteArray& buf, quint64 off, quint64 len) {
     
     if (off < 0 || m_Buffer == NULL) {
         return;
@@ -43,11 +43,11 @@ void FileManager::get_Chunk(QByteArray& buf, quint64 off, quint64 len) {
     }
 }
 
-ProcessingPopover* FileManager::get_Popover() {
+ProcessingPopover* AppIO::get_Popover() {
     return m_Popover;
 }
 
-void FileManager::set_Popover(ProcessingPopover* pop) {
+void AppIO::set_Popover(ProcessingPopover* pop) {
     
     if (pop != NULL) {
         delete m_Popover;
@@ -55,11 +55,11 @@ void FileManager::set_Popover(ProcessingPopover* pop) {
     }
 }
 
-AbstractWorker* FileManager::get_Worker() {
+AbstractWorker* AppIO::get_Worker() {
     return m_Worker;
 }
 
-void FileManager::set_Worker(AbstractWorker* wrk) {
+void AppIO::set_Worker(AbstractWorker* wrk) {
     
     if (wrk != NULL) {
         delete m_Worker;
@@ -67,25 +67,25 @@ void FileManager::set_Worker(AbstractWorker* wrk) {
     }
 }
 
-bool FileManager::is_Selected() {
+bool AppIO::is_Selected() {
     return this->result() == QFileDialog::DialogCode::Accepted;
 }
 
-void FileManager::clear() {
+void AppIO::clear() {
     
     if (m_Buffer != NULL) {
         m_Buffer->clear();
     }
 }
 
-void FileManager::on_Error(QFile::FileError error) {
+void AppIO::on_Error(QFile::FileError error) {
     
     qDebug() << "Handled error signal...";
     
     // Does nothing...
 }
 
-void FileManager::on_Abort() {
+void AppIO::on_Abort() {
     
     qDebug() << "Handled abort signal...";
     
@@ -97,7 +97,7 @@ void FileManager::on_Abort() {
     }
 }
 
-void FileManager::on_Done() {
+void AppIO::on_Done() {
     
     qDebug() << "Handled done signal...";
     
@@ -106,7 +106,7 @@ void FileManager::on_Done() {
     }
 }
 
-void FileManager::on_Write(QByteArray chunk) {
+void AppIO::on_Write(QByteArray chunk) {
     
     static QMessageBox* alert = new QMessageBox();
     
@@ -140,6 +140,6 @@ void FileManager::on_Write(QByteArray chunk) {
     }
 }
 
-void FileManager::on_Read(QByteArray& buffer, quint64 offset, quint64 length) {
+void AppIO::on_Read(QByteArray& buffer, quint64 offset, quint64 length) {
     this->get_Chunk(buffer, offset, length);
 }

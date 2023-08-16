@@ -8,23 +8,23 @@
 #include "app/mvc/element_manager.h"
 #include "popovers/processing/processing_model.h"
 #include "app/workers/load_worker.h"
-#include "app/file_loader.h"
+#include "app/app_loader.h"
 
-FileLoader* FileLoader::M_INSTANCE = NULL;
-QMutex      FileLoader::M_MUTEX;
+AppLoader* AppLoader::M_INSTANCE = NULL;
+QMutex      AppLoader::M_MUTEX;
 
-FileLoader* FileLoader::get_Instance() {
+AppLoader* AppLoader::get_Instance() {
     
     QMutexLocker locker(&M_MUTEX);
     
     if (M_INSTANCE == NULL) {
-        M_INSTANCE = new FileLoader();
+        M_INSTANCE = new AppLoader();
     }
     
     return M_INSTANCE;
 }
 
-FileLoader::FileLoader() {
+AppLoader::AppLoader() {
     
     // Initialize Core Member Variables
     
@@ -50,22 +50,22 @@ FileLoader::FileLoader() {
     // Connect Everything
     
     connect(worker, &LoadWorker::sig_Error,
-        this, &FileLoader::on_Error);
+        this, &AppLoader::on_Error);
     
     connect(worker, &LoadWorker::sig_Read,
-        this, &FileLoader::on_Write);
+        this, &AppLoader::on_Write);
     
     connect(worker, &LoadWorker::sig_Done,
-        this, &FileLoader::on_Done);
+        this, &AppLoader::on_Done);
     
     connect(worker, &LoadWorker::sig_Progressed,
         progress_bar, &QProgressBar::setValue);
     
     connect(popover, &ProcessingPopover::sig_Abort,
-        this, &FileLoader::on_Abort);
+        this, &AppLoader::on_Abort);
     
     connect(popover, &ProcessingPopover::finished,
-        this, &FileLoader::on_Abort);
+        this, &AppLoader::on_Abort);
     
     // Set References
     
@@ -74,7 +74,7 @@ FileLoader::FileLoader() {
     this->set_Worker(worker);
 }
 
-void FileLoader::process() {
+void AppLoader::process() {
     
     if (!this->is_Selected()) {
         return;

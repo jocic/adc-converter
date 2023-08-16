@@ -1,6 +1,6 @@
-#ifndef ADC_FILE_MANAGER_H
+#ifndef ADC_APP_IO_H
 
-#define ADC_FILE_MANAGER_H
+#define ADC_APP_IO_H
 
 #include <QFileDialog>
 #include <QMutex>
@@ -11,7 +11,7 @@
 #include "popovers/processing/processing_popover.h"
 #include "app/workers/abstract_worker.h"
 
-class FileManager : public QFileDialog {
+class AppIO : public QFileDialog {
     
     Q_OBJECT
     
@@ -31,8 +31,8 @@ class FileManager : public QFileDialog {
         void on_Done();
         
     public:
-        FileManager();
-        ~FileManager();
+        AppIO();
+        ~AppIO();
         QByteArray* get_Buffer();
         void get_Chunk(QByteArray& buf, quint64 off, quint64 len);
         ProcessingPopover* get_Popover();
