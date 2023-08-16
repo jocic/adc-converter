@@ -19,9 +19,6 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS SerialPort)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS SerialPort)
 
-add_subdirectory(libraries/c89-wav)
-include_directories(${C89_WAV_DIR})
-
 include_directories(source)
 
 set(PROJECT_HEADERS
@@ -313,7 +310,6 @@ else()
 endif()
 
 target_link_libraries(adc-converter PRIVATE
-    c89-wav
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::SerialPort)
 
