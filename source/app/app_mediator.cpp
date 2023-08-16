@@ -1,6 +1,6 @@
 #include <QMutexLocker>
 
-#include "app_mediator.h"
+#include "app/app_mediator.h"
 
 AppMediator* AppMediator::M_INSTANCE = NULL;
 QMutex       AppMediator::M_MUTEX;

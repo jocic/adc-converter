@@ -26,32 +26,22 @@ include_directories(source)
 
 set(PROJECT_SOURCES
     
-    source/app_mediator.h
-    source/app_mediator.cpp
-    source/file_manager.h
-    source/file_manager.cpp
-    source/file_loader.h
-    source/file_loader.cpp
-    source/file_saver.h
-    source/file_saver.cpp
-    
-    source/main.cpp
-    
-    source/mainwindow.h
-    source/mainwindow.cpp
-    source/mainwindow.ui
-    
-    source/widgets/abstract_widget.h
-    source/widgets/abstract_widget.cpp
-    
     #######
     # APP #
     #######
     
     # General
     
-    source/app_icons.h
-    source/app_icons.cpp
+    source/app/app_icons.h
+    source/app/app_icons.cpp
+    source/app/app_mediator.h
+    source/app/app_mediator.cpp
+    source/app/file_manager.h
+    source/app/file_manager.cpp
+    source/app/file_loader.h
+    source/app/file_loader.cpp
+    source/app/file_saver.h
+    source/app/file_saver.cpp
     
     # Converters
     
@@ -214,6 +204,17 @@ set(PROJECT_SOURCES
     source/widgets/info/general/general_view.cpp
     source/widgets/info/general/general_controller.cpp
     source/widgets/info/general/general_widget.cpp
+    
+    # General
+    
+    source/main.cpp
+    
+    source/mainwindow.h
+    source/mainwindow.cpp
+    source/mainwindow.ui
+    
+    source/widgets/abstract_widget.h
+    source/widgets/abstract_widget.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

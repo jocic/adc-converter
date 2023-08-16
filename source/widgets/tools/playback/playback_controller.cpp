@@ -10,7 +10,7 @@
 #include "playback_model.h"
 #include "playback_view.h"
 #include "playback_controller.h"
-#include "file_loader.h"
+#include "app/file_loader.h"
 
 void PlaybackController::on_View_Initialized(ElementManager* manager) {
     

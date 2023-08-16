@@ -2,7 +2,7 @@
 #include <QDebug>
 
 #include "mainwindow.h"
-#include "app_icons.h"
+#include "app/app_icons.h"
 
 // Widget initialization should be common for all controllers, maybe put the code
 // the constructor of the AbstractWidget and remove the member function

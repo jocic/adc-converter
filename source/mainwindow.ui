@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>ADC Converter v1.0.0 - Free Version</string>
+   <string>ADC Converter v1.0.0</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QDockWidget &gt; * { border-right: 1px solid #dfdfdf; }</string>

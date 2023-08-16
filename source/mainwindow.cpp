@@ -3,9 +3,9 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
-#include "app_mediator.h"
-#include "file_loader.h"
-#include "file_saver.h"
+#include "app/app_mediator.h"
+#include "app/file_loader.h"
+#include "app/file_saver.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

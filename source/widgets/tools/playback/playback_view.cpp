@@ -7,7 +7,7 @@
 #include <QPushButton>
 
 #include "app/mvc/element_manager.h"
-#include "app_icons.h"
+#include "app/app_icons.h"
 #include "playback_model.h"
 #include "playback_view.h"
 

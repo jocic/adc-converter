@@ -6,7 +6,7 @@
 #include <QVBoxLayout>
 
 #include "hex_viewer.h"
-#include "app_mediator.h"
+#include "app/app_mediator.h"
 
 HexValue::HexValue() {
     this->setMouseTracking(true);

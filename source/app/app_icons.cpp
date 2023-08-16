@@ -1,4 +1,4 @@
-#include "app_icons.h"
+#include "app/app_icons.h"
 
 const QIcon* AppIcons::MAIN = new QIcon("./icons/music-circle.svg");
 

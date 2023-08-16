@@ -7,30 +7,30 @@
 
 #include "app/mvc/element_manager.h"
 #include "popovers/processing/processing_model.h"
-#include "app/workers/save_worker.h"
-#include "file_saver.h"
+#include "app/workers/load_worker.h"
+#include "app/file_loader.h"
 
-FileSaver* FileSaver::M_INSTANCE = NULL;
-QMutex     FileSaver::M_MUTEX;
+FileLoader* FileLoader::M_INSTANCE = NULL;
+QMutex      FileLoader::M_MUTEX;
 
-FileSaver* FileSaver::get_Instance() {
+FileLoader* FileLoader::get_Instance() {
     
     QMutexLocker locker(&M_MUTEX);
     
     if (M_INSTANCE == NULL) {
-        M_INSTANCE = new FileSaver();
+        M_INSTANCE = new FileLoader();
     }
     
     return M_INSTANCE;
 }
 
-FileSaver::FileSaver() {
+FileLoader::FileLoader() {
     
     // Initialize Core Member Variables
     
     QByteArray*        buffer  = new QByteArray();
     ProcessingPopover* popover = new ProcessingPopover();
-    SaveWorker*        worker  = new SaveWorker();
+    LoadWorker*        worker  = new LoadWorker();   
     
     popover->initialize();
     
@@ -44,25 +44,28 @@ FileSaver::FileSaver() {
     
     // Setup Dialog
     
-    this->setWindowTitle("Save Dump");
-    this->setLabelText(QFileDialog::DialogLabel::Accept, "Save");
+    this->setWindowTitle("Load Dump");
+    this->setLabelText(QFileDialog::DialogLabel::Accept, "Load");
     
     // Connect Everything
     
-    connect(worker, &SaveWorker::sig_Error,
-        this, &FileSaver::on_Error);
+    connect(worker, &LoadWorker::sig_Error,
+        this, &FileLoader::on_Error);
     
-    connect(worker, &SaveWorker::sig_Done,
-        this, &FileSaver::on_Done);
+    connect(worker, &LoadWorker::sig_Read,
+        this, &FileLoader::on_Write);
     
-    connect(worker, &SaveWorker::sig_Progressed,
+    connect(worker, &LoadWorker::sig_Done,
+        this, &FileLoader::on_Done);
+    
+    connect(worker, &LoadWorker::sig_Progressed,
         progress_bar, &QProgressBar::setValue);
     
     connect(popover, &ProcessingPopover::sig_Abort,
-        this, &FileSaver::on_Abort);
+        this, &FileLoader::on_Abort);
     
     connect(popover, &ProcessingPopover::finished,
-        this, &FileSaver::on_Abort);
+        this, &FileLoader::on_Abort);
     
     // Set References
     
@@ -71,7 +74,7 @@ FileSaver::FileSaver() {
     this->set_Worker(worker);
 }
 
-void FileSaver::process(QByteArray* buffer) {
+void FileLoader::process() {
     
     if (!this->is_Selected()) {
         return;
@@ -85,7 +88,6 @@ void FileSaver::process(QByteArray* buffer) {
     this->get_Buffer()->clear();
     
     this->get_Worker()->set_File(file);
-    this->get_Worker()->set_Buffer(buffer);
     this->get_Worker()->start();
     
     this->get_Popover()->setVisible(true);
