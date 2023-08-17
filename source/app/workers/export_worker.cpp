@@ -29,14 +29,6 @@ void ExportWorker::set_BitsPerSamplee(quint8 bits_per_sample) {
     }
 }
 
-bool ExportWorker::get_SignedSamples() {
-    return m_SignedSamples;
-}
-
-void ExportWorker::set_SignedSamples(bool signed_samples) {
-    m_SignedSamples = signed_samples;
-}
-
 void ExportWorker::run() {
     
     // Check Member Variables

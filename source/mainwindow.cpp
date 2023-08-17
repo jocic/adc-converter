@@ -92,7 +92,6 @@ void MainWindow::on_action_Export_triggered() {
     
     quint64 sample_rate     = model->get_SampleRate();
     quint8  bits_per_sample = model->get_BitsPerSample();
-    bool    signed_samples  = model->get_Signed();
     
     // Show Dialog
     
@@ -103,7 +102,7 @@ void MainWindow::on_action_Export_triggered() {
     
     if (exporter->is_Selected()) {
         exporter->process(loader->get_Buffer(),
-            sample_rate, bits_per_sample, signed_samples);
+            sample_rate, bits_per_sample);
     }
 }
 

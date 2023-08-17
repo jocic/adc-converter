@@ -24,7 +24,7 @@ class AppExporter : public AppIO {
         static AppExporter* get_Instance();
         void process() override {};
         void process(QByteArray* buffer, quint64 sample_rate,
-            quint8 bits_per_sample, bool signed_samples);
+            quint8 bits_per_sample);
 };
 
 #endif

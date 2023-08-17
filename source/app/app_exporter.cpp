@@ -76,8 +76,8 @@ AppExporter::AppExporter() {
     this->set_Worker(worker);
 }
 
-void AppExporter::process(QByteArray* buffer, quint64 sample_rate,
-    quint8 bits_per_sample, bool signed_samples) {
+void AppExporter::process(QByteArray* buffer,
+    quint64 sample_rate, quint8 bits_per_sample) {
     
     if (!this->is_Selected()) {
         return;
@@ -88,8 +88,7 @@ void AppExporter::process(QByteArray* buffer, quint64 sample_rate,
     
     qDebug() << "Processing:" << filename
         << "Sample Rate:" << sample_rate
-        << "Bits per Sample:" << bits_per_sample
-        << "Signed Samples:" << signed_samples;
+        << "Bits per Sample:" << bits_per_sample;
     
     this->get_Buffer()->clear();
     
@@ -99,7 +98,6 @@ void AppExporter::process(QByteArray* buffer, quint64 sample_rate,
     worker->set_Buffer(buffer);
     worker->set_SampleRate(sample_rate);
     worker->set_BitsPerSamplee(bits_per_sample);
-    worker->set_SignedSamples(signed_samples);
     worker->start();
     
     this->get_Popover()->setVisible(true);

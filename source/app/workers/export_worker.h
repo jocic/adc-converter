@@ -15,7 +15,6 @@ class ExportWorker : public AbstractWorker {
     private:
         quint32 m_SampleRate;
         quint8  m_BitsPerSample;
-        bool    m_SignedSamples;
     
     public:
         ExportWorker();
@@ -23,8 +22,6 @@ class ExportWorker : public AbstractWorker {
         void set_SampleRate(quint32 sample_rate);
         quint8 get_BitsPerSample();
         void set_BitsPerSamplee(quint8 bits_per_sample);
-        bool get_SignedSamples();
-        void set_SignedSamples(bool signed_samples);
         void run() override;
 };
 
