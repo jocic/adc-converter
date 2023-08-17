@@ -83,15 +83,18 @@ void PlaybackController::on_Clicked_Toggle() {
 
 void PlaybackController::on_Clicked_Export() {
     
+    QString export_filename = "export_" +
+        QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss") + ".wav";
+    
     // Show Dialog
     
     AppLoader*   loader   = AppLoader::get_Instance();
     AppExporter* exporter = AppExporter::get_Instance();
     
+    exporter->selectFile(export_filename);
     exporter->exec();
     
     if (exporter->is_Selected()) {
-        exporter->process(loader->get_Buffer(),
-            m_SampleRate, m_BitsPerSample);
+        exporter->process(loader->get_Buffer(), m_SampleRate, m_BitsPerSample);
     }
 }

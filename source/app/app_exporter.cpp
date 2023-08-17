@@ -44,13 +44,9 @@ AppExporter::AppExporter() {
     
     // Setup Dialog
     
-    QString export_filename = "export_" +
-        QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss") + ".wav";
-    
     this->setWindowTitle("Export Dump");
     this->setAcceptMode(QFileDialog::AcceptSave);
     this->setLabelText(QFileDialog::DialogLabel::Accept, "Export");
-    this->selectFile(export_filename);
     
     // Connect Everything
     

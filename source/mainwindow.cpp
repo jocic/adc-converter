@@ -63,9 +63,15 @@ MainWindow::~MainWindow() {
 
 void MainWindow::on_action_Save_triggered() {
     
+    QString dump_filename = "dump_" +
+        QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss") + ".dat";
+    
+    // Show Dialog
+    
     AppLoader* loader = AppLoader::get_Instance();
     AppSaver*  saver  = AppSaver::get_Instance();
     
+    saver->selectFile(dump_filename);
     saver->exec();
     
     if (saver->is_Selected()) {
@@ -86,6 +92,9 @@ void MainWindow::on_action_Load_triggered() {
 
 void MainWindow::on_action_Export_triggered() {
     
+    QString export_filename = "export_" +
+        QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss") + ".wav";
+    
     // Get Stream Data
     
     StreamModel* model  = (StreamModel*)ui->wd_Options_STR->model();
@@ -98,11 +107,11 @@ void MainWindow::on_action_Export_triggered() {
     AppLoader*   loader   = AppLoader::get_Instance();
     AppExporter* exporter = AppExporter::get_Instance();
     
+    exporter->selectFile(export_filename);
     exporter->exec();
     
     if (exporter->is_Selected()) {
-        exporter->process(loader->get_Buffer(),
-            sample_rate, bits_per_sample);
+        exporter->process(loader->get_Buffer(), sample_rate, bits_per_sample);
     }
 }
 

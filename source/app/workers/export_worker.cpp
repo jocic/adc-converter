@@ -7,7 +7,6 @@ ExportWorker::ExportWorker() {
     
     m_SampleRate    = 44100;
     m_BitsPerSample = 16;
-    m_SignedSamples = false;
 }
 
 quint32 ExportWorker::get_SampleRate() {
