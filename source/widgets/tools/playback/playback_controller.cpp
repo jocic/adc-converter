@@ -78,7 +78,19 @@ void PlaybackController::on_Mediator_Notify(QString topic,
 }
 
 void PlaybackController::on_Clicked_Toggle() {
-    qDebug() << "toggle";
+    
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    QPushButton* btn_toggle = (QPushButton*)manager
+        ->get(PlaybackModel::FIELD_TOGGLE);
+    
+    if (m_Playing) {
+        btn_toggle->setText("Play");
+    } else {
+        btn_toggle->setText("Stop");
+    }
+    
+    m_Playing = !m_Playing;
 }
 
 void PlaybackController::on_Clicked_Export() {

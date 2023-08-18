@@ -56,6 +56,10 @@ set(PROJECT_HEADERS
     source/app/workers/save_worker.h
     source/app/workers/export_worker.h
     
+    # Audio
+    
+    source/app/audio/audio_source.h
+    
     ############
     # POPOVERS #
     ############
@@ -183,6 +187,10 @@ set(PROJECT_SOURCES
     source/app/workers/load_worker.cpp
     source/app/workers/save_worker.cpp
     source/app/workers/export_worker.cpp
+    
+    # Audio
+    
+    source/app/audio/audio_source.cpp
     
     ############
     # POPOVERS #

@@ -9,6 +9,7 @@ class PlaybackController : public AbstractController {
     private:
         quint64 m_SampleRate;
         quint8  m_BitsPerSample;
+        bool    m_Playing;
     
     public slots:
         void on_View_Initialized(ElementManager* manager) override;
