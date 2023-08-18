@@ -25,6 +25,7 @@ void PlaybackView::initialize(QWidget* parent) {
     box->setTitle("Playback");
     
     slider->setOrientation(Qt::Orientation::Horizontal);
+    slider->setEnabled(false);
     
     toggle->setText("Play");
     toggle->setIcon(*AppIcons::PLAY);

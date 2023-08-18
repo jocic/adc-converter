@@ -11,7 +11,7 @@
 #include "app/app_loader.h"
 
 AppLoader* AppLoader::M_INSTANCE = NULL;
-QMutex      AppLoader::M_MUTEX;
+QMutex     AppLoader::M_MUTEX;
 
 AppLoader* AppLoader::get_Instance() {
     

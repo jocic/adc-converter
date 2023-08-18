@@ -41,6 +41,8 @@ private slots:
     
     void on_dock_Info_visibilityChanged(bool visible);
     
+    void on_actionFull_Screen_triggered();
+    
 private:
     Ui::MainWindow *ui;
 };

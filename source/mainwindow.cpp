@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
     ////////////////////////////////////////
     
     AppMediator* mediator = AppMediator::get_Instance();
-    AppLoader*  loader   = AppLoader::get_Instance();
+    AppLoader*  loader    = AppLoader::get_Instance();
     
     mediator->add_Provider(ui->wd_Options_STR->controller(), "wd_stream_data");
     
@@ -116,6 +116,7 @@ void MainWindow::on_action_Export_triggered() {
 }
 
 void MainWindow::on_action_Exit_triggered() {
+    
     QApplication::exit(0);
 }
 
@@ -172,6 +173,15 @@ void MainWindow::on_action_Info_triggered() {
         ui->dock_Info->setVisible(true);
     } else {
         this->removeDockWidget(ui->dock_Info);
+    }
+}
+
+void MainWindow::on_actionFull_Screen_triggered() {
+    
+    if (this->isFullScreen()) {
+        this->showNormal();
+    } else {
+        this->showFullScreen();
     }
 }
 

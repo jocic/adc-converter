@@ -254,8 +254,15 @@
     <addaction name="separator"/>
     <addaction name="action_Exit"/>
    </widget>
+   <widget class="QMenu" name="menu_Window">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <addaction name="actionFull_Screen"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Views"/>
+   <addaction name="menu_Window"/>
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QDockWidget" name="dock_Tools">
@@ -490,6 +497,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionFull_Screen">
+   <property name="text">
+    <string>Full Screen</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
    </property>
   </action>
  </widget>
