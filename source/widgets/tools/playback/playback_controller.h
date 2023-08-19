@@ -10,13 +10,11 @@
 class PlaybackController : public AbstractController {
     
     private:
-        quint64 m_SampleRate;
-        quint8  m_BitsPerSample;
-        bool    m_Playing;
-        
-        QAudioSink* audio_sink;
-        
-        AudioSource* audio_source;
+        QAudioSink*  m_AudioSink;
+        AudioSource* m_AudioSource;
+        quint64      m_SampleRate;
+        quint8       m_BitsPerSample;
+        bool         m_Playing;
     
     public slots:
         void on_View_Initialized(ElementManager* manager) override;
@@ -24,6 +22,7 @@ class PlaybackController : public AbstractController {
         void on_Model_Changed(QString key, QString value) override;
         void on_Model_Cleared() override;
         void on_Mediator_Notify(QString topic, QMap<QString,QString> params) override;
+        void on_Sink_State(QAudio::State state);
         void on_Moved_Playback(int value);
         void on_Clicked_Toggle();
         void on_Clicked_Export();

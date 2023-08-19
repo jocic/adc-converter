@@ -14,7 +14,10 @@ AudioSource::AudioSource() {
 void AudioSource::set_Buffer(QByteArray* buffer) {
     
     if (buffer != NULL) {
+        
         m_Buffer = buffer;
+        
+        this->recalculate();
     }
 }
 
@@ -23,7 +26,10 @@ QByteArray* AudioSource::get_Buffer() {
 }
 
 void AudioSource::set_SampleRate(quint64 rate) {
+    
     m_SampleRate = rate;
+    
+    this->recalculate();
 }
 
 quint64 AudioSource::get_SampleRate() {
@@ -44,33 +50,44 @@ void AudioSource::set_BitsPerSample(quint8 bps) {
         default:
             m_BitsPerSample = 8;
     }
+    
+    this->recalculate();
 }
 
 quint8 AudioSource::get_BitsPerSample() {
     return m_BitsPerSample;
 }
 
+quint64 AudioSource::get_TotalSamples() {
+    return m_TotalSamples;
+}
+
 qreal AudioSource::get_Duration() {
-    
-    quint64 total_samples = m_Buffer->size() / (m_BitsPerSample / 8);
-    
-    return total_samples / qreal(m_SampleRate);
+    return m_Duration;
 }
 
 void AudioSource::set_ElapsedTime(qreal time) {
     
-    quint64 pos = time * m_SampleRate * (m_BitsPerSample / 8);
-    
-    if (pos < m_Buffer->size()) {
-        m_Pointer = pos;
+    if (m_Buffer != NULL) {
+        
+        quint64 pos = time * m_SampleRate * (m_BitsPerSample / 8);
+        
+        if (pos < m_Buffer->size()) {
+            m_Pointer = pos;
+        }
     }
 }
 
 qreal AudioSource::get_ElapsedTime() {
     
-    qreal duration = this->get_Duration();
+    if (m_Buffer != NULL) {
+        
+        qreal duration = this->get_Duration();
+        
+        return duration * (m_Pointer / qreal(m_Buffer->size()));
+    }
     
-    return duration * (m_Pointer / qreal(m_Buffer->size()));
+    return 0;
 }
 
 qint64 AudioSource::readData(char *data, qint64 maxlen) {
@@ -88,4 +105,12 @@ qint64 AudioSource::readData(char *data, qint64 maxlen) {
 
 qint64 AudioSource::writeData(const char *data, qint64 len) {
     return 0;
+}
+
+void AudioSource::recalculate() {
+    
+    quint64 total_samples = m_Buffer->size() / (m_BitsPerSample / 8);
+    
+    m_TotalSamples = total_samples;
+    m_Duration     = total_samples / qreal(m_SampleRate);
 }

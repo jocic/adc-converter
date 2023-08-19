@@ -15,9 +15,11 @@ class AudioSource : public QIODevice {
         QByteArray* m_Buffer;
         quint64     m_SampleRate;
         quint8      m_BitsPerSample;
+        quint64     m_TotalSamples;
         qreal       m_Duration;
         
     protected:
+        void recalculate();
         qint64 readData(char *data, qint64 maxlen) override;
         qint64 writeData(const char *data, qint64 len) override;
         
@@ -29,6 +31,7 @@ class AudioSource : public QIODevice {
         quint64 get_SampleRate();
         void set_BitsPerSample(quint8 bps);
         quint8 get_BitsPerSample();
+        quint64 get_TotalSamples();
         qreal get_Duration();
         void set_ElapsedTime(qreal time);
         qreal get_ElapsedTime();
