@@ -35,12 +35,6 @@ private slots:
     
     void on_action_Info_triggered();
     
-    void on_dock_Options_visibilityChanged(bool visible);
-    
-    void on_dock_Tools_visibilityChanged(bool visible);
-    
-    void on_dock_Info_visibilityChanged(bool visible);
-    
     void on_actionFull_Screen_triggered();
     
 private:
