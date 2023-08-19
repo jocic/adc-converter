@@ -3,11 +3,13 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QSlider>
 #include <QPushButton>
 
 #include "playback_model.h"
 #include "playback_view.h"
 #include "playback_controller.h"
+#include "app/app_icons.h"
 #include "app/app_loader.h"
 #include "app/app_exporter.h"
 
@@ -20,11 +22,17 @@ void PlaybackController::on_View_Initialized(ElementManager* manager) {
     
     // Connect Signals/Slots
     
+    QSlider* slide_Time = (QSlider*)manager
+        ->get(PlaybackModel::FIELD_PLAYBACK_TIME);
+    
     QPushButton* btn_toggle = (QPushButton*)manager
         ->get(PlaybackModel::FIELD_TOGGLE);
     
     QPushButton* btn_export = (QPushButton*)manager
         ->get(PlaybackModel::FIELD_EXPORT);
+    
+    connect(slide_Time, &QSlider::sliderMoved,
+        this, &PlaybackController::on_Moved_Playback);
     
     connect(btn_toggle, &QPushButton::clicked,
         this, &PlaybackController::on_Clicked_Toggle);
@@ -77,7 +85,65 @@ void PlaybackController::on_Mediator_Notify(QString topic,
     }
 }
 
+void PlaybackController::on_Moved_Playback(int value) {
+    qDebug() << value;
+}
+
+#include <QtMultimedia/QMediaDevices>
+#include <QtMultimedia/QAudioSink>
+#include <QtMultimedia/QAudioDevice>
+#include <QtMultimedia/QAudioFormat>
+#include <QtMultimedia/QAudioOutput>
+
+#include "app/audio/audio_source.h"
+
 void PlaybackController::on_Clicked_Toggle() {
+    
+    QAudioDevice audio_device = QMediaDevices::defaultAudioOutput();
+    
+    if (audio_device.isNull()) {
+        // error - no output device on the machine
+    }
+    
+    QAudioFormat audio_format;
+    
+    qDebug() << m_SampleRate << m_BitsPerSample;
+    
+    audio_format.setChannelCount(1);
+    audio_format.setSampleRate(m_SampleRate);
+    
+    switch (m_BitsPerSample) {
+        case 8:
+            audio_format.setSampleFormat(QAudioFormat::SampleFormat::UInt8);
+            break;
+        case 16:
+            audio_format.setSampleFormat(QAudioFormat::SampleFormat::Int16);
+            break;
+        case 24:
+        case 32:
+            audio_format.setSampleFormat(QAudioFormat::SampleFormat::Int32);
+            break;
+        default:
+            ; // error
+    }
+    
+    if (!audio_device.isFormatSupported(audio_format)) {
+        // warning - sample rate/bits per sample not natively supported by the device
+    }
+    
+    audio_source = new AudioSource();
+    
+    AppLoader* loader = AppLoader::get_Instance();
+    
+    audio_source->set_Buffer(loader->get_Buffer());
+    audio_source->set_SampleRate(m_SampleRate);
+    audio_source->set_BitsPerSample(m_BitsPerSample);
+    
+    audio_sink = new QAudioSink(audio_format, NULL);
+    
+    audio_sink->start(audio_source);
+    
+    /////////////
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -86,8 +152,10 @@ void PlaybackController::on_Clicked_Toggle() {
     
     if (m_Playing) {
         btn_toggle->setText("Play");
+        btn_toggle->setIcon(*AppIcons::PLAY);
     } else {
         btn_toggle->setText("Stop");
+        btn_toggle->setIcon(*AppIcons::STOP);
     }
     
     m_Playing = !m_Playing;

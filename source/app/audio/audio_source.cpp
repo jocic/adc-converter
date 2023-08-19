@@ -8,6 +8,7 @@ AudioSource::AudioSource() {
     m_BitsPerSample = 16;
     m_Duration      = 0;
     
+    this->open(QIODeviceBase::ReadOnly);
 }
 
 void AudioSource::set_Buffer(QByteArray* buffer) {
@@ -76,8 +77,10 @@ qint64 AudioSource::readData(char *data, qint64 maxlen) {
     
     quint64 i = 0;
     
+    char* buffer_data = m_Buffer->data();
+    
     while (i < maxlen && m_Pointer < m_Buffer->size()) {
-        data[i++] = (*m_Buffer[m_Pointer++] & 0xFF);
+        data[i++] = (buffer_data[m_Pointer++] & 0xFF);
     }
     
     return i;

@@ -25,12 +25,11 @@ void PlaybackView::initialize(QWidget* parent) {
     box->setTitle("Playback");
     
     slider->setOrientation(Qt::Orientation::Horizontal);
-    slider->setEnabled(false);
     
     toggle->setText("Play");
     toggle->setIcon(*AppIcons::PLAY);
     
-    save->setText("Export");    
+    save->setText("Export");
     save->setIcon(*AppIcons::EXPORT);
     
     layout->addRow(slider);
