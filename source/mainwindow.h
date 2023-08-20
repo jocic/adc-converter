@@ -37,6 +37,8 @@ private slots:
     
     void on_actionFull_Screen_triggered();
     
+    void on_action_DefaultView_triggered();
+    
 private:
     Ui::MainWindow *ui;
 };

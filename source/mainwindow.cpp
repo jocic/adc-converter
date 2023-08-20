@@ -185,3 +185,23 @@ void MainWindow::on_actionFull_Screen_triggered() {
     }
 }
 
+
+void MainWindow::on_action_DefaultView_triggered() {
+    
+    this->removeDockWidget(ui->dock_Options);
+    this->removeDockWidget(ui->dock_Tools);
+    this->removeDockWidget(ui->dock_Info);
+    
+    this->addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, ui->dock_Options);    
+    this->addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, ui->dock_Tools);    
+    this->addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, ui->dock_Info);
+    
+    ui->dock_Options->setFloating(false);
+    ui->dock_Tools->setFloating(false);
+    ui->dock_Info->setFloating(false);
+    
+    ui->dock_Options->setVisible(true);
+    ui->dock_Tools->setVisible(true);
+    ui->dock_Info->setVisible(true);
+}
+

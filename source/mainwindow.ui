@@ -258,7 +258,9 @@
     <property name="title">
      <string>Window</string>
     </property>
-    <addaction name="actionFull_Screen"/>
+    <addaction name="action_FullScreen"/>
+    <addaction name="separator"/>
+    <addaction name="action_DefaultView"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Views"/>
@@ -499,12 +501,17 @@
     <string>Ctrl+E</string>
    </property>
   </action>
-  <action name="actionFull_Screen">
+  <action name="action_FullScreen">
    <property name="text">
     <string>Full Screen</string>
    </property>
    <property name="shortcut">
     <string>F11</string>
+   </property>
+  </action>
+  <action name="action_DefaultView">
+   <property name="text">
+    <string>Default View</string>
    </property>
   </action>
  </widget>
