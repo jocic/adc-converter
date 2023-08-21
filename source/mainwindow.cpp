@@ -44,13 +44,15 @@ MainWindow::MainWindow(QWidget *parent)
     ////////////////////////////////////////
     
     AppMediator* mediator = AppMediator::get_Instance();
-    AppLoader*  loader    = AppLoader::get_Instance();
+    AppLoader*   loader   = AppLoader::get_Instance();
     
     mediator->add_Provider(ui->wd_Options_STR->controller(), "wd_stream_data");
+    mediator->add_Provider(ui->tab_Samples->controller(), "tab_window_data");
     
     mediator->add_Consumer(ui->tab_Samples->controller(), "wd_stream_data");
     mediator->add_Consumer(ui->wd_Tools_PL->controller(), "wd_stream_data");
     mediator->add_Consumer(ui->wd_Info_GEN->controller(), "wd_stream_data");
+    mediator->add_Consumer(ui->tab_Scope->controller(), "tab_window_data");
     
     mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "hex_selected");
 }

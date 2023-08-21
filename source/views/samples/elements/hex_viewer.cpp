@@ -123,6 +123,8 @@ void HexViewer::set_Data(QByteArray& data, quint8 bytes) {
         val_none = "....";
     }
     
+    m_Data.clear();
+    
     while (i < m_Values.size()) {
         
         QString hex_val = val_none;
@@ -160,6 +162,8 @@ void HexViewer::set_Data(QByteArray& data, quint8 bytes) {
                 
                 hex_val = QString::asprintf("%02llX", raw_val & 0xFF);
             }
+            
+            m_Data.push_back(raw_val);
         }
         
         m_Values.at(i)->setText(hex_val);

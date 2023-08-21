@@ -28,10 +28,10 @@ void ScopeView::initialize(QWidget* parent) {
     chart_series->useOpenGL();
     
     chart_x->setTitleText("Time");
-    chart_x->setRange(0, 128);
+    chart_x->setRange(0, 48);
     
-    chart_y->setTitleText("ADC Value");
-    chart_y->setRange(-128, 128);
+    chart_y->setTitleText("Voltage");
+    chart_y->setRange(0, 10000);
     
     chart->setBackgroundVisible(false);
     chart->addSeries(chart_series);
@@ -52,4 +52,12 @@ void ScopeView::initialize(QWidget* parent) {
     wd_main->setStyleSheet("background: #fff");
     
     parent->layout()->addWidget(wd_main);
+    
+    // Push References
+    
+    ElementManager* manager = this->get_ElementManager();
+    
+    manager->push("test", (QWidget*)chart_series);
+    
+    emit ScopeView::sig_View_Initialized(manager);
 }

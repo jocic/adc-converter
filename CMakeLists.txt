@@ -88,6 +88,8 @@ set(PROJECT_HEADERS
     
     # Scope
     
+    source/views/scope/scope_view.h
+    source/views/scope/scope_controller.h
     source/views/scope/scope_widget.h
     
     # Samples
@@ -104,7 +106,6 @@ set(PROJECT_HEADERS
     
     # General
     
-    source/views/scope/scope_view.h
     source/widgets/abstract_widget.h
     
     # Options (Stream)
@@ -227,6 +228,7 @@ set(PROJECT_SOURCES
     # Scope
     
     source/views/scope/scope_view.cpp
+    source/views/scope/scope_controller.cpp
     source/views/scope/scope_widget.cpp
     
     # Samples

@@ -1,6 +1,7 @@
 #include <QtMath>
 #include <QDebug>
 #include <QMap>
+#include <QVector>
 #include <QLineEdit>
 #include <QComboBox>
 #include <QPushButton>
@@ -9,6 +10,7 @@
 #include "samples_view.h"
 #include "samples_controller.h"
 #include "app/app_loader.h"
+#include "app/app_mediator.h"
 #include "app/workers/load_worker.h"
 
 void SamplesController::on_View_Initialized(ElementManager* manager) {
@@ -109,6 +111,19 @@ void SamplesController::on_View_Changed() {
     
     lbl_time->setText(QString::asprintf("%llu", time_start_val) +
         " - " + QString::asprintf("%llu", time_end_val));
+    
+    // Temp
+    
+    QVector<quint64>& data = hex_viewer->get_Data();
+    
+    QMap<QString,QString> data_conv;
+    
+    for (quint64 i = 0; i < data.size(); i++) {
+        data_conv.insert(QString::asprintf("%llu", i),
+            QString::asprintf("%llu", data[i]));
+    }
+    
+    emit SamplesController::sig_Mediator_Notify("tab_window_data", data_conv);
 }
 
 void SamplesController::on_Model_Changed(QString key, QString value) {

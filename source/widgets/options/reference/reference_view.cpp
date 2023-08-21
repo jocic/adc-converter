@@ -24,7 +24,7 @@ void ReferenceView::initialize(QWidget* parent) {
     box->setTitle("Reference");
     
     pos_label->setText("Positive");
-    pos_text->setText("5000");
+    pos_text->setText("3300");
     layout->addRow(pos_label, pos_text);
     
     neg_label->setText("Negative");
