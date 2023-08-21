@@ -6,20 +6,23 @@
 #include <QIODevice>
 #include <QByteArray>
 
+#include <QtMultimedia/QAudioFormat>
+
 class AudioSource : public QIODevice {
     
     Q_OBJECT
     
     private:
-        quint64     m_Pointer;
-        QByteArray* m_Buffer;
-        quint64     m_SampleRate;
-        quint8      m_BitsPerSample;
-        quint64     m_TotalSamples;
-        qreal       m_Duration;
+        quint64       m_Pointer;
+        QByteArray*   m_Buffer;
+        QAudioFormat* m_Format;
+        quint64       m_SampleRate;
+        quint8        m_BitsPerSample;
+        quint8        m_BytesPerSample;
+        quint64       m_TotalSamples;
+        qreal         m_Duration;
         
     protected:
-        void recalculate();
         qint64 readData(char *data, qint64 maxlen) override;
         qint64 writeData(const char *data, qint64 len) override;
         
@@ -27,14 +30,13 @@ class AudioSource : public QIODevice {
         AudioSource();
         void set_Buffer(QByteArray* buffer);
         QByteArray* get_Buffer();
-        void set_SampleRate(quint64 rate);
-        quint64 get_SampleRate();
-        void set_BitsPerSample(quint8 bps);
-        quint8 get_BitsPerSample();
+        void set_Format(QAudioFormat* format);
+        QAudioFormat* get_format();
         quint64 get_TotalSamples();
         qreal get_Duration();
         void set_ElapsedTime(qreal time);
         qreal get_ElapsedTime();
+        void recalculate();
 };
 
 #endif

@@ -51,8 +51,6 @@ MainWindow::MainWindow(QWidget *parent)
     mediator->add_Consumer(ui->wd_Tools_PL->controller(), "wd_stream_data");
     mediator->add_Consumer(ui->wd_Info_GEN->controller(), "wd_stream_data");
     
-    mediator->add_Consumer(ui->wd_Tools_PL->controller(), "wd_playback_request");
-    
     mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "hex_selected");
 }
 
@@ -176,7 +174,7 @@ void MainWindow::on_action_Info_triggered() {
     }
 }
 
-void MainWindow::on_actionFull_Screen_triggered() {
+void MainWindow::on_action_FullScreen_triggered() {
     
     if (this->isFullScreen()) {
         this->showNormal();
@@ -204,4 +202,3 @@ void MainWindow::on_action_DefaultView_triggered() {
     ui->dock_Tools->setVisible(true);
     ui->dock_Info->setVisible(true);
 }
-

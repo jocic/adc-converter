@@ -35,7 +35,7 @@ private slots:
     
     void on_action_Info_triggered();
     
-    void on_actionFull_Screen_triggered();
+    void on_action_FullScreen_triggered();
     
     void on_action_DefaultView_triggered();
     
