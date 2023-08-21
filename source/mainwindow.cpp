@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
     
     // Views
     
+    ui->tab_Scope->initialize();    
     ui->tab_Samples->initialize();
     
     ////////////////////////////////////////

@@ -86,7 +86,7 @@
           <property name="movable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="tab_Scope">
+          <widget class="ScopeWidget" name="tab_Scope">
            <attribute name="title">
             <string>Scope</string>
            </attribute>
@@ -568,6 +568,12 @@
    <class>SamplesWidget</class>
    <extends>QWidget</extends>
    <header>views/samples/samples_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ScopeWidget</class>
+   <extends>QWidget</extends>
+   <header>views/scope/scope_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

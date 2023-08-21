@@ -16,6 +16,9 @@ FILE(COPY assets/icons DESTINATION ${CMAKE_BINARY_DIR})
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Charts)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Charts)
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Multimedia)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Multimedia)
 
@@ -83,6 +86,10 @@ set(PROJECT_HEADERS
     # VIEWS #
     #########
     
+    # Scope
+    
+    source/views/scope/scope_widget.h
+    
     # Samples
     
     source/views/samples/elements/hex_viewer.h
@@ -97,6 +104,7 @@ set(PROJECT_HEADERS
     
     # General
     
+    source/views/scope/scope_view.h
     source/widgets/abstract_widget.h
     
     # Options (Stream)
@@ -216,6 +224,11 @@ set(PROJECT_SOURCES
     # VIEWS #
     #########
     
+    # Scope
+    
+    source/views/scope/scope_view.cpp
+    source/views/scope/scope_widget.cpp
+    
     # Samples
     
     source/views/samples/elements/hex_viewer.cpp
@@ -325,6 +338,7 @@ endif()
 target_link_libraries(adc-converter PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Multimedia
+    Qt${QT_VERSION_MAJOR}::Charts
     Qt${QT_VERSION_MAJOR}::SerialPort)
 
 set_target_properties(adc-converter PROPERTIES

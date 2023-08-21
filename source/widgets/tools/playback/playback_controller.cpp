@@ -113,6 +113,15 @@ void PlaybackController::on_Audio_Stopped() {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
+    // Reset Slider;
+    
+    QSlider* slide_Time = (QSlider*)manager
+        ->get(PlaybackModel::FIELD_PLAYBACK_TIME);
+    
+    slide_Time->setValue(0);
+    
+    // Update Toggle
+    
     QPushButton* btn_toggle = (QPushButton*)manager
         ->get(PlaybackModel::FIELD_TOGGLE);
     
@@ -123,15 +132,6 @@ void PlaybackController::on_Audio_Stopped() {
 }
 
 void PlaybackController::on_Clicked_Toggle() {
-    
-    // Reset Slider
-    
-    ElementManager* manager = this->get_View()->get_ElementManager();
-    
-    QSlider* slide_Time = (QSlider*)manager
-        ->get(PlaybackModel::FIELD_PLAYBACK_TIME);
-    
-    slide_Time->setValue(0);
     
     // Start Playback
     
