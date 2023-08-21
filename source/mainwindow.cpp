@@ -187,6 +187,21 @@ void MainWindow::on_action_FullScreen_triggered() {
 
 void MainWindow::on_action_DefaultView_triggered() {
     
+    // Views
+    
+    qint8 tab_scope   = ui->tab_General->indexOf(ui->tab_Scope);
+    qint8 tab_samples = ui->tab_General->indexOf(ui->tab_Samples);
+    
+    ui->tab_General->clear();
+    
+    ui->tab_General->addTab(ui->tab_Scope, "Scope");
+    ui->tab_General->addTab(ui->tab_Samples, "Samples");
+    
+    ui->action_Scope->setChecked(true);
+    ui->action_Samples->setChecked(true);
+    
+    // Dock Widgets
+    
     this->removeDockWidget(ui->dock_Options);
     this->removeDockWidget(ui->dock_Tools);
     this->removeDockWidget(ui->dock_Info);
@@ -202,4 +217,8 @@ void MainWindow::on_action_DefaultView_triggered() {
     ui->dock_Options->setVisible(true);
     ui->dock_Tools->setVisible(true);
     ui->dock_Info->setVisible(true);
+    
+    ui->action_Options->setChecked(true);
+    ui->action_Tools->setChecked(true);
+    ui->action_Info->setChecked(true);
 }
