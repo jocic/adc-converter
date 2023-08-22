@@ -114,7 +114,7 @@
    <property name="minimumSize">
     <size>
      <width>208</width>
-     <height>112</height>
+     <height>134</height>
     </size>
    </property>
    <property name="styleSheet">
@@ -197,6 +197,9 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="ControlsWidget" name="wd_Options_CTL" native="true"/>
      </item>
     </layout>
    </widget>
@@ -574,6 +577,12 @@
    <class>ScopeWidget</class>
    <extends>QWidget</extends>
    <header>views/scope/scope_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ControlsWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/options/controls/controls_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

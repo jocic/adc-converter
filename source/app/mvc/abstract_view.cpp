@@ -41,7 +41,7 @@ QFrame* AbstractView::make_VLine() {
 
 QSpacerItem* AbstractView::make_HSpacer() {
     
-    QSpacerItem* spacer = new QSpacerItem(400, 1,
+    QSpacerItem* spacer = new QSpacerItem(8000, 1,
         QSizePolicy::Expanding, QSizePolicy::Minimum);
     
     return spacer;
@@ -49,7 +49,7 @@ QSpacerItem* AbstractView::make_HSpacer() {
 
 QSpacerItem* AbstractView::make_VSpacer() {
     
-    QSpacerItem* spacer = new QSpacerItem(1, 400,
+    QSpacerItem* spacer = new QSpacerItem(1, 8000,
         QSizePolicy::Minimum, QSizePolicy::Expanding);
     
     return spacer;

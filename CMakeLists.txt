@@ -136,6 +136,13 @@ set(PROJECT_HEADERS
     source/widgets/options/communication/communication_controller.h
     source/widgets/options/communication/communication_widget.h
     
+    # Options (Controls)
+    
+    source/widgets/options/controls/controls_model.h
+    source/widgets/options/controls/controls_view.h
+    source/widgets/options/controls/controls_controller.h
+    source/widgets/options/controls/controls_widget.h
+    
     # Tools (Playback)
     
     source/widgets/tools/playback/playback_model.h
@@ -274,6 +281,13 @@ set(PROJECT_SOURCES
     source/widgets/options/communication/communication_view.cpp
     source/widgets/options/communication/communication_controller.cpp
     source/widgets/options/communication/communication_widget.cpp
+    
+    # Options (Controls)
+    
+    source/widgets/options/controls/controls_model.cpp
+    source/widgets/options/controls/controls_view.cpp
+    source/widgets/options/controls/controls_controller.cpp
+    source/widgets/options/controls/controls_widget.cpp
     
     # Tools (Playback)
     
