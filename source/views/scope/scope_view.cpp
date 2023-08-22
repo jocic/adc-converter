@@ -7,7 +7,7 @@
 #include <QPushButton>
 
 #include <QtCharts/QChartView>
-#include <QtCharts/QLineSeries>
+#include <QtCharts/QSplineSeries>
 #include <QtCharts/QChart>
 #include <QtCharts/QValueAxis>
 
@@ -19,11 +19,11 @@ void ScopeView::initialize(QWidget* parent) {
     QWidget*     wd_main  = new QWidget();
     QVBoxLayout* lay_main = new QVBoxLayout();
     
-    QChartView * chart_view = new QChartView();
-    QChart* chart        = new QChart();
-    QLineSeries* chart_series = new QLineSeries();
-    QValueAxis* chart_x      = new QValueAxis();
-    QValueAxis* chart_y      = new QValueAxis();
+    QChartView *   chart_view   = new QChartView();
+    QChart*        chart        = new QChart();
+    QSplineSeries* chart_series = new QSplineSeries();
+    QValueAxis*    chart_x      = new QValueAxis();
+    QValueAxis*    chart_y      = new QValueAxis();
     
     chart_series->useOpenGL();
     
@@ -31,7 +31,7 @@ void ScopeView::initialize(QWidget* parent) {
     chart_x->setRange(0, 48);
     
     chart_y->setTitleText("Voltage");
-    chart_y->setRange(0, 10000);
+    chart_y->setRange(-75000, 75000);
     
     chart->setBackgroundVisible(false);
     chart->addSeries(chart_series);
@@ -57,7 +57,9 @@ void ScopeView::initialize(QWidget* parent) {
     
     ElementManager* manager = this->get_ElementManager();
     
-    manager->push("test", (QWidget*)chart_series);
+    manager->push("ser", (QWidget*)chart_series);
+    manager->push("x", (QWidget*)chart_x);
+    manager->push("y", (QWidget*)chart_y);
     
     emit ScopeView::sig_View_Initialized(manager);
 }

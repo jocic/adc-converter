@@ -20,6 +20,7 @@ class AppMediator : public QObject {
         static AppMediator* M_INSTANCE;
         static QMutex       M_MUTEX;
         
+        QSet<const AbstractController*> m_Providers;
         QSet<const AbstractController*> m_Consumers;
         QMap<QString,QVector<const AbstractController*>> m_Subscriptions;
         

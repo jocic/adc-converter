@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 FILE(COPY assets/icons DESTINATION ${CMAKE_BINARY_DIR})
+FILE(COPY assets/sim.dat DESTINATION ${CMAKE_BINARY_DIR})
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
@@ -35,6 +36,7 @@ set(PROJECT_HEADERS
     
     # General
     
+    source/app/app_core.h
     source/app/app_icons.h
     source/app/app_mediator.h
     source/app/app_io.h
@@ -181,6 +183,7 @@ set(PROJECT_SOURCES
     
     # General
     
+    source/app/app_core.cpp
     source/app/app_icons.cpp
     source/app/app_mediator.cpp
     source/app/app_io.cpp

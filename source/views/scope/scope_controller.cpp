@@ -1,7 +1,7 @@
 #include <QDebug>
 #include <QtAlgorithms>
-#include <QtCharts/QChartView>
-#include <QtCharts/QLineSeries>
+#include <QtCharts/QSplineSeries>
+#include <QtCharts/QValueAxis>
 
 #include "views/scope/scope_controller.h"
 #include "views/scope/scope_view.h"
@@ -32,10 +32,39 @@ void ScopeController::on_Mediator_Notify(QString topic,
     ScopeView*  view  = (ScopeView*)this->get_View();
     
     ElementManager* manager = view->get_ElementManager();
-    qDebug() << "WTF?" << topic;
-    if (topic == "tab_window_data") {
+    
+    QLineSeries* chart_series = (QLineSeries*)manager->get("ser");
+    QValueAxis*  x_axis = (QValueAxis*)manager->get("x");
+    QValueAxis*  y_axis = (QValueAxis*)manager->get("y");
+    
+    static quint64 x = 0;
+    
+    if (topic == "new_stream") {
         
-        QLineSeries* chart_series = (QLineSeries*)manager->get("test");
+        chart_series->clear();
+        y_axis->setRange(-75000, 75000);
+        x_axis->setRange(0, 48);
+        
+        x = 0;
+    }
+    else if (topic == "new_sample") {
+        
+        QString str_sample = params["value"];
+        
+        qint64 sample = str_sample.toLongLong();
+        
+        x+=1;
+        qDebug() << x << sample;
+        chart_series->append(x, sample);
+        
+        if (x > 48) {
+            x_axis->setRange(x - 48, x);
+            chart_series->points().removeAt(0);
+        }
+    }
+    
+    
+    if (topic == "tab_window_data") {
         
         chart_series->clear();
         
@@ -59,7 +88,7 @@ void ScopeController::on_Mediator_Notify(QString topic,
         }
         
         for (const auto& point : data) {
-            chart_series->append(point.first, point.second);
+            chart_series->append(point.first, qint16(point.second));
         }
         
         qDebug() << params.size();
