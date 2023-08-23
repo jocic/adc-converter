@@ -47,11 +47,31 @@ MainWindow::MainWindow(QWidget *parent)
     AppMediator* mediator = AppMediator::get_Instance();
     AppLoader*   loader   = AppLoader::get_Instance();
     
+    mediator->add_Provider(ui->wd_Options_CTL->controller(), "stream_started");
+    mediator->add_Provider(ui->wd_Options_CTL->controller(), "stream_ended");
+    mediator->add_Provider(ui->wd_Options_CTL->controller(), "stream_params");
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "new_stream");
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "new_samples");
     
     mediator->add_Consumer(ui->tab_Scope->controller(), "new_stream");
     mediator->add_Consumer(ui->tab_Scope->controller(), "new_sample");
+    
+    mediator->add_Consumer(ui->wd_Options_STR->controller(), "stream_started");
+    mediator->add_Consumer(ui->wd_Options_STR->controller(), "stream_ended");
+    mediator->add_Consumer(ui->wd_Options_STR->controller(), "stream_params");
+    
+    mediator->add_Consumer(ui->wd_Options_REF->controller(), "stream_started");
+    mediator->add_Consumer(ui->wd_Options_REF->controller(), "stream_ended");
+    mediator->add_Consumer(ui->wd_Options_REF->controller(), "stream_params");
+    
+    mediator->add_Consumer(ui->wd_Options_SER->controller(), "stream_started");
+    mediator->add_Consumer(ui->wd_Options_SER->controller(), "stream_ended");
+    
+    mediator->add_Consumer(ui->wd_Options_COM->controller(), "stream_started");
+    mediator->add_Consumer(ui->wd_Options_COM->controller(), "stream_ended");
+    
+    mediator->add_Consumer(ui->wd_Tools_PL->controller(), "stream_started");
+    mediator->add_Consumer(ui->wd_Tools_PL->controller(), "stream_ended");
     
     // to be refactored
     

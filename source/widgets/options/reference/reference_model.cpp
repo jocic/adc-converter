@@ -19,6 +19,13 @@ void ReferenceModel::set_Positive(quint16 value) {
     emit ReferenceModel::sig_Model_Updated(FIELD_POSITIVE, new_value);
 }
 
+void ReferenceModel::set_Positive(QString value) {
+    
+    this->set(FIELD_POSITIVE, value);
+    
+    emit ReferenceModel::sig_Model_Updated(FIELD_POSITIVE, value);
+}
+
 quint16 ReferenceModel::get_Negative() {
     
     QString value = this->get(FIELD_NEGATIVE);
@@ -33,4 +40,11 @@ void ReferenceModel::set_Negative(quint16 value) {
     this->set(FIELD_NEGATIVE, new_value);
     
     emit ReferenceModel::sig_Model_Updated(FIELD_NEGATIVE, new_value);
+}
+
+void ReferenceModel::set_Negative(QString value) {
+    
+    this->set(FIELD_NEGATIVE, value);
+    
+    emit ReferenceModel::sig_Model_Updated(FIELD_NEGATIVE, value);
 }

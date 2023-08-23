@@ -40,7 +40,7 @@ void CommunicationView::initialize(QWidget* parent) {
     ElementManager* manager = this->get_ElementManager();
     
     manager->push(CommunicationModel::FIELD_PORT, cmb_port);
-    manager->push(CommunicationModel::FIELD_MODE, lbl_mode);
+    manager->push(CommunicationModel::FIELD_MODE, cmb_mode);
     
     emit CommunicationView::sig_View_Initialized(manager);
 }

@@ -69,5 +69,20 @@ void CommunicationController::on_Model_Cleared() {
 void CommunicationController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
-    // Does nothing...
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    QComboBox* mode = (QComboBox*)manager
+        ->get(CommunicationModel::FIELD_MODE);
+    
+    QComboBox* port = (QComboBox*)manager
+        ->get(CommunicationModel::FIELD_PORT);
+    
+    if (topic == "stream_started") {
+        mode->setEnabled(false);
+        port->setEnabled(false);
+    }
+    else if (topic == "stream_ended") {
+        mode->setEnabled(true);
+        port->setEnabled(true);
+    }
 }

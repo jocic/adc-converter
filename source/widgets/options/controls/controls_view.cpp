@@ -22,8 +22,8 @@ void ControlsView::initialize(QWidget* parent) {
     btn_ref->setText("Refresh");
     
     btn_sim->setIcon(*AppIcons::SIMULATE);
-    btn_sim->setMaximumWidth(30);
-    btn_sim->setToolTip("Simulate");
+    btn_sim->setMinimumWidth(35);
+    btn_sim->setMaximumWidth(35);
     
     lay_root->setContentsMargins(0, 0, 0, 0);
     lay_root->addWidget(btn_conn);

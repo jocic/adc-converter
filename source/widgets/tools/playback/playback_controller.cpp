@@ -68,6 +68,30 @@ void PlaybackController::on_Model_Cleared() {
 void PlaybackController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    QSlider* slide_Time = (QSlider*)manager
+        ->get(PlaybackModel::FIELD_PLAYBACK_TIME);
+    
+    QPushButton* btn_toggle = (QPushButton*)manager
+        ->get(PlaybackModel::FIELD_TOGGLE);
+    
+    QPushButton* btn_export = (QPushButton*)manager
+        ->get(PlaybackModel::FIELD_EXPORT);
+    
+    if (topic == "stream_started") {
+        slide_Time->setEnabled(false);
+        btn_toggle->setEnabled(false);
+        btn_export->setEnabled(false);
+    }
+    else if (topic == "stream_ended") {
+        slide_Time->setEnabled(true);
+        btn_toggle->setEnabled(true);
+        btn_export->setEnabled(true);
+    }
+    
+    /// to be refactored
+    
     if (topic == "wd_stream_data") {
         
         if (params.contains("txt_SampleRate")) {

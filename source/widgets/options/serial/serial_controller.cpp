@@ -87,7 +87,7 @@ void SerialController::on_Model_Cleared() {
     }
     
     QComboBox* cmb_baud = (QComboBox*)manager
-        ->get(SerialModel::FIELD_DATA_BITS);
+        ->get(SerialModel::FIELD_BAUD_RATE);
     
     for (int i = 0; i < cmb_baud->count(); i++) {
         if (cmb_baud->itemText(i) == "19200") {
@@ -135,5 +135,35 @@ void SerialController::on_Model_Cleared() {
 void SerialController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
-    // Does nothing...
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    QComboBox* cmb_baud = (QComboBox*)manager
+        ->get(SerialModel::FIELD_BAUD_RATE);
+    
+    QComboBox* cmb_data = (QComboBox*)manager
+        ->get(SerialModel::FIELD_DATA_BITS);
+    
+    QComboBox* cmb_parity = (QComboBox*)manager
+        ->get(SerialModel::FIELD_PARITY_BITS);
+    
+    QComboBox* cmb_stop = (QComboBox*)manager
+        ->get(SerialModel::FIELD_STOP_BITS);
+    
+    QComboBox* cmb_flow = (QComboBox*)manager
+        ->get(SerialModel::FIELD_FLOW_CONTROL);
+    
+    if (topic == "stream_started") {
+        cmb_baud->setEnabled(false);
+        cmb_data->setEnabled(false);
+        cmb_parity->setEnabled(false);
+        cmb_stop->setEnabled(false);
+        cmb_flow->setEnabled(false);
+    }
+    else if (topic == "stream_ended") {
+        cmb_baud->setEnabled(true);
+        cmb_data->setEnabled(true);
+        cmb_parity->setEnabled(true);
+        cmb_stop->setEnabled(true);
+        cmb_flow->setEnabled(true);
+    }
 }

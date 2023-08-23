@@ -89,10 +89,17 @@ void ControlsController::on_Clicked_Simulate() {
     
     // Set Field Values
     
-    // emit a lot of signals
+    emit ControlsController::sig_Mediator_Notify("stream_params", {
+        { "sample_rate", "8500" },
+        { "bits_per_sample", "16" },
+        { "signed_samples", "true" },
+        { "positive_reference", "3300" },
+        { "negative_reference", "0" }
+    });
     
     // Start Streaming Simulation
     
+    emit ControlsController::sig_Mediator_Notify("stream_started", {});
     emit ControlsController::sig_Mediator_Notify("new_stream", {});
     
     btn_con->setEnabled(false);
@@ -142,6 +149,8 @@ void ControlsController::on_Queue_Process() {
             btn_con->setEnabled(true);
             btn_ref->setEnabled(true);
             btn_sim->setEnabled(true);
+            
+            emit ControlsController::sig_Mediator_Notify("stream_ended", {});
         }
     }
 }

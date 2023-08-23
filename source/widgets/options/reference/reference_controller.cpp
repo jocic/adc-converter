@@ -58,5 +58,32 @@ void ReferenceController::on_Model_Cleared() {
 void ReferenceController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
-    // Does nothing...
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    ReferenceModel* model = (ReferenceModel*)this->get_Model();
+    
+    QLineEdit* positive = (QLineEdit*)manager
+        ->get(ReferenceModel::FIELD_POSITIVE);
+    
+    QLineEdit* negative = (QLineEdit*)manager
+        ->get(ReferenceModel::FIELD_NEGATIVE);
+    
+    if (topic == "stream_started") {
+        positive->setEnabled(false);
+        negative->setEnabled(false);
+    }
+    else if (topic == "stream_ended") {
+        positive->setEnabled(true);
+        negative->setEnabled(true);
+    }
+    else if (topic == "stream_params") {
+        
+        if (params.contains("positive_reference")) {
+            model->set_Positive(params["positive_reference"]);
+        }
+        
+        if (params.contains("negative_reference")) {
+            model->set_Negative(params["negative_reference"]);
+        }
+    }
 }

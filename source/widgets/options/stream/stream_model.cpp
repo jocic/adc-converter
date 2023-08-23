@@ -20,6 +20,13 @@ void StreamModel::set_SampleRate(quint64 value) {
     emit StreamModel::sig_Model_Updated(FIELD_SAMPLE_RATE, new_value);
 }
 
+void StreamModel::set_SampleRate(QString value) {
+    
+    this->set(FIELD_SAMPLE_RATE, value);
+    
+    emit StreamModel::sig_Model_Updated(FIELD_SAMPLE_RATE, value);
+}
+
 quint8 StreamModel::get_BitsPerSample() {
     
     QString value = this->get(FIELD_BITS_PER_SAMPLE);
@@ -36,6 +43,13 @@ void StreamModel::set_BitsPerSample(quint8 value) {
     emit StreamModel::sig_Model_Updated(FIELD_BITS_PER_SAMPLE, new_value);
 }
 
+void StreamModel::set_BitsPerSample(QString value) {
+    
+    this->set(FIELD_BITS_PER_SAMPLE, value);
+    
+    emit StreamModel::sig_Model_Updated(FIELD_BITS_PER_SAMPLE, value);
+}
+
 bool StreamModel::get_Signed() {
     
     QString value = this->get(FIELD_SIGNED);
@@ -50,4 +64,11 @@ void StreamModel::set_Signed(bool value) {
     this->set(FIELD_SIGNED, new_value);
     
     emit StreamModel::sig_Model_Updated(FIELD_SIGNED, new_value);
+}
+
+void StreamModel::set_Signed(QString value) {
+    
+    this->set(FIELD_SIGNED, value);
+    
+    emit StreamModel::sig_Model_Updated(FIELD_SIGNED, value);
 }

@@ -132,5 +132,41 @@ void StreamController::on_Model_Cleared() {
 void StreamController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
-    // Does nothing...
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    StreamModel* model = (StreamModel*)this->get_Model();
+    
+    QLineEdit* sample_rate = (QLineEdit*)manager
+        ->get(StreamModel::FIELD_SAMPLE_RATE);
+    
+    QComboBox* bits_per_sample = (QComboBox*)manager
+        ->get(StreamModel::FIELD_BITS_PER_SAMPLE);
+    
+    QCheckBox* sample_signed = (QCheckBox*)manager
+        ->get(StreamModel::FIELD_SIGNED);
+    
+    if (topic == "stream_started") {
+        sample_rate->setEnabled(false);
+        bits_per_sample->setEnabled(false);
+        sample_signed->setEnabled(false);
+    }
+    else if (topic == "stream_ended") {
+        sample_rate->setEnabled(true);
+        bits_per_sample->setEnabled(true);
+        sample_signed->setEnabled(true);
+    }
+    else if (topic == "stream_params") {
+        
+        if (params.contains("sample_rate")) {
+            model->set_SampleRate(params["sample_rate"]);
+        }
+        
+        if (params.contains("bits_per_sample")) {
+            model->set_BitsPerSample(params["bits_per_sample"]);
+        }
+        
+        if (params.contains("signed_samples")) {
+            model->set_Signed(params["signed_samples"]);
+        }
+    }
 }

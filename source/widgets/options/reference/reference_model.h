@@ -13,8 +13,10 @@ class ReferenceModel : public AbstractModel {
         
         quint16 get_Positive();
         void set_Positive(quint16 value);
+        void set_Positive(QString value);
         quint16 get_Negative();
         void set_Negative(quint16 value);
+        void set_Negative(QString value);
 };
 
 #endif

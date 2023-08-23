@@ -14,10 +14,13 @@ class StreamModel : public AbstractModel {
         
         quint64 get_SampleRate();
         void set_SampleRate(quint64 value);
+        void set_SampleRate(QString value);
         quint8 get_BitsPerSample();
         void set_BitsPerSample(quint8 value);
+        void set_BitsPerSample(QString value);
         bool get_Signed();
         void set_Signed(bool value);
+        void set_Signed(QString value);
 };
 
 #endif

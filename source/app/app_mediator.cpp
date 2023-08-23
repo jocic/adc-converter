@@ -62,7 +62,11 @@ void AppMediator::on_Notify(QString topic, QMap<QString,QString> params) {
     
     auto search = m_Subscriptions.find(topic);
     
+    qDebug() << "Notification received: (topic, params)" << topic << params;
+    
     if (search != m_Subscriptions.end()) {
+        
+        qDebug() << "Notification sent...";
         
         for (const auto ctl : *search) {
             emit AppMediator::sig_Notify(topic, params);
