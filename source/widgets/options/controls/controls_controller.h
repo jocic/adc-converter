@@ -23,6 +23,7 @@ class ControlsController : public AbstractController {
         void on_Model_Changed(QString key, QString value) override;
         void on_Model_Cleared() override;
         void on_Mediator_Notify(QString topic, QMap<QString,QString> params) override;
+        void on_Clicked_Refresh();
         void on_Clicked_Simulate();
         void on_Queue_Process();
 };

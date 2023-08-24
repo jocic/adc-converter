@@ -1,3 +1,4 @@
+#include <QSerialPortInfo>
 #include <QComboBox>
 
 #include "communication_model.h"
@@ -5,7 +6,7 @@
 
 void CommunicationController::on_View_Initialized(ElementManager* manager) {
     
-    // Does nothing...
+    this->on_RefreshPorts();
 }
 
 void CommunicationController::on_View_Changed() {
@@ -84,5 +85,33 @@ void CommunicationController::on_Mediator_Notify(QString topic,
     else if (topic == "stream_ended") {
         mode->setEnabled(true);
         port->setEnabled(true);
+    }
+    else if (topic == "refresh_ports") {
+        this->on_RefreshPorts();
+    }
+}
+
+void CommunicationController::on_RefreshPorts() {
+    
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    QComboBox* mode = (QComboBox*)manager
+        ->get(CommunicationModel::FIELD_MODE);
+    
+    QComboBox* port = (QComboBox*)manager
+        ->get(CommunicationModel::FIELD_PORT);
+    
+    quint8 rate_index;
+    quint8 rate_temp;
+    
+    qDebug() << "Enumerating COM ports...";
+    
+    // COM Ports
+    
+    port->clear();
+    
+    for (const auto& serial_port : QSerialPortInfo::availablePorts()) {
+        port->addItem(serial_port.portName());
+        qDebug() << "Found:" << serial_port.portName();
     }
 }

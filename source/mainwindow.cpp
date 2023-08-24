@@ -52,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "stream_params");
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "new_stream");
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "new_samples");
+    mediator->add_Provider(ui->wd_Options_CTL->controller(), "refresh_ports");
     
     mediator->add_Consumer(ui->tab_Scope->controller(), "new_stream");
     mediator->add_Consumer(ui->tab_Scope->controller(), "new_sample");
@@ -69,6 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
     
     mediator->add_Consumer(ui->wd_Options_COM->controller(), "stream_started");
     mediator->add_Consumer(ui->wd_Options_COM->controller(), "stream_ended");
+    mediator->add_Consumer(ui->wd_Options_COM->controller(), "refresh_ports");
     
     mediator->add_Consumer(ui->wd_Tools_PL->controller(), "stream_started");
     mediator->add_Consumer(ui->wd_Tools_PL->controller(), "stream_ended");

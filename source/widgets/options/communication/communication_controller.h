@@ -12,6 +12,7 @@ class CommunicationController : public AbstractController {
         void on_Model_Changed(QString key, QString value) override;
         void on_Model_Cleared() override;
         void on_Mediator_Notify(QString topic, QMap<QString,QString> params) override;
+        void on_RefreshPorts();
 };
 
 #endif

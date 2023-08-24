@@ -27,8 +27,14 @@ ControlsController::ControlsController() {
 
 void ControlsController::on_View_Initialized(ElementManager* manager) {
     
+    QPushButton* btn_ref = (QPushButton*)manager
+        ->get(ControlsModel::FIELD_REFRESH);
+    
     QPushButton* btn_sim = (QPushButton*)manager
         ->get(ControlsModel::FIELD_SIMULATE);
+    
+    connect(btn_ref, &QPushButton::clicked,
+        this, &ControlsController::on_Clicked_Refresh);
     
     connect(btn_sim, &QPushButton::clicked,
         this, &ControlsController::on_Clicked_Simulate);
@@ -53,6 +59,11 @@ void ControlsController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
     // Does nothing...
+}
+
+void ControlsController::on_Clicked_Refresh() {
+    
+    emit ControlsController::sig_Mediator_Notify("refresh_ports", {});
 }
 
 void ControlsController::on_Clicked_Simulate() {
