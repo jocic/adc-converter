@@ -101,7 +101,26 @@ void HexadecimalController::on_Mediator_Notify(QString topic,
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
-    if (topic == "hex_selected") {
+    QLineEdit* hexadecimal = (QLineEdit*)manager
+        ->get(HexadecimalModel::FIELD_HEXADECIMAL);
+    
+    QLineEdit* decimal = (QLineEdit*)manager
+        ->get(HexadecimalModel::FIELD_DECIMAL);
+    
+    QCheckBox* val_signed = (QCheckBox*)manager
+        ->get(HexadecimalModel::FIELD_SIGNED);
+    
+    if (topic == "stream_started") {
+        hexadecimal->setEnabled(false);
+        decimal->setEnabled(false);
+        val_signed->setEnabled(false);
+    }
+    else if (topic == "stream_ended") {
+        hexadecimal->setEnabled(true);
+        decimal->setEnabled(true);
+        val_signed->setEnabled(true);
+    }
+    else if (topic == "hex_selected") {
         
         QLineEdit* hexadecimal = (QLineEdit*)manager
             ->get(HexadecimalModel::FIELD_HEXADECIMAL);

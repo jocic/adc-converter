@@ -73,6 +73,12 @@ MainWindow::MainWindow(QWidget *parent)
     mediator->add_Consumer(ui->wd_Tools_PL->controller(), "stream_started");
     mediator->add_Consumer(ui->wd_Tools_PL->controller(), "stream_ended");
     
+    mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "stream_started");
+    mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "stream_ended");
+    
+    mediator->add_Consumer(ui->wd_Tools_DEC->controller(), "stream_started");
+    mediator->add_Consumer(ui->wd_Tools_DEC->controller(), "stream_ended");
+    
     // to be refactored
     
     mediator->add_Provider(ui->wd_Options_STR->controller(), "wd_stream_data");

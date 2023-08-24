@@ -81,5 +81,20 @@ void DecimalController::on_Model_Cleared() {
 void DecimalController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
-    // Does nothing...
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    QLineEdit* decimal = (QLineEdit*)manager
+        ->get(DecimalModel::FIELD_DECIMAL);
+    
+    QLineEdit* hexadecimal = (QLineEdit*)manager
+        ->get(DecimalModel::FIELD_HEXADECIMAL);
+    
+    if (topic == "stream_started") {
+        hexadecimal->setEnabled(false);
+        decimal->setEnabled(false);
+    }
+    else if (topic == "stream_ended") {
+        hexadecimal->setEnabled(true);
+        decimal->setEnabled(true);
+    }
 }
