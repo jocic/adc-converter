@@ -225,6 +225,54 @@ void ControlsController::on_Processor_End() {
 void ControlsController::on_Processor_Read(QByteArray buffer) {
     
     qDebug() << "read some stuff";
+    
+    
+//    if (!this->data_raw->empty()) {
+        
+//        QByteArray bytes = this->data_raw->front();
+//        this->data_raw->pop_front(); 
+        
+//        qint64  sample_value = 0;
+//        quint64 array_length = bytes.size() - 1;
+        
+//        if (this->mode == 0) {
+            
+//            bool skipped_first = false;
+            
+//            for (quint64 i = 0; i < array_length; i++) {
+                
+//                if (   (bytes[i] == '\r' && bytes[i + 1] == '\n')
+//                    || (bytes[i] == '\n' && bytes[i + 1] == '\r')) {
+                    
+//                    if (skipped_first) {
+//                        window.push_back(sample_value);
+//                    }
+                    
+//                    sample_value  = 0;
+//                    skipped_first = true;
+//                }
+                
+//                if (!skipped_first) {
+//                    continue;
+//                }
+                
+//                if (bytes[i] >= '0' && bytes[i] <= '9') {
+//                    sample_value *= 10;
+//                    sample_value += bytes[i] - '0';
+//                }
+//            }
+//        }
+//        else {
+            
+//            for (quint64 i = 1; i < array_length && y > 0; i+=2) {
+//                sample_value = (bytes[i] & 0xFF) | ((bytes[i - 1] << 8) & 0xFF);
+//            }
+//            this->msleep(100);
+//        }
+        
+//        y++;
+//    }
+//}
 }
 
 void ControlsController::on_Queue_Process() {
