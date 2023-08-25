@@ -1,9 +1,10 @@
+#include "app/app_core.h"
 #include "app/app_loader.h"
 #include "app/workers/play_worker.h"
 
 PlayWorker::PlayWorker() {
     
-    AppLoader* loader = AppLoader::get_Instance();
+    AppCore* app_core = AppCore::get_Instance();
     
     m_Sink = NULL;
     
@@ -15,7 +16,7 @@ PlayWorker::PlayWorker() {
     m_Format->setSampleFormat(QAudioFormat::SampleFormat::Int16);
     
     m_Source->set_Format(m_Format);
-    m_Source->set_Buffer(loader->get_Buffer());
+    m_Source->set_Buffer(app_core->get_Buffer());
     m_Source->set_ElapsedTime(0);
     
     m_Source->recalculate();

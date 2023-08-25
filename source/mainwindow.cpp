@@ -5,9 +5,11 @@
 #include "./ui_mainwindow.h"
 
 #include "app/app_mediator.h"
+#include "app/app_core.h"
 #include "app/app_loader.h"
 #include "app/app_saver.h"
 #include "app/app_exporter.h"
+#include "app/workers/load_worker.h"
 
 #include "widgets/options/stream/stream_model.h"
 
@@ -47,12 +49,23 @@ MainWindow::MainWindow(QWidget *parent)
     AppMediator* mediator = AppMediator::get_Instance();
     AppLoader*   loader   = AppLoader::get_Instance();
     
+    // General
+    
+    connect(loader->get_Worker(), &LoadWorker::sig_Done,
+        this, &MainWindow::on_Dump_Loaded);
+    
+    // Providers
+    
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "stream_started");
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "stream_ended");
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "stream_params");
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "new_stream");
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "new_samples");
     mediator->add_Provider(ui->wd_Options_CTL->controller(), "refresh_ports");
+    
+    mediator->add_Provider(ui->tab_Samples->controller(), "frame_data");
+    
+    // Consumers
     
     mediator->add_Consumer(ui->tab_Scope->controller(), "new_stream");
     mediator->add_Consumer(ui->tab_Scope->controller(), "new_sample");
@@ -81,15 +94,19 @@ MainWindow::MainWindow(QWidget *parent)
     mediator->add_Consumer(ui->wd_Tools_DEC->controller(), "stream_started");
     mediator->add_Consumer(ui->wd_Tools_DEC->controller(), "stream_ended");
     
+    mediator->add_Consumer(ui->tab_Samples->controller(), "stream_started");
+    mediator->add_Consumer(ui->tab_Samples->controller(), "stream_ended");
+    mediator->add_Consumer(ui->tab_Samples->controller(), "dump_loaded");
+    
+    mediator->add_Consumer(ui->tab_Scope->controller(), "frame_data");
+    
     // to be refactored
     
     mediator->add_Provider(ui->wd_Options_STR->controller(), "wd_stream_data");
-    mediator->add_Provider(ui->tab_Samples->controller(), "tab_window_data");
     
     mediator->add_Consumer(ui->tab_Samples->controller(), "wd_stream_data");
     mediator->add_Consumer(ui->wd_Tools_PL->controller(), "wd_stream_data");
     mediator->add_Consumer(ui->wd_Info_GEN->controller(), "wd_stream_data");
-    mediator->add_Consumer(ui->tab_Scope->controller(), "tab_window_data");
     
     mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "hex_selected");
 }
@@ -98,6 +115,17 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+void MainWindow::on_Dump_Loaded() {
+    
+    AppMediator* app_mediator = AppMediator::get_Instance();
+    AppCore*     app_core     = AppCore::get_Instance();
+    AppLoader*   app_loader   = AppLoader::get_Instance(); 
+    
+    app_core->get_Buffer()->clear();
+    app_core->get_Buffer()->append(*app_loader->get_Buffer());
+    
+    app_mediator->on_Notify("dump_loaded", {});
+}
 
 void MainWindow::on_action_Save_triggered() {
     
@@ -106,19 +134,19 @@ void MainWindow::on_action_Save_triggered() {
     
     // Show Dialog
     
-    AppLoader* loader = AppLoader::get_Instance();
-    AppSaver*  saver  = AppSaver::get_Instance();
+    AppCore*  app_core = AppCore::get_Instance();
+    AppSaver* saver    = AppSaver::get_Instance();
     
     saver->selectFile(dump_filename);
     saver->exec();
     
     if (saver->is_Selected()) {
-        saver->process(loader->get_Buffer());
+        saver->process(app_core->get_Buffer());
     }
 }
 
 void MainWindow::on_action_Load_triggered() {
-    
+     
     AppLoader* loader = AppLoader::get_Instance(); 
     
     loader->exec();
@@ -142,14 +170,14 @@ void MainWindow::on_action_Export_triggered() {
     
     // Show Dialog
     
-    AppLoader*   loader   = AppLoader::get_Instance();
+    AppCore*     app_core = AppCore::get_Instance();
     AppExporter* exporter = AppExporter::get_Instance();
     
     exporter->selectFile(export_filename);
     exporter->exec();
     
     if (exporter->is_Selected()) {
-        exporter->process(loader->get_Buffer(), sample_rate, bits_per_sample);
+        exporter->process(app_core->get_Buffer(), sample_rate, bits_per_sample);
     }
 }
 

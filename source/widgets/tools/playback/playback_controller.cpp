@@ -12,6 +12,7 @@
 #include "playback_view.h"
 #include "playback_controller.h"
 #include "app/app_icons.h"
+#include "app/app_core.h"
 #include "app/app_loader.h"
 #include "app/app_exporter.h"
 
@@ -191,13 +192,13 @@ void PlaybackController::on_Clicked_Export() {
     
     // Show Dialog
     
-    AppLoader*   loader   = AppLoader::get_Instance();
+    AppCore*     app_core = AppCore::get_Instance();
     AppExporter* exporter = AppExporter::get_Instance();
     
     exporter->selectFile(export_filename);
     exporter->exec();
     
     if (exporter->is_Selected()) {
-        exporter->process(loader->get_Buffer(), m_SampleRate, m_BitsPerSample);
+        exporter->process(app_core->get_Buffer(), m_SampleRate, m_BitsPerSample);
     }
 }

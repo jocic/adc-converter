@@ -62,11 +62,12 @@ void ScopeController::on_Mediator_Notify(QString topic,
             chart_series->points().removeAt(0);
         }
     }
-    
-    
-    if (topic == "tab_window_data") {
+    else if (topic == "frame_data") {
         
         chart_series->clear();
+        
+        y_axis->setRange(-75000, 75000);
+        x_axis->setRange(0, params.size() - 1);
         
         QVector<QPair<quint64, quint64>> data;
         

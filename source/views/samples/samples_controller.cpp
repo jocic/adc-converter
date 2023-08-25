@@ -9,6 +9,7 @@
 #include "samples_model.h"
 #include "samples_view.h"
 #include "samples_controller.h"
+#include "app/app_core.h"
 #include "app/app_loader.h"
 #include "app/app_mediator.h"
 #include "app/workers/load_worker.h"
@@ -123,7 +124,7 @@ void SamplesController::on_View_Changed() {
             QString::asprintf("%llu", data[i]));
     }
     
-    emit SamplesController::sig_Mediator_Notify("tab_window_data", data_conv);
+    emit SamplesController::sig_Mediator_Notify("frame_data", data_conv);
 }
 
 void SamplesController::on_Model_Changed(QString key, QString value) {
@@ -166,9 +167,46 @@ void SamplesController::on_Model_Cleared() {
 void SamplesController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
-    qDebug() << "Meidator notification:" << topic << params;
+    ElementManager* manager = this->get_View()->get_ElementManager();
     
-    if (topic == "wd_stream_data") {
+    QPushButton* btn_offset = (QPushButton*)manager
+        ->get(SamplesModel::FIELD_OFFSET);
+    
+    QPushButton* btn_prev = (QPushButton*)manager
+        ->get(SamplesModel::FIELD_PREV);
+    
+    QPushButton* btn_next = (QPushButton*)manager
+        ->get(SamplesModel::FIELD_NEXT);
+    
+    QLineEdit* txt_offset = (QLineEdit*)manager
+        ->get(SamplesModel::FIELD_OFFSET_START);
+    
+    QComboBox* cb_span = (QComboBox*)manager
+        ->get(SamplesModel::FIELD_RANGE_SPAN);
+    
+    if (topic == "stream_started") {
+        
+        btn_offset->setEnabled(false);
+        btn_prev->setEnabled(false);
+        btn_next->setEnabled(false);
+        txt_offset->setEnabled(false);
+        cb_span->setEnabled(false);
+    }
+    else if (topic == "stream_ended") {
+        
+        btn_offset->setEnabled(true);
+        btn_prev->setEnabled(true);
+        btn_next->setEnabled(true);
+        txt_offset->setEnabled(true);
+        cb_span->setEnabled(true);
+        
+        this->on_Data_Loaded();
+    }
+    else if (topic == "dump_loaded") {
+        
+        this->on_Clicked_Offset();
+    }
+    else if (topic == "wd_stream_data") {
         
         SamplesModel* model = (SamplesModel*)this->get_Model();
         SamplesView*  view  = (SamplesView*)this->get_View();
@@ -218,7 +256,7 @@ void SamplesController::on_Data_Loaded() {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     SamplesView*  view  = (SamplesView*)this->get_View();
     
-    AppLoader* loader     = AppLoader::get_Instance();
+    AppCore*    app_core   = AppCore::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
     
     quint64 rs    = model->get_RangeSpan();
@@ -226,7 +264,7 @@ void SamplesController::on_Data_Loaded() {
     quint8  bytes = bps / 8;
     
     QByteArray buffer;
-    loader->get_Chunk(buffer, 0, rs * bytes);
+    app_core->get_Chunk(buffer, 0, rs * bytes);
     
     hex_viewer->set_Offset(0);
     hex_viewer->set_VisibleRows(rs / 8);
@@ -238,7 +276,7 @@ void SamplesController::on_Clicked_Offset() {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     SamplesView*  view  = (SamplesView*)this->get_View();
     
-    AppLoader* loader     = AppLoader::get_Instance();
+    AppCore*    app_core   = AppCore::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
     
     quint64 offset = model->get_OffsetStart();
@@ -248,11 +286,13 @@ void SamplesController::on_Clicked_Offset() {
     
     QByteArray buffer;
     
-    loader->get_Chunk(buffer, offset * bytes, rs * bytes);
+    app_core->get_Chunk(buffer, offset * bytes, rs * bytes);
     
     hex_viewer->set_Offset(offset);
     hex_viewer->set_VisibleRows(rs / 8);
     hex_viewer->set_Data(buffer, bytes);
+    
+    this->on_View_Changed();
 }
 
 void SamplesController::on_Clicked_Prev() {
@@ -260,7 +300,7 @@ void SamplesController::on_Clicked_Prev() {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     SamplesView*  view  = (SamplesView*)this->get_View();
     
-    AppLoader* loader     = AppLoader::get_Instance();
+    AppCore*    app_core   = AppCore::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
     
     quint64 offset = model->get_OffsetStart();
@@ -284,7 +324,7 @@ void SamplesController::on_Clicked_Prev() {
     
     QByteArray buffer;
     
-    loader->get_Chunk(buffer, offset * bytes, rs * bytes);
+    app_core->get_Chunk(buffer, offset * bytes, rs * bytes);
     
     hex_viewer->set_Offset(offset);
     hex_viewer->set_VisibleRows(rs / 8);
@@ -298,7 +338,7 @@ void SamplesController::on_Clicked_Next() {
     SamplesModel* model = (SamplesModel*)this->get_Model();
     SamplesView*  view  = (SamplesView*)this->get_View();
     
-    AppLoader* loader     = AppLoader::get_Instance();
+    AppCore*    app_core   = AppCore::get_Instance();
     HexViewer*  hex_viewer = view->get_HexViewer();
     
     quint64 offset = model->get_OffsetStart();
@@ -318,7 +358,7 @@ void SamplesController::on_Clicked_Next() {
     
     QByteArray buffer;
     
-    loader->get_Chunk(buffer, offset * bytes, rs * bytes);
+    app_core->get_Chunk(buffer, offset * bytes, rs * bytes);
     
     hex_viewer->set_Offset(offset);
     hex_viewer->set_VisibleRows(rs / 8);

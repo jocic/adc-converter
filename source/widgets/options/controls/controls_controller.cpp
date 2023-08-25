@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 
+#include "app/app_core.h"
 #include "app/app_mediator.h"
 #include "widgets/options/controls/controls_model.h"
 #include "widgets/options/controls/controls_controller.h"
@@ -110,8 +111,12 @@ void ControlsController::on_Clicked_Simulate() {
     
     // Start Streaming Simulation
     
+    AppCore* app_core = AppCore::get_Instance();
+    
     emit ControlsController::sig_Mediator_Notify("stream_started", {});
     emit ControlsController::sig_Mediator_Notify("new_stream", {});
+    
+    app_core->get_Buffer()->clear();
     
     btn_con->setEnabled(false);
     btn_ref->setEnabled(false);
@@ -134,9 +139,18 @@ void ControlsController::on_Clicked_Simulate() {
 
 void ControlsController::on_Queue_Process() {
     
+    AppCore* app_core = AppCore::get_Instance();
+    
     if (m_Simulating) {
         
         qint16 sample = m_Samples->dequeue();
+        
+        QByteArray sample_decomposed;
+        
+        sample_decomposed.push_back((sample     ) & 0xFF);
+        sample_decomposed.push_back((sample >> 8) & 0xFF);
+        
+        app_core->get_Buffer()->append(sample_decomposed);
         
         emit ControlsController::sig_Mediator_Notify("new_sample", {
              { "value", QString::asprintf("%d", sample) }
