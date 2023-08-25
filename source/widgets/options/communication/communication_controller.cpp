@@ -6,12 +6,29 @@
 
 void CommunicationController::on_View_Initialized(ElementManager* manager) {
     
+    this->registerField(CommunicationModel::FIELD_MODE,
+        QComboBox::staticMetaObject.className());
+    
+    this->registerField(CommunicationModel::FIELD_PORT,
+        QComboBox::staticMetaObject.className());
+    
     this->on_RefreshPorts();
 }
 
 void CommunicationController::on_View_Changed() {
     
-    // Does nothing...
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    QComboBox* port = (QComboBox*)manager
+        ->get(CommunicationModel::FIELD_PORT);
+    
+    QComboBox* mode = (QComboBox*)manager
+        ->get(CommunicationModel::FIELD_MODE);
+    
+    emit CommunicationController::sig_Mediator_Notify("com_data", {
+        { "port", port->currentText() }, 
+        { "mode", mode->currentText() }
+    });
 }
 
 void CommunicationController::on_Model_Changed(QString key, QString value) {

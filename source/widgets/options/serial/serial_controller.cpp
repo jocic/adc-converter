@@ -5,12 +5,25 @@
 
 void SerialController::on_View_Initialized(ElementManager* manager) {
     
-    // Does nothing...
+    this->registerField(SerialModel::FIELD_BAUD_RATE,
+        QComboBox::staticMetaObject.className());
+    
+    this->registerField(SerialModel::FIELD_DATA_BITS,
+        QComboBox::staticMetaObject.className());
+    
+    this->registerField(SerialModel::FIELD_STOP_BITS,
+        QComboBox::staticMetaObject.className());
+    
+    this->registerField(SerialModel::FIELD_PARITY_BITS,
+        QComboBox::staticMetaObject.className());
+    
+    this->registerField(SerialModel::FIELD_FLOW_CONTROL,
+        QComboBox::staticMetaObject.className());
 }
 
 void SerialController::on_View_Changed() {
     
-    // Does nothing...
+    qDebug() << ":D";
 }
 
 void SerialController::on_Model_Changed(QString key, QString value) {

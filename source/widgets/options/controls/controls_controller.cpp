@@ -12,6 +12,10 @@
 
 ControlsController::ControlsController() {
     
+    // Data Worker
+    
+    m_DataWorker = new DataWorker();
+    
     // Processor
     
     m_Processor = new QTimer();
@@ -24,15 +28,32 @@ ControlsController::ControlsController() {
     // Samples
     
     m_Samples = new QQueue<qint64>();
+    
+    // Connections
+    
+    connect(m_DataWorker, &DataWorker::started,
+        this, &ControlsController::on_Processor_Start);
+    
+    connect(m_DataWorker, &DataWorker::finished,
+        this, &ControlsController::on_Processor_End);
+    
+    connect(m_DataWorker, &DataWorker::sig_Read,
+        this, &ControlsController::on_Processor_Read);
 }
 
 void ControlsController::on_View_Initialized(ElementManager* manager) {
+    
+    QPushButton* btn_con = (QPushButton*)manager
+        ->get(ControlsModel::FIELD_CONNECT);
     
     QPushButton* btn_ref = (QPushButton*)manager
         ->get(ControlsModel::FIELD_REFRESH);
     
     QPushButton* btn_sim = (QPushButton*)manager
         ->get(ControlsModel::FIELD_SIMULATE);
+    
+    connect(btn_con, &QPushButton::clicked,
+        this, &ControlsController::on_Clicked_Connect);
     
     connect(btn_ref, &QPushButton::clicked,
         this, &ControlsController::on_Clicked_Refresh);
@@ -59,7 +80,26 @@ void ControlsController::on_Model_Cleared() {
 void ControlsController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
-    // Does nothing...
+    if (topic == "com_data") {
+        
+        if (params.contains("port")) {
+            m_ComPort = params["port"];
+        }
+    }
+}
+
+void ControlsController::on_Clicked_Connect() {
+    
+    if (m_DataWorker->isRunning()) {
+        
+        m_DataWorker->exit();
+    }
+    else {
+        
+        m_DataWorker->set_ComPort(m_ComPort);
+        
+        m_DataWorker->start();
+    }
 }
 
 void ControlsController::on_Clicked_Refresh() {
@@ -135,6 +175,56 @@ void ControlsController::on_Clicked_Simulate() {
     }
     
     m_Simulating = true;
+}
+
+void ControlsController::on_Processor_Start() {
+    
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    QPushButton* btn_con = (QPushButton*)manager
+        ->get(ControlsModel::FIELD_CONNECT);
+    
+    QPushButton* btn_ref = (QPushButton*)manager
+        ->get(ControlsModel::FIELD_REFRESH);
+    
+    QPushButton* btn_sim = (QPushButton*)manager
+        ->get(ControlsModel::FIELD_SIMULATE);
+    
+    btn_con->setText("Disconnect");
+    
+    btn_con->setEnabled(true);
+    btn_ref->setEnabled(false);
+    btn_sim->setEnabled(false);
+    
+    emit ControlsController::sig_Mediator_Notify("stream_started", {});
+    emit ControlsController::sig_Mediator_Notify("new_stream", {});
+}
+
+void ControlsController::on_Processor_End() {
+    
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    QPushButton* btn_con = (QPushButton*)manager
+        ->get(ControlsModel::FIELD_CONNECT);
+    
+    QPushButton* btn_ref = (QPushButton*)manager
+        ->get(ControlsModel::FIELD_REFRESH);
+    
+    QPushButton* btn_sim = (QPushButton*)manager
+        ->get(ControlsModel::FIELD_SIMULATE);
+    
+    btn_con->setText("Connect");
+    
+    btn_con->setEnabled(true);
+    btn_ref->setEnabled(true);
+    btn_sim->setEnabled(true);
+    
+    emit ControlsController::sig_Mediator_Notify("stream_ended", {});
+}
+
+void ControlsController::on_Processor_Read(QByteArray buffer) {
+    
+    qDebug() << "read some stuff";
 }
 
 void ControlsController::on_Queue_Process() {

@@ -64,6 +64,7 @@ set(PROJECT_HEADERS
     source/app/workers/save_worker.h
     source/app/workers/export_worker.h
     source/app/workers/play_worker.h
+    source/app/workers/data_worker.h
     
     # Audio
     
@@ -211,6 +212,7 @@ set(PROJECT_SOURCES
     source/app/workers/save_worker.cpp
     source/app/workers/export_worker.cpp
     source/app/workers/play_worker.cpp
+    source/app/workers/data_worker.cpp
     
     # Audio
     
