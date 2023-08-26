@@ -26,7 +26,7 @@ class DataReceiver : public QObject {
     public:
         DataReceiver();
         QSerialPort* serialPort();
-        void start(bool simulate);
+        void start(bool simulate = false);
         void stop();
         bool isRunning();
         

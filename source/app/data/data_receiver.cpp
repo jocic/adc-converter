@@ -40,9 +40,18 @@ void DataReceiver::start(bool simulate) {
     }
     
     if (simulate) {
+        
         m_SimTimer->start();
-    } else {
-        m_ReadTimer->start();
+    }
+    else {
+        
+        m_SerialPort->open(QSerialPort::OpenModeFlag::ReadOnly);
+        
+        if (m_SerialPort->isOpen()) {
+            m_ReadTimer->start();
+        } else {
+            return;
+        }
     }
     
     emit DataReceiver::sig_Started();
@@ -71,9 +80,12 @@ bool DataReceiver::isRunning() {
 
 void DataReceiver::on_ReadInterval() {
     
-    if (m_SerialPort->bytesAvailable()) {
-        QByteArray buffer = m_SerialPort->readAll();
-        emit DataReceiver::sig_BufferRead(buffer);
+    if (m_SerialPort->isOpen() && m_SerialPort->isReadable()) {
+       
+        if (m_SerialPort->bytesAvailable()) {
+            QByteArray buffer = m_SerialPort->readAll();
+            emit DataReceiver::sig_BufferRead(buffer);
+        }
     }
 }
 
