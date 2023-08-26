@@ -18651,7 +18651,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 16,
-											"top": -432,
+											"top": -448,
 											"height": 13
 										},
 										{
@@ -18662,7 +18662,7 @@
 											},
 											"font": "Arial;13;1",
 											"left": 661,
-											"top": 95,
+											"top": 87,
 											"width": 175,
 											"height": 13,
 											"text": "DataProcessor"
@@ -18676,7 +18676,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 16,
-											"top": -432,
+											"top": -448,
 											"width": 97.51904296875,
 											"height": 13,
 											"text": "(from Streaming)"
@@ -18690,14 +18690,14 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 16,
-											"top": -432,
+											"top": -448,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 656,
-									"top": 88,
+									"top": 80,
 									"width": 185,
 									"height": 25,
 									"stereotypeLabel": {
@@ -18734,7 +18734,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 661,
-											"top": 118,
+											"top": 110,
 											"width": 175,
 											"height": 13,
 											"text": "#m_Timer",
@@ -18751,7 +18751,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 661,
-											"top": 133,
+											"top": 125,
 											"width": 175,
 											"height": 13,
 											"text": "#m_Data",
@@ -18760,7 +18760,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 656,
-									"top": 113,
+									"top": 105,
 									"width": 185,
 									"height": 38
 								},
@@ -18785,7 +18785,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 661,
-											"top": 156,
+											"top": 148,
 											"width": 175,
 											"height": 13,
 											"text": "+start()",
@@ -18802,7 +18802,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 661,
-											"top": 171,
+											"top": 163,
 											"width": 175,
 											"height": 13,
 											"text": "+stop()",
@@ -18819,7 +18819,7 @@
 											},
 											"font": "Arial;13;2",
 											"left": 661,
-											"top": 186,
+											"top": 178,
 											"width": 175,
 											"height": 13,
 											"text": "#process()",
@@ -18836,7 +18836,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 661,
-											"top": 201,
+											"top": 193,
 											"width": 175,
 											"height": 13,
 											"text": "+pushData(data)",
@@ -18853,7 +18853,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 661,
-											"top": 216,
+											"top": 208,
 											"width": 175,
 											"height": 13,
 											"text": "+on_NewData(data)",
@@ -18862,7 +18862,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 656,
-									"top": 151,
+									"top": 143,
 									"width": 185,
 									"height": 83
 								},
@@ -18878,7 +18878,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 8,
-									"top": -216,
+									"top": -224,
 									"width": 10,
 									"height": 10
 								},
@@ -18894,7 +18894,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 8,
-									"top": -216,
+									"top": -224,
 									"width": 10,
 									"height": 10
 								}
@@ -18902,7 +18902,7 @@
 							"font": "Arial;13;0",
 							"containerChangeable": true,
 							"left": 656,
-							"top": 88,
+							"top": 80,
 							"width": 185,
 							"height": 200,
 							"nameCompartment": {
@@ -19602,8 +19602,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 657,
-									"top": 321,
+									"left": 658,
+									"top": 318,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -19623,8 +19623,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 644,
-									"top": 314,
+									"left": 645,
+									"top": 311,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -19644,8 +19644,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 684,
-									"top": 336,
+									"left": 685,
+									"top": 331,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -19663,7 +19663,7 @@
 								"$ref": "AAAAAAGKMjsj7iCznRg="
 							},
 							"lineStyle": 1,
-							"points": "647:383;696:288",
+							"points": "646:383;698:280",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGKMjt5PiD+Mec="
@@ -19697,7 +19697,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 820,
-									"top": 336,
+									"top": 332,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -19718,7 +19718,7 @@
 									"visible": null,
 									"font": "Arial;13;0",
 									"left": 807,
-									"top": 343,
+									"top": 339,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -19739,7 +19739,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 847,
-									"top": 321,
+									"top": 317,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -19757,7 +19757,7 @@
 								"$ref": "AAAAAAGKMjsaDCCKA5Q="
 							},
 							"lineStyle": 1,
-							"points": "862:383;807:288",
+							"points": "863:383;805:280",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGKMjuB+yEPuvo="
@@ -19901,6 +19901,27 @@
 						"$ref": "AAAAAAGKMjBcOx+AsBc="
 					},
 					"name": "DataProcessor",
+					"ownedElements": [
+						{
+							"_type": "UMLSignal",
+							"_id": "AAAAAAGKMkJeDSGtGCA=",
+							"_parent": {
+								"$ref": "AAAAAAGKMjEE5h+ykao="
+							},
+							"name": "sig_NewSample",
+							"attributes": [
+								{
+									"_type": "UMLAttribute",
+									"_id": "AAAAAAGKMkKxJiGxwnI=",
+									"_parent": {
+										"$ref": "AAAAAAGKMkJeDSGtGCA="
+									},
+									"name": "sample",
+									"type": ""
+								}
+							]
+						}
+					],
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
