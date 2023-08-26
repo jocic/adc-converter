@@ -44,6 +44,13 @@ set(PROJECT_HEADERS
     source/app/app_saver.h
     source/app/app_exporter.h
     
+    # Data
+    
+    source/app/data/data_receiver.h
+    source/app/data/data_processor.h
+    source/app/data/text_processor.h
+    source/app/data/binary_processor.h
+    
     # Converters
     
     source/app/converters/abstract_converter.h
@@ -64,7 +71,6 @@ set(PROJECT_HEADERS
     source/app/workers/save_worker.h
     source/app/workers/export_worker.h
     source/app/workers/play_worker.h
-    source/app/workers/data_worker.h
     
     # Audio
     
@@ -192,6 +198,13 @@ set(PROJECT_SOURCES
     source/app/app_saver.cpp
     source/app/app_exporter.cpp
     
+    # Data
+    
+    source/app/data/data_receiver.cpp
+    source/app/data/data_processor.cpp
+    source/app/data/text_processor.cpp
+    source/app/data/binary_processor.cpp
+    
     # Converters
     
     source/app/converters/abstract_converter.cpp
@@ -212,7 +225,6 @@ set(PROJECT_SOURCES
     source/app/workers/save_worker.cpp
     source/app/workers/export_worker.cpp
     source/app/workers/play_worker.cpp
-    source/app/workers/data_worker.cpp
     
     # Audio
     

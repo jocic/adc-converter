@@ -1,5 +1,3 @@
-#include <QDebug>
-
 #include "app/data/data_receiver.h"
 
 DataReceiver::DataReceiver() {

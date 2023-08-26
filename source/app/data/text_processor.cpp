@@ -18,10 +18,10 @@ void TextProcessor::start() {
     DataProcessor::start();
 }
 
-void TextProcessor::on_Timeout() {
+void TextProcessor::on_DataTimeout() { // doesn't work yet
     
     quint64 index  = 0;
-    quint64 length = qMin(1024, m_Data->size());
+    quint64 length = qMin(128, m_Data->size());
     
     // Skip First Value
     
@@ -41,17 +41,17 @@ void TextProcessor::on_Timeout() {
     // Process Values
     
     quint64 last_index = index;
-    QString sample_str = "";
+    QString sample     = "";
     
     while (index < length) {
         
         if (m_Data->at(index) == '\r') {
-            emit TextProcessor::sig_NewSample(sample_str.toDouble());
-            sample_str.clear();
+            m_Samples.enqueue(sample);
+            sample.clear();
         } else if (m_Data->at(index) == '\n') {
             last_index = index + 1;
         } else {
-            sample_str += m_Data->at(index);
+            sample += m_Data->at(index);
         }
         
         index++;
@@ -60,4 +60,15 @@ void TextProcessor::on_Timeout() {
     if (last_index < length) {
         m_Data->erase(m_Data->begin(), m_Data->begin() + last_index);
     }
+}
+
+void TextProcessor::on_SampleTimeout() {
+    
+    if (m_Samples.size() == 0) {
+        return;
+    }
+    
+    QString sample = m_Samples.dequeue();
+    
+    emit TextProcessor::sig_NewSample(sample.toDouble());
 }

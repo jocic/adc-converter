@@ -3,7 +3,7 @@
 #define ADC_DATA_TEXT_PROCESSOR_H
 
 #include <QObject>
-
+#include <QQueue>
 #include "app/data/data_processor.h"
 
 class TextProcessor : public DataProcessor {
@@ -11,8 +11,10 @@ class TextProcessor : public DataProcessor {
     Q_OBJECT
     
     private:
+        QQueue<QString> m_Samples;
         bool m_SkippedFirst;
-        void on_Timeout() override;
+        void on_DataTimeout() override;
+        void on_SampleTimeout() override;
         
     public:
         void start();

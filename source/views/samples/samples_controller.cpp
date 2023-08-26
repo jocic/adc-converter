@@ -184,7 +184,19 @@ void SamplesController::on_Mediator_Notify(QString topic,
     QComboBox* cb_span = (QComboBox*)manager
         ->get(SamplesModel::FIELD_RANGE_SPAN);
     
-    if (topic == "stream_started") {
+    if (topic == "new_stream") {
+        
+        SamplesView*  view  = (SamplesView*)this->get_View();
+        
+        HexViewer* hex_viewer = view->get_HexViewer();
+        
+        hex_viewer->get_Data().clear();
+        
+        this->on_Data_Loaded(); // Reset Hex Viewer
+        
+        this->on_View_Changed();
+    }
+    else if (topic == "stream_started") {
         
         btn_offset->setEnabled(false);
         btn_prev->setEnabled(false);

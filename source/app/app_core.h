@@ -7,6 +7,9 @@
 #include <QByteArray>
 #include <QMap>
 
+#include "app/data/data_receiver.h"
+#include "app/data/text_processor.h"
+
 class AppCore : public QObject {
     
     Q_OBJECT
@@ -19,6 +22,9 @@ class AppCore : public QObject {
         QByteArray*            m_Buffer;
         QMap<QString,QString>* m_Params;
         
+        DataReceiver*  m_DataReceiver;
+        TextProcessor* m_TextProcessor;
+        
         AppCore();
         AppCore(const AppCore& ref) = delete;
         void operator = (const AppCore& ref) = delete;
@@ -28,6 +34,8 @@ class AppCore : public QObject {
         static AppCore* get_Instance();
         
         QByteArray* get_Buffer();
+        DataReceiver* get_DataReceiver();
+        TextProcessor* get_TextProcessor();
         void get_Chunk(QByteArray& buf, quint64 off, quint64 len);
         void save();
         void load();

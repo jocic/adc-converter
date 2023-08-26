@@ -3,43 +3,12 @@
 #include <QFile>
 #include <QTimer>
 #include <QPushButton>
+#include <QTextStream>
 #include <QMessageBox>
 
 #include "app/app_core.h"
-#include "app/app_mediator.h"
 #include "widgets/options/controls/controls_model.h"
 #include "widgets/options/controls/controls_controller.h"
-
-ControlsController::ControlsController() {
-    
-    // Data Worker
-    
-    m_DataWorker = new DataWorker();
-    
-    // Processor
-    
-    m_Processor = new QTimer();
-    
-    m_Processor->start();
-    
-    connect(m_Processor, &QTimer::timeout,
-        this, &ControlsController::on_Queue_Process);
-    
-    // Samples
-    
-    m_Samples = new QQueue<qint64>();
-    
-    // Connections
-    
-    connect(m_DataWorker, &DataWorker::started,
-        this, &ControlsController::on_Processor_Start);
-    
-    connect(m_DataWorker, &DataWorker::finished,
-        this, &ControlsController::on_Processor_End);
-    
-    connect(m_DataWorker, &DataWorker::sig_Read,
-        this, &ControlsController::on_Processor_Read);
-}
 
 void ControlsController::on_View_Initialized(ElementManager* manager) {
     
@@ -60,6 +29,23 @@ void ControlsController::on_View_Initialized(ElementManager* manager) {
     
     connect(btn_sim, &QPushButton::clicked,
         this, &ControlsController::on_Clicked_Simulate);
+    
+    //////////////////////////////
+    
+    DataReceiver*  data_receiver  = AppCore::get_Instance()->get_DataReceiver();    
+    TextProcessor* text_processor = AppCore::get_Instance()->get_TextProcessor();
+    
+    connect(data_receiver, &DataReceiver::sig_Started,
+        this, &ControlsController::on_Processor_Start);
+    
+    connect(data_receiver, &DataReceiver::sig_Stopped,
+        this, &ControlsController::on_Processor_End);
+    
+    connect(data_receiver, &DataReceiver::sig_BufferRead,
+        text_processor, &TextProcessor::on_NewData);
+    
+    connect(text_processor, &TextProcessor::sig_NewSample,
+        this, &ControlsController::on_Processor_Sample);
 }
 
 void ControlsController::on_View_Changed() {
@@ -90,15 +76,22 @@ void ControlsController::on_Mediator_Notify(QString topic,
 
 void ControlsController::on_Clicked_Connect() {
     
-    if (m_DataWorker->isRunning()) {
+    DataReceiver*  data_receiver  = AppCore::get_Instance()->get_DataReceiver();
+    TextProcessor* text_processor = AppCore::get_Instance()->get_TextProcessor();
+    
+    if (!data_receiver->isRunning()) {
         
-        m_DataWorker->exit();
+        emit ControlsController::sig_Mediator_Notify("refresh_ports", {});
+        
+        text_processor->start();
+        
+        data_receiver->serialPort()->setPortName(m_ComPort);
+        data_receiver->start();
     }
     else {
         
-        m_DataWorker->set_ComPort(m_ComPort);
-        
-        m_DataWorker->start();
+        data_receiver->stop();
+        text_processor->stop();
     }
 }
 
@@ -161,20 +154,6 @@ void ControlsController::on_Clicked_Simulate() {
     btn_con->setEnabled(false);
     btn_ref->setEnabled(false);
     btn_sim->setEnabled(false);
-    
-    quint16 sample;
-    
-    for (quint64 i = 1; i < sim_data.size(); i+=2) {
-        
-        sample = 0;
-        
-        sample |= ((sim_data[i    ] & 0xFF) << 8);
-        sample |= ((sim_data[i - 1] & 0xFF)     );
-        
-        m_Samples->enqueue(sample);
-    }
-    
-    m_Simulating = true;
 }
 
 void ControlsController::on_Processor_Start() {
@@ -222,98 +201,9 @@ void ControlsController::on_Processor_End() {
     emit ControlsController::sig_Mediator_Notify("stream_ended", {});
 }
 
-void ControlsController::on_Processor_Read(QByteArray buffer) {
+void ControlsController::on_Processor_Sample(qint64 sample) {
     
-    qDebug() << "read some stuff";
-    
-    
-//    if (!this->data_raw->empty()) {
-        
-//        QByteArray bytes = this->data_raw->front();
-//        this->data_raw->pop_front(); 
-        
-//        qint64  sample_value = 0;
-//        quint64 array_length = bytes.size() - 1;
-        
-//        if (this->mode == 0) {
-            
-//            bool skipped_first = false;
-            
-//            for (quint64 i = 0; i < array_length; i++) {
-                
-//                if (   (bytes[i] == '\r' && bytes[i + 1] == '\n')
-//                    || (bytes[i] == '\n' && bytes[i + 1] == '\r')) {
-                    
-//                    if (skipped_first) {
-//                        window.push_back(sample_value);
-//                    }
-                    
-//                    sample_value  = 0;
-//                    skipped_first = true;
-//                }
-                
-//                if (!skipped_first) {
-//                    continue;
-//                }
-                
-//                if (bytes[i] >= '0' && bytes[i] <= '9') {
-//                    sample_value *= 10;
-//                    sample_value += bytes[i] - '0';
-//                }
-//            }
-//        }
-//        else {
-            
-//            for (quint64 i = 1; i < array_length && y > 0; i+=2) {
-//                sample_value = (bytes[i] & 0xFF) | ((bytes[i - 1] << 8) & 0xFF);
-//            }
-//            this->msleep(100);
-//        }
-        
-//        y++;
-//    }
-//}
-}
-
-void ControlsController::on_Queue_Process() {
-    
-    AppCore* app_core = AppCore::get_Instance();
-    
-    if (m_Simulating) {
-        
-        qint16 sample = m_Samples->dequeue();
-        
-        QByteArray sample_decomposed;
-        
-        sample_decomposed.push_back((sample     ) & 0xFF);
-        sample_decomposed.push_back((sample >> 8) & 0xFF);
-        
-        app_core->get_Buffer()->append(sample_decomposed);
-        
-        emit ControlsController::sig_Mediator_Notify("new_sample", {
-             { "value", QString::asprintf("%d", sample) }
-        });
-        
-        if (m_Samples->size() == 0) {
-            
-            ElementManager* manager = this->get_View()->get_ElementManager();
-            
-            QPushButton* btn_con = (QPushButton*)manager
-                ->get(ControlsModel::FIELD_CONNECT);
-            
-            QPushButton* btn_ref = (QPushButton*)manager
-                ->get(ControlsModel::FIELD_REFRESH);
-            
-            QPushButton* btn_sim = (QPushButton*)manager
-                ->get(ControlsModel::FIELD_SIMULATE);
-            
-            m_Simulating = false;
-            
-            btn_con->setEnabled(true);
-            btn_ref->setEnabled(true);
-            btn_sim->setEnabled(true);
-            
-            emit ControlsController::sig_Mediator_Notify("stream_ended", {});
-        }
-    }
+    emit ControlsController::sig_Mediator_Notify("new_sample", {
+         { "value", QString::asprintf("%lld", sample) }
+    });
 }

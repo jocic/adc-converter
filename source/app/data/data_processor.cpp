@@ -2,10 +2,19 @@
 
 DataProcessor::DataProcessor() {
     
-    m_Timer = new QTimer();
+    m_DataTimer = new QTimer();
     
-    connect(m_Timer, &QTimer::timeout,
-        this, &DataProcessor::on_Timeout);
+    connect(m_DataTimer, &QTimer::timeout,
+        this, &DataProcessor::on_DataTimeout);
+    
+    ////////////////////////////
+    
+    m_SampleTimer = new QTimer();
+    
+    m_SampleTimer->setInterval(1);
+    
+    connect(m_SampleTimer, &QTimer::timeout,
+        this, &DataProcessor::on_SampleTimeout);
     
     ////////////////////////////
     
@@ -14,22 +23,24 @@ DataProcessor::DataProcessor() {
 
 void DataProcessor::start() {
     
-    if (m_Timer->isActive()) {
+    if (m_DataTimer->isActive()) {
         return;
     }
     
-    m_Timer->start();
+    m_DataTimer->start();
+    m_SampleTimer->start();
     
     emit DataProcessor::sig_Started();
 }
 
 void DataProcessor::stop() {
     
-    if (!m_Timer->isActive()) {
+    if (!m_DataTimer->isActive()) {
         return;
     }
     
-    m_Timer->stop();
+    m_DataTimer->stop();
+    m_SampleTimer->stop();
     
     emit DataProcessor::sig_Stopped();
 }

@@ -17,11 +17,23 @@ AppCore* AppCore::get_Instance() {
 }
 
 AppCore::AppCore() {
+    
     m_Buffer = new QByteArray();
+    
+    m_DataReceiver  = new DataReceiver();
+    m_TextProcessor = new TextProcessor();
 }
 
 QByteArray* AppCore::get_Buffer() {
     return m_Buffer;
+}
+
+DataReceiver* AppCore::get_DataReceiver() {
+    return m_DataReceiver;
+}
+
+TextProcessor* AppCore::get_TextProcessor() {
+    return m_TextProcessor;
 }
 
 void AppCore::get_Chunk(QByteArray& buf, quint64 off, quint64 len) {
