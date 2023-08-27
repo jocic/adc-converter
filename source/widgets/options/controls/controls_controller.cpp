@@ -102,6 +102,14 @@ void ControlsController::on_Clicked_Refresh() {
 
 void ControlsController::on_Clicked_Simulate() {
     
+    emit ControlsController::sig_Mediator_Notify("stream_params", {
+        { "sample_rate", "150" },
+        { "bits_per_sample", "16" },
+        { "signed_samples", "true" },
+        { "positive_reference", "3300" },
+        { "negative_reference", "0" }
+    });
+    
     DataReceiver*  data_receiver  = AppCore::get_Instance()->get_DataReceiver();
     TextProcessor* text_processor = AppCore::get_Instance()->get_TextProcessor();
     

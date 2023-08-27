@@ -96,6 +96,10 @@ MainWindow::MainWindow(QWidget *parent)
     mediator->add_Consumer(ui->wd_Tools_DEC->controller(), "stream_started");
     mediator->add_Consumer(ui->wd_Tools_DEC->controller(), "stream_ended");
     
+    mediator->add_Consumer(ui->wd_Info_GEN->controller(), "stream_started");
+    mediator->add_Consumer(ui->wd_Info_GEN->controller(), "stream_ended");
+    mediator->add_Consumer(ui->wd_Info_GEN->controller(), "wd_stream_data");
+    
     mediator->add_Consumer(ui->tab_Samples->controller(), "new_stream");
     mediator->add_Consumer(ui->tab_Samples->controller(), "stream_started");
     mediator->add_Consumer(ui->tab_Samples->controller(), "stream_ended");
@@ -111,7 +115,6 @@ MainWindow::MainWindow(QWidget *parent)
     
     mediator->add_Consumer(ui->tab_Samples->controller(), "wd_stream_data");
     mediator->add_Consumer(ui->wd_Tools_PL->controller(), "wd_stream_data");
-    mediator->add_Consumer(ui->wd_Info_GEN->controller(), "wd_stream_data");
     
     mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "hex_selected");
 }

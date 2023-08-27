@@ -2,6 +2,7 @@
 
 #include "general_model.h"
 #include "general_controller.h"
+#include "app/app_core.h"
 #include "app/app_loader.h"
 #include "app/workers/load_worker.h"
 
@@ -66,15 +67,30 @@ void GeneralController::on_Mediator_Notify(QString topic,
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
-    if (topic == "wd_stream_data") {
+    QByteArray* data_buffer = AppCore::get_Instance()->get_Buffer();
+    
+    QLabel* samples = (QLabel*)manager
+        ->get(GeneralModel::FIELD_SAMPLES);
+    
+    QLabel* duration = (QLabel*)manager
+        ->get(GeneralModel::FIELD_DURATION);
+    
+    if (topic == "stream_ended") {
         
-        AppLoader* loader = AppLoader::get_Instance();
+        quint64 buffer_size = data_buffer->size();
         
-        QLabel* samples = (QLabel*)manager
-            ->get(GeneralModel::FIELD_SAMPLES);
-        
-        QLabel* duration = (QLabel*)manager
-            ->get(GeneralModel::FIELD_DURATION);
+        if (buffer_size == 0) {
+            samples->setText("N/D");
+        } else {
+            
+            quint64 total_samples  = buffer_size / (m_BitsPerSample / 8);
+            qreal   total_duration = total_samples / float(m_SampleRate);
+            
+            samples->setText(QString::asprintf("%llu",total_samples));
+            duration->setText(QString::asprintf("%.02f", total_duration));
+        }
+    }
+    else if (topic == "wd_stream_data") {
         
         quint8 bits_per_sample = 0;
         
@@ -91,7 +107,7 @@ void GeneralController::on_Mediator_Notify(QString topic,
         m_SampleRate = sample_rate;
         m_BitsPerSample = bits_per_sample;
         
-        quint64 buffer_size = loader->get_Buffer()->size();
+        quint64 buffer_size = data_buffer->size();
         
         if (buffer_size == 0) {
             samples->setText("N/D");

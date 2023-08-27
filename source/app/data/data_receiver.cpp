@@ -25,6 +25,7 @@ DataReceiver::DataReceiver() {
     
     m_SimTimer = new QTimer();
     
+    m_SimTimer->setInterval(1);
     
     connect(m_SimTimer, &QTimer::timeout,
         this, &DataReceiver::on_SimInterval);
