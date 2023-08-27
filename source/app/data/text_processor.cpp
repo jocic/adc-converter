@@ -14,51 +14,34 @@
 void TextProcessor::start() {
     
     m_SkippedFirst = false;
+    m_SampleBuffer = "";
     
     DataProcessor::start();
 }
 
-void TextProcessor::on_DataTimeout() { // doesn't work yet
+void TextProcessor::on_DataTimeout() {
     
-    quint64 index  = 0;
-    quint64 length = qMin(128, m_Data->size());
-    
-    // Skip First Value
-    
-    // TO-DO: Detect ending delimiter.
-    
-    if (m_SkippedFirst == false) {
-        
-        while (index < length && m_Data->at(index) != '\n') {
-            index++;
-        }
-        
-        index++;
-        
-        m_SkippedFirst = true;
+    if (m_Buffers->size() == 0) {
+        return;
     }
+    
+    quint64    index  = 0;
+    QByteArray buffer = m_Buffers->dequeue();
     
     // Process Values
     
-    quint64 last_index = index;
-    QString sample     = "";
-    
-    while (index < length) {
+    while (index < buffer.size()) {
         
-        if (m_Data->at(index) == '\r') {
-            m_Samples.enqueue(sample);
-            sample.clear();
-        } else if (m_Data->at(index) == '\n') {
-            last_index = index + 1;
+        if (buffer[index] == '\r') {
+            m_Samples.enqueue(m_SampleBuffer);
+            m_SampleBuffer.clear();
+        } else if (buffer[index] == '\n') {
+            // Do nothing...
         } else {
-            sample += m_Data->at(index);
+            m_SampleBuffer += buffer[index];
         }
         
         index++;
-    }
-    
-    if (last_index < length) {
-        m_Data->erase(m_Data->begin(), m_Data->begin() + last_index);
     }
 }
 

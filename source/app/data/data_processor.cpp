@@ -11,42 +11,42 @@ DataProcessor::DataProcessor() {
     
     m_SampleTimer = new QTimer();
     
-    m_SampleTimer->setInterval(1);
-    
     connect(m_SampleTimer, &QTimer::timeout,
         this, &DataProcessor::on_SampleTimeout);
     
     ////////////////////////////
     
-    m_Data = new QByteArray();
+    m_Buffers = new QQueue<QByteArray>();
 }
 
 void DataProcessor::start() {
     
-    if (m_DataTimer->isActive()) {
-        return;
+    if (!m_DataTimer->isActive()) {
+        m_DataTimer->start();
     }
     
-    m_DataTimer->start();
-    m_SampleTimer->start();
+    if (!m_SampleTimer->isActive()) {
+        m_SampleTimer->start();
+    }
     
     emit DataProcessor::sig_Started();
 }
 
 void DataProcessor::stop() {
     
-    if (!m_DataTimer->isActive()) {
-        return;
+    if (m_DataTimer->isActive()) {
+        m_DataTimer->stop();
     }
     
-    m_DataTimer->stop();
-    m_SampleTimer->stop();
+    if (m_SampleTimer->isActive()) {
+        m_SampleTimer->stop();
+    }
     
     emit DataProcessor::sig_Stopped();
 }
 
 void DataProcessor::pushData(QByteArray buffer) {
-    *m_Data += buffer;
+    m_Buffers->enqueue(buffer);
 }
 
 void DataProcessor::on_NewData(QByteArray buffer) {

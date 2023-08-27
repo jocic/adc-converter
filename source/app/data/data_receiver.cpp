@@ -33,22 +33,18 @@ QSerialPort* DataReceiver::serialPort() {
 
 void DataReceiver::start(bool simulate) {
     
-    if (m_ReadTimer->isActive() || m_SimTimer->isActive()) {
-        return;
-    }
-    
     if (simulate) {
         
-        m_SimTimer->start();
+        if (!m_SimTimer->isActive()) {
+            m_SimTimer->start();
+        }
     }
     else {
         
         m_SerialPort->open(QSerialPort::OpenModeFlag::ReadOnly);
         
-        if (m_SerialPort->isOpen()) {
+        if (m_SerialPort->isOpen() && !m_ReadTimer->isActive()) {
             m_ReadTimer->start();
-        } else {
-            return;
         }
     }
     
@@ -56,10 +52,6 @@ void DataReceiver::start(bool simulate) {
 }
 
 void DataReceiver::stop() {
-    
-    if (!m_ReadTimer->isActive() && !m_SimTimer->isActive()) {
-        return;
-    }
     
     if (m_ReadTimer->isActive()) {
         m_ReadTimer->stop();

@@ -3,6 +3,7 @@
 #define ADC_DATA_DATA_PROCESSOR_H
 
 #include <QObject>
+#include <QQueue>
 #include <QTimer>
 #include <QByteArray>
 
@@ -11,9 +12,9 @@ class DataProcessor : public QObject {
     Q_OBJECT
     
     protected:
-        QTimer*     m_DataTimer;
-        QTimer*     m_SampleTimer;
-        QByteArray* m_Data;
+        QTimer*             m_DataTimer;
+        QTimer*             m_SampleTimer;
+        QQueue<QByteArray>* m_Buffers;
         
     protected slots:
         virtual void on_DataTimeout() = 0;

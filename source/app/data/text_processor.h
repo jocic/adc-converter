@@ -12,6 +12,7 @@ class TextProcessor : public DataProcessor {
     
     private:
         QQueue<QString> m_Samples;
+        QString m_SampleBuffer;
         bool m_SkippedFirst;
         void on_DataTimeout() override;
         void on_SampleTimeout() override;
