@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "app/data/data_receiver.h"
 
 DataReceiver::DataReceiver() {
@@ -23,6 +25,7 @@ DataReceiver::DataReceiver() {
     
     m_SimTimer = new QTimer();
     
+    
     connect(m_SimTimer, &QTimer::timeout,
         this, &DataReceiver::on_SimInterval);
 }
@@ -37,14 +40,25 @@ void DataReceiver::start(bool simulate) {
         
         if (!m_SimTimer->isActive()) {
             m_SimTimer->start();
+        } else {
+            return;
         }
     }
     else {
         
-        m_SerialPort->open(QSerialPort::OpenModeFlag::ReadOnly);
+        if (!m_SerialPort->isOpen()) {
+            
+            m_SerialPort->open(QSerialPort::OpenModeFlag::ReadOnly);
+            
+            if (m_SerialPort->error() != QSerialPort::SerialPortError::NoError) {
+                return;
+            }
+        }
         
-        if (m_SerialPort->isOpen() && !m_ReadTimer->isActive()) {
+        if (!m_ReadTimer->isActive()) {
             m_ReadTimer->start();
+        } else {
+            return;
         }
     }
     
@@ -60,6 +74,8 @@ void DataReceiver::stop() {
     if (m_SimTimer->isActive()) {
         m_SimTimer->stop();
     }
+    
+    m_SerialPort->close();
     
     emit DataReceiver::sig_Stopped();
 }
@@ -81,5 +97,24 @@ void DataReceiver::on_ReadInterval() {
 
 void DataReceiver::on_SimInterval() {
     
-    // TBI - load a file
+    QByteArray buffer;
+    
+    qreal  x = -3.14;
+    qint16 y = 0;
+    
+    QString sample;
+    
+    while (x <= 3.14) {
+        
+        y  = qSin(x) * 20000;
+        x += 0.4F;
+        
+        sample = QString::asprintf("%d\r\n", y);
+        
+        for (const auto& c : sample.toStdString()) {
+            buffer.push_back(c);
+        }
+    }
+    
+    emit DataReceiver::sig_BufferRead(buffer);
 }

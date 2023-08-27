@@ -13,12 +13,13 @@
 
 void TextProcessor::start() {
     
+    m_Samples.clear();
+    
     m_SkippedFirst = false;
     m_SampleBuffer = "";
     
     DataProcessor::start();
 }
-
 void TextProcessor::on_DataTimeout() {
     
     if (m_Buffers->size() == 0) {

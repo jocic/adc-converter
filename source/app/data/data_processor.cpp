@@ -34,6 +34,8 @@ void DataProcessor::start() {
 
 void DataProcessor::stop() {
     
+    m_Buffers->clear();
+    
     if (m_DataTimer->isActive()) {
         m_DataTimer->stop();
     }

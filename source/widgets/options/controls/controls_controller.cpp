@@ -90,8 +90,8 @@ void ControlsController::on_Clicked_Connect() {
     }
     else {
         
-        data_receiver->stop();
         text_processor->stop();
+        data_receiver->stop();
     }
 }
 
@@ -102,61 +102,26 @@ void ControlsController::on_Clicked_Refresh() {
 
 void ControlsController::on_Clicked_Simulate() {
     
-    // Get UI Elements
+    DataReceiver*  data_receiver  = AppCore::get_Instance()->get_DataReceiver();
+    TextProcessor* text_processor = AppCore::get_Instance()->get_TextProcessor();
     
-    ElementManager* manager = this->get_View()->get_ElementManager();
-    
-    QPushButton* btn_con = (QPushButton*)manager
-        ->get(ControlsModel::FIELD_CONNECT);
-    
-    QPushButton* btn_ref = (QPushButton*)manager
-        ->get(ControlsModel::FIELD_REFRESH);
-    
-    QPushButton* btn_sim = (QPushButton*)manager
-        ->get(ControlsModel::FIELD_SIMULATE);
-    
-    // Load Sim Data
-    
-    QFile sim_file;
-    
-    sim_file.setFileName("./sim.dat");
-    sim_file.open(QFile::OpenModeFlag::ReadOnly);
-    
-    if (!sim_file.isOpen()) {
-        QMessageBox error;
-        error.setWindowTitle("App Error");
-        error.setText("Simulation data is missing.");
-        error.exec();
-        return;
+    if (!data_receiver->isRunning()) {
+        
+        text_processor->start();
+        data_receiver->start(true);
     }
-    
-    QByteArray sim_data = sim_file.readAll();
-    
-    // Set Field Values
-    
-    emit ControlsController::sig_Mediator_Notify("stream_params", {
-        { "sample_rate", "8500" },
-        { "bits_per_sample", "16" },
-        { "signed_samples", "true" },
-        { "positive_reference", "3300" },
-        { "negative_reference", "0" }
-    });
-    
-    // Start Streaming Simulation
-    
-    AppCore* app_core = AppCore::get_Instance();
-    
-    emit ControlsController::sig_Mediator_Notify("stream_started", {});
-    emit ControlsController::sig_Mediator_Notify("new_stream", {});
-    
-    app_core->get_Buffer()->clear();
-    
-    btn_con->setEnabled(false);
-    btn_ref->setEnabled(false);
-    btn_sim->setEnabled(false);
+    else {
+        
+        text_processor->stop();
+        data_receiver->stop();
+    }
 }
 
 void ControlsController::on_Processor_Start() {
+    
+    AppCore* app_core = AppCore::get_Instance();
+    
+    app_core->get_Buffer()->clear();
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -202,6 +167,11 @@ void ControlsController::on_Processor_End() {
 }
 
 void ControlsController::on_Processor_Sample(qint64 sample) {
+    
+    QByteArray* data_buffer = AppCore::get_Instance()->get_Buffer();
+    
+    data_buffer->push_back((sample >> 0) & 0xFF);
+    data_buffer->push_back((sample >> 8) & 0xFF);
     
     emit ControlsController::sig_Mediator_Notify("new_sample", {
          { "value", QString::asprintf("%lld", sample) }
