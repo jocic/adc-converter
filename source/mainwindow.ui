@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -264,6 +267,8 @@
     <addaction name="action_FullScreen"/>
     <addaction name="separator"/>
     <addaction name="action_DefaultView"/>
+    <addaction name="separator"/>
+    <addaction name="action_AlwaysOnTop"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Views"/>
@@ -505,6 +510,9 @@
    </property>
   </action>
   <action name="action_FullScreen">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Full Screen</string>
    </property>
@@ -515,6 +523,14 @@
   <action name="action_DefaultView">
    <property name="text">
     <string>Default View</string>
+   </property>
+  </action>
+  <action name="action_AlwaysOnTop">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Always on Top</string>
    </property>
   </action>
  </widget>

@@ -259,6 +259,24 @@ void MainWindow::on_action_FullScreen_triggered() {
     }
 }
 
+void MainWindow::on_action_AlwaysOnTop_triggered() {
+    
+    Qt::WindowFlags flags = this->windowFlags();
+    
+    if (ui->action_AlwaysOnTop->isChecked()) {
+        flags |= Qt:: WindowStaysOnTopHint;
+    } else {
+        flags &= Qt:: WindowStaysOnTopHint;
+    }
+    
+    this->hide();
+    this->setWindowFlags(flags);
+    
+    QThread::msleep(250);
+    
+    this->show();
+}
+
 
 void MainWindow::on_action_DefaultView_triggered() {
     
@@ -297,3 +315,4 @@ void MainWindow::on_action_DefaultView_triggered() {
     ui->action_Tools->setChecked(true);
     ui->action_Info->setChecked(true);
 }
+

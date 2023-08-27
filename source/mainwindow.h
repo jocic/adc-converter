@@ -42,6 +42,8 @@ private slots:
     
     void on_action_DefaultView_triggered();
     
+    void on_action_AlwaysOnTop_triggered();
+    
 private:
     Ui::MainWindow *ui;
 };
