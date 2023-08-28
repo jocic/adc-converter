@@ -57,11 +57,11 @@ void ScopeController::on_Mediator_Notify(QString topic,
         
         qint64 sample = str_sample.toLongLong();
         
-        x+=1;
-        
         test.push_back(QPointF(x, sample));
         
-        if (test.size() == 48) {
+        x+=1;
+        
+        if (test.size() == 49) {
             x_axis->setRange(x - 48, x);
             chart_series->replace(test);
             test.clear();

@@ -25,7 +25,7 @@ DataReceiver::DataReceiver() {
     
     m_SimTimer = new QTimer();
     
-    m_SimTimer->setInterval(1);
+    m_SimTimer->setInterval(100);
     
     connect(m_SimTimer, &QTimer::timeout,
         this, &DataReceiver::on_SimInterval);
@@ -98,22 +98,51 @@ void DataReceiver::on_ReadInterval() {
 
 void DataReceiver::on_SimInterval() {
     
+    // Generate Signal Seed
+    
+    static QVector<QString> signal_seed;
+    static quint64          signal_index;
+    
+    if (signal_seed.empty()) {
+        
+        signal_index = 0;
+        
+        QString sample;
+        
+        qreal  x = -3.14;
+        qint16 y = 0;
+        qint16 n = 0;
+        
+        for (quint64 i = 0; i < 10000; i++) {
+            
+            x = -3.14;
+            
+            while (x <= 3.14) {
+                
+                n = rand() % 6000;
+                
+                y  = (qSin(x) * 20000) + n;
+                x += 0.4F;
+                
+                sample = QString::asprintf("%d\r\n", y);
+                
+                signal_seed.push_back(sample);
+            }
+        }
+    }
+    
+    // Generate Simulation Buffer
+    
     QByteArray buffer;
     
-    qreal  x = -3.14;
-    qint16 y = 0;
-    
-    QString sample;
-    
-    while (x <= 3.14) {
+    for (quint64 i = 0; i < 1024; i++) {
         
-        y  = qSin(x) * 20000;
-        x += 0.4F;
-        
-        sample = QString::asprintf("%d\r\n", y);
-        
-        for (const auto& c : sample.toStdString()) {
+        for (const auto& c : signal_seed[signal_index].toStdString()) {
             buffer.push_back(c);
+        }
+        
+        if (++signal_index == signal_seed.size()) {
+            signal_index = 0;
         }
     }
     
