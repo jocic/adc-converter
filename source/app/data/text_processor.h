@@ -11,14 +11,16 @@ class TextProcessor : public DataProcessor {
     Q_OBJECT
     
     private:
-        QQueue<QString> m_Samples;
+        QQueue<QString>* m_Samples;
         QString m_SampleBuffer;
         bool m_SkippedFirst;
         void on_DataTimeout() override;
         void on_SampleTimeout() override;
         
     public:
+        TextProcessor();
         void start();
+        void stop();
 };
 
 #endif

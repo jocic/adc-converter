@@ -25,7 +25,8 @@ void ScopeController::on_Model_Cleared() {
     
     // Does nothing...
 }
-
+#include <QList>
+#include <QPointF>
 void ScopeController::on_Mediator_Notify(QString topic,
     QMap<QString,QString> params) {
     
@@ -33,15 +34,18 @@ void ScopeController::on_Mediator_Notify(QString topic,
     
     ElementManager* manager = view->get_ElementManager();
     
-    QLineSeries* chart_series = (QLineSeries*)manager->get("ser");
-    QValueAxis*  x_axis = (QValueAxis*)manager->get("x");
-    QValueAxis*  y_axis = (QValueAxis*)manager->get("y");
+    QSplineSeries* chart_series = (QSplineSeries*)manager->get("ser");
+    QValueAxis*    x_axis = (QValueAxis*)manager->get("x");
+    QValueAxis*    y_axis = (QValueAxis*)manager->get("y");
     
     static quint64 x = 0;
+    
+    static QList<QPointF> test;
     
     if (topic == "new_stream") {
         
         chart_series->clear();
+        
         y_axis->setRange(-75000, 75000);
         x_axis->setRange(0, 48);
         
@@ -54,12 +58,13 @@ void ScopeController::on_Mediator_Notify(QString topic,
         qint64 sample = str_sample.toLongLong();
         
         x+=1;
-        qDebug() << x << sample;
-        chart_series->append(x, sample);
         
-        if (x > 48) {
+        test.push_back(QPointF(x, sample));
+        
+        if (test.size() == 48) {
             x_axis->setRange(x - 48, x);
-            chart_series->points().removeAt(0);
+            chart_series->replace(test);
+            test.clear();
         }
     }
     else if (topic == "frame_data") {

@@ -11,15 +11,32 @@
 //".48\r\n-74964.44\r\n-74359.38\r\n-7301"
 //"1.36\r\n-70933.83\r\n-68147.54\r\n-646"
 
+TextProcessor::TextProcessor() : DataProcessor() {
+    
+    m_Samples = new QQueue<QString>();
+}
+
 void TextProcessor::start() {
     
-    m_Samples.clear();
+    m_Buffers->clear();
+    m_Samples->clear();
     
     m_SkippedFirst = false;
     m_SampleBuffer = "";
     
     DataProcessor::start();
 }
+
+void TextProcessor::stop() {
+    
+    while (m_Samples->size() > 0) {
+        QString sample = m_Samples->dequeue();
+        emit TextProcessor::sig_NewSample(sample.toDouble());
+    }
+    
+    DataProcessor::stop();
+}
+
 void TextProcessor::on_DataTimeout() {
     
     if (m_Buffers->size() == 0) {
@@ -34,7 +51,7 @@ void TextProcessor::on_DataTimeout() {
     while (index < buffer.size()) {
         
         if (buffer[index] == '\r') {
-            m_Samples.enqueue(m_SampleBuffer);
+            m_Samples->enqueue(m_SampleBuffer);
             m_SampleBuffer.clear();
         } else if (buffer[index] == '\n') {
             // Do nothing...
@@ -48,11 +65,11 @@ void TextProcessor::on_DataTimeout() {
 
 void TextProcessor::on_SampleTimeout() {
     
-    if (m_Samples.size() == 0) {
+    if (m_Samples->size() == 0) {
         return;
     }
     
-    QString sample = m_Samples.dequeue();
+    QString sample = m_Samples->dequeue();
     
     emit TextProcessor::sig_NewSample(sample.toDouble());
 }
