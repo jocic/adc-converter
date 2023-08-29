@@ -278,7 +278,6 @@ void MainWindow::on_action_AlwaysOnTop_triggered() {
     this->show();
 }
 
-
 void MainWindow::on_action_DefaultView_triggered() {
     
     // Views
@@ -317,3 +316,44 @@ void MainWindow::on_action_DefaultView_triggered() {
     ui->action_Info->setChecked(true);
 }
 
+void MainWindow::on_action_CompactView_triggered() {
+    
+    // Views
+    
+    qint8 tab_scope   = ui->tab_General->indexOf(ui->tab_Scope);
+    qint8 tab_samples = ui->tab_General->indexOf(ui->tab_Samples);
+    
+    ui->tab_General->clear();
+    
+    ui->tab_General->addTab(ui->tab_Scope, "Scope");
+    ui->tab_General->addTab(ui->tab_Samples, "Samples");
+    
+    ui->action_Scope->setChecked(true);
+    ui->action_Samples->setChecked(true);
+    
+    // Dock Widgets
+    
+    this->removeDockWidget(ui->dock_Options);
+    this->removeDockWidget(ui->dock_Tools);
+    this->removeDockWidget(ui->dock_Info);
+    
+    this->addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, ui->dock_Options);    
+    this->addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, ui->dock_Tools);    
+    this->addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, ui->dock_Info);
+    
+    ui->dock_Options->setFloating(false);
+    ui->dock_Tools->setFloating(false);
+    ui->dock_Info->setFloating(false);
+    
+    this->tabifyDockWidget(ui->dock_Options, ui->dock_Tools);
+    this->tabifyDockWidget(ui->dock_Options, ui->dock_Info);
+    
+    ui->dock_Options->setVisible(true);
+    ui->dock_Tools->setVisible(true);
+    ui->dock_Info->setVisible(true);
+    
+    ui->action_Options->setChecked(true);
+    ui->action_Tools->setChecked(true);
+    ui->action_Info->setChecked(true);
+    
+}

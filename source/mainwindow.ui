@@ -267,6 +267,7 @@
     <addaction name="action_FullScreen"/>
     <addaction name="separator"/>
     <addaction name="action_DefaultView"/>
+    <addaction name="action_CompactView"/>
     <addaction name="separator"/>
     <addaction name="action_AlwaysOnTop"/>
    </widget>
@@ -531,6 +532,11 @@
    </property>
    <property name="text">
     <string>Always on Top</string>
+   </property>
+  </action>
+  <action name="action_CompactView">
+   <property name="text">
+    <string>Compact View</string>
    </property>
   </action>
  </widget>
