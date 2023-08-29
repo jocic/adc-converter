@@ -157,7 +157,11 @@ void ControlsController::on_Processor_Start() {
     QPushButton* btn_sim = (QPushButton*)manager
         ->get(ControlsModel::FIELD_SIMULATE);
     
+    QLabel* lbl_active = (QLabel*)manager
+        ->get(ControlsModel::FIELD_ACTIVE);
+    
     btn_con->setText("Disconnect");
+    lbl_active->setText("00:00:00");
     
     btn_con->setEnabled(true);
     btn_ref->setEnabled(false);

@@ -158,6 +158,15 @@ void PlaybackController::on_Audio_Stopped() {
 
 void PlaybackController::on_Clicked_Toggle() {
     
+    // Check Sample Rate
+    
+    if (!m_Playing && m_SampleRate < 1000) {
+        QMessageBox error;
+        error.setWindowTitle("App Error");
+        error.setText("Specified sample rate isn't supported.");
+        error.exec();
+    }
+    
     // Start Playback
     
     QAudioFormat* format = m_Worker->get_Format();
