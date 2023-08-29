@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QFile>
 #include <QTimer>
+#include <QLabel>
 #include <QPushButton>
 #include <QTextStream>
 #include <QMessageBox>
@@ -11,6 +12,20 @@
 #include "widgets/options/controls/controls_controller.h"
 
 void ControlsController::on_View_Initialized(ElementManager* manager) {
+    
+    m_Active = new tm_duration_t;
+    
+    //////////////////////////////
+    
+    m_Timer = new QTimer();
+    
+    m_Timer->setTimerType(Qt::TimerType::PreciseTimer);
+    m_Timer->setInterval(1000);
+    
+    connect(m_Timer, &QTimer::timeout,
+        this, &ControlsController::on_Timer_Tick);
+    
+    //////////////////////////////
     
     QPushButton* btn_con = (QPushButton*)manager
         ->get(ControlsModel::FIELD_CONNECT);
@@ -150,6 +165,10 @@ void ControlsController::on_Processor_Start() {
     
     emit ControlsController::sig_Mediator_Notify("stream_started", {});
     emit ControlsController::sig_Mediator_Notify("new_stream", {});
+    
+    m_Active->hours = m_Active->minutes = m_Active->seconds = 0;
+    
+    m_Timer->start();
 }
 
 void ControlsController::on_Processor_End() {
@@ -172,6 +191,8 @@ void ControlsController::on_Processor_End() {
     btn_sim->setEnabled(true);
     
     emit ControlsController::sig_Mediator_Notify("stream_ended", {});
+    
+    m_Timer->stop();
 }
 
 void ControlsController::on_Processor_Sample(qint64 sample) {
@@ -184,4 +205,29 @@ void ControlsController::on_Processor_Sample(qint64 sample) {
     emit ControlsController::sig_Mediator_Notify("new_sample", {
          { "value", QString::asprintf("%lld", sample) }
     });
+}
+
+void ControlsController::on_Timer_Tick() {
+    
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    QLabel* lbl_active = (QLabel*)manager->get(ControlsModel::FIELD_ACTIVE);
+    
+    if (m_Timer->isActive()) {
+        
+        if (++m_Active->seconds == 60) {
+            m_Active->minutes += 1;
+            m_Active->seconds  = 0;
+        }
+        
+        if (m_Active->minutes == 60) {
+            m_Active->hours  += 1;
+            m_Active->minutes = 0;
+        }
+        
+        QString str_active = QString::asprintf("%02lld:%02lld:%02lld",
+            m_Active->hours, m_Active->minutes, m_Active->seconds);
+        
+        lbl_active->setText(str_active);
+    }
 }

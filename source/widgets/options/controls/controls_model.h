@@ -11,6 +11,7 @@ class ControlsModel : public AbstractModel {
         static const QString FIELD_CONNECT;
         static const QString FIELD_REFRESH;
         static const QString FIELD_SIMULATE;
+        static const QString FIELD_ACTIVE;
 };
 
 #endif

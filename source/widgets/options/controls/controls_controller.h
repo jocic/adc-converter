@@ -9,9 +9,17 @@
 
 class ControlsController : public AbstractController {
     
+    typedef struct tm_duration {
+        quint64 hours;
+        quint64 minutes;
+        quint64 seconds;
+    } tm_duration_t;
+    
     private:
-        QString m_ComPort;
-        QString m_ComMode;
+        QTimer*        m_Timer;
+        QString        m_ComPort;
+        QString        m_ComMode;
+        tm_duration_t* m_Active;
     
     public slots:
         void on_View_Initialized(ElementManager* manager) override;
@@ -25,6 +33,7 @@ class ControlsController : public AbstractController {
         void on_Clicked_Connect();
         void on_Clicked_Refresh();
         void on_Clicked_Simulate();
+        void on_Timer_Tick();
 };
 
 #endif

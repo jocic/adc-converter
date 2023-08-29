@@ -3,4 +3,5 @@
 const QString ControlsModel::FIELD_CONNECT  = "btn_Connect";
 const QString ControlsModel::FIELD_REFRESH  = "btn_Refresh";
 const QString ControlsModel::FIELD_SIMULATE = "btn_Simulate";
+const QString ControlsModel::FIELD_ACTIVE = "lbl_Duration";
 
