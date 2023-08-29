@@ -31,7 +31,7 @@ void ScopeView::initialize(QWidget* parent) {
     chart_x->setRange(0, 48);
     
     chart_y->setTitleText("Voltage");
-    chart_y->setRange(-75000, 75000);
+    chart_y->setRange(-32768, 32768);
     
     chart->setBackgroundVisible(false);
     chart->addSeries(chart_series);

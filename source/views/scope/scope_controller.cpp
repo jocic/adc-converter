@@ -46,7 +46,6 @@ void ScopeController::on_Mediator_Notify(QString topic,
         
         chart_series->clear();
         
-        y_axis->setRange(-75000, 75000);
         x_axis->setRange(0, 48);
         
         x = 0;
@@ -71,7 +70,6 @@ void ScopeController::on_Mediator_Notify(QString topic,
         
         chart_series->clear();
         
-        y_axis->setRange(-75000, 75000);
         x_axis->setRange(0, params.size() - 1);
         
         QVector<QPair<quint64, quint64>> data;
@@ -98,5 +96,30 @@ void ScopeController::on_Mediator_Notify(QString topic,
         }
         
         qDebug() << params.size();
+    }
+    else if (topic == "wd_stream_data") {
+        
+        quint8 bits_per_sample = 16;
+        bool   samples_signed  = true;
+        
+        if (params.contains("comb_BitsPerSample")) {
+            bits_per_sample = params["comb_BitsPerSample"].toUInt();
+        }
+        
+        if (params.contains("check_Signed")) {
+            samples_signed = (params["check_Signed"] == "true");
+        }
+        
+        qint64 min_range = 0, max_range = 0;
+        
+        if (samples_signed) {
+            max_range = pow(2, bits_per_sample - 1);
+            min_range = max_range * -1;
+        } else {
+            max_range = pow(2, bits_per_sample);
+            min_range = 0;
+        }
+        
+        y_axis->setRange(min_range, max_range);
     }
 }

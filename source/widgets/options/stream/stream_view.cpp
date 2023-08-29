@@ -32,9 +32,11 @@ void StreamView::initialize(QWidget* parent) {
     
     lbl_bps->setText("Bits Per Sample");
     cmb_bps->addItems({ "8", "16", "24", "32" });
+    cmb_bps->setCurrentIndex(1);
     layout->addRow(lbl_bps, cmb_bps);
     
     cb_sign->setText("Signed Samples");
+    cb_sign->setChecked(true);
     layout->addRow(cb_sign);
     
     parent->layout()->addWidget(box);

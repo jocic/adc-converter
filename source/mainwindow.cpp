@@ -108,6 +108,7 @@ MainWindow::MainWindow(QWidget *parent)
     mediator->add_Consumer(ui->tab_Scope->controller(), "new_stream");
     mediator->add_Consumer(ui->tab_Scope->controller(), "new_sample");
     mediator->add_Consumer(ui->tab_Scope->controller(), "frame_data");
+    mediator->add_Consumer(ui->tab_Scope->controller(), "wd_stream_data");
     
     // to be refactored
     
