@@ -36,6 +36,7 @@ set(PROJECT_HEADERS
     
     # General
     
+    source/app/app_types.h
     source/app/app_core.h
     source/app/app_icons.h
     source/app/app_mediator.h
