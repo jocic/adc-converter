@@ -89,3 +89,8 @@ void ReferenceController::on_Broadcast(QString topic,
         }
     }
 }
+
+void ReferenceController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}

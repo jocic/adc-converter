@@ -21,7 +21,7 @@ void HexValue::mousePressEvent(QMouseEvent *ev) {
     
     AppMediator* mediator = AppMediator::get_Instance();
     
-    emit mediator->sig_Notify("hex_selected", data);
+    emit mediator->sig_Broadcast("hex_selected", data);
 }
 
 HexViewer::HexViewer(quint64 len) {

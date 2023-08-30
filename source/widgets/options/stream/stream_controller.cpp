@@ -176,3 +176,8 @@ void StreamController::on_Broadcast(QString topic,
         }
     }
 }
+
+void StreamController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}

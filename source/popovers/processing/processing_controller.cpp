@@ -59,3 +59,8 @@ void ProcessingController::on_Broadcast(QString topic,
     
     // Does nothing...
 }
+
+void ProcessingController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}

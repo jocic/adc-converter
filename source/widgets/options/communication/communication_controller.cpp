@@ -114,6 +114,11 @@ void CommunicationController::on_Broadcast(QString topic,
     }
 }
 
+void CommunicationController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}
+
 void CommunicationController::on_RefreshPorts() {
     
     ElementManager* manager = this->get_View()->get_ElementManager();

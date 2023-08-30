@@ -56,18 +56,18 @@ MainWindow::MainWindow(QWidget *parent)
     
     // Providers
     
-    mediator->add_Provider(ui->wd_Options_CTL->controller(), "stream_started");
-    mediator->add_Provider(ui->wd_Options_CTL->controller(), "stream_ended");
-    mediator->add_Provider(ui->wd_Options_CTL->controller(), "stream_params");
-    mediator->add_Provider(ui->wd_Options_CTL->controller(), "new_stream");
-    mediator->add_Provider(ui->wd_Options_CTL->controller(), "new_samples");
-    mediator->add_Provider(ui->wd_Options_CTL->controller(), "refresh_ports");
+    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "stream_started");
+    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "stream_ended");
+    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "stream_params");
+    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "new_stream");
+    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "new_samples");
+    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "refresh_ports");
     
-    mediator->add_Provider(ui->wd_Options_COM->controller(), "com_data");
+    mediator->reg_Transmitter(ui->wd_Options_COM->controller(), "com_data");
     
-    mediator->add_Provider(ui->wd_Options_STR->controller(), "wd_stream_data");
+    mediator->reg_Transmitter(ui->wd_Options_STR->controller(), "wd_stream_data");
     
-    mediator->add_Provider(ui->tab_Samples->controller(), "frame_data");
+    mediator->reg_Transmitter(ui->tab_Samples->controller(), "frame_data");
 }
 
 MainWindow::~MainWindow() {
@@ -83,7 +83,7 @@ void MainWindow::on_Dump_Loaded() {
     app_core->get_Buffer()->clear();
     app_core->get_Buffer()->append(*app_loader->get_Buffer());
     
-    app_mediator->on_Notify("dump_loaded", {});
+    app_mediator->on_Broadcast("dump_loaded", {});
 }
 
 void MainWindow::on_action_Save_triggered() {

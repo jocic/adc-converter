@@ -134,3 +134,8 @@ void HexadecimalController::on_Broadcast(QString topic,
         hexadecimal->setText(params["val"]);
     }
 }
+
+void HexadecimalController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}

@@ -14,11 +14,11 @@ class AppTransceiver : public QObject {
         
     public slots:
         virtual void on_Broadcast(QString topic, QMap<QString,QString> params) = 0;
-        //virtual void on_Broadcast(QString topic, void* params) = 0;
+        virtual void on_Broadcast_ALT(QString topic, void* params) = 0;
     
     signals:
         void sig_Broadcast(QString topic, QMap<QString,QString> params);
-        //virtual void sig_Broadcast(QString topic, void* params) = 0;
+        void sig_Broadcast_ALT(QString topic, void* params);
 };
 
 #endif

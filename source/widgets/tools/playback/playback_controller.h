@@ -19,6 +19,7 @@ class PlaybackController : public AbstractController {
         void on_Model_Changed(QString key, QString value) override;
         void on_Model_Cleared() override;
         void on_Broadcast(QString topic, QMap<QString,QString> params) override;
+        void on_Broadcast_ALT(QString topic, void* params) override;
         void on_Playback_Update(qreal time);
         void on_Audio_Started();
         void on_Audio_Stopped();

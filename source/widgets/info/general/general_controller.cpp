@@ -128,6 +128,11 @@ void GeneralController::on_Broadcast(QString topic,
     }
 }
 
+void GeneralController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}
+
 void GeneralController::on_Data_Loaded() {
     
     ElementManager* manager = this->get_View()->get_ElementManager();

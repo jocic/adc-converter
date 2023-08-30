@@ -27,6 +27,7 @@ class ControlsController : public AbstractController {
         void on_Model_Changed(QString key, QString value) override;
         void on_Model_Cleared() override;
         void on_Broadcast(QString topic, QMap<QString,QString> params) override;
+        void on_Broadcast_ALT(QString topic, void* params) override;
         void on_Processor_Start();
         void on_Processor_End();
         void on_Processor_Sample(qint64 sample);

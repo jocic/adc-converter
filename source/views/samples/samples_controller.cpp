@@ -271,6 +271,11 @@ void SamplesController::on_Broadcast(QString topic,
     }
 }
 
+void SamplesController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}
+
 void SamplesController::on_Data_Loaded() {
     
     SamplesModel* model = (SamplesModel*)this->get_Model();

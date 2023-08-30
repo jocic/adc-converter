@@ -103,3 +103,8 @@ void DecimalController::on_Broadcast(QString topic,
         decimal->setEnabled(true);
     }
 }
+
+void DecimalController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}

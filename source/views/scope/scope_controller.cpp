@@ -30,6 +30,7 @@ void ScopeController::on_Model_Cleared() {
 }
 #include <QList>
 #include <QPointF>
+
 void ScopeController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
@@ -124,5 +125,41 @@ void ScopeController::on_Broadcast(QString topic,
         }
         
         y_axis->setRange(min_range, max_range);
+    }
+}
+
+void ScopeController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    ScopeView*  view  = (ScopeView*)this->get_View();
+    
+    ElementManager* manager = view->get_ElementManager();
+    
+    QSplineSeries* chart_series = (QSplineSeries*)manager->get("ser");
+    QValueAxis*    x_axis = (QValueAxis*)manager->get("x");
+    QValueAxis*    y_axis = (QValueAxis*)manager->get("y");
+    
+    static quint64 x = 0;
+    
+    static QList<QPointF> test;
+    
+    if (topic == "new_stream") {
+        
+        chart_series->clear();
+        
+        x_axis->setRange(0, 48);
+        
+        x = 0;
+    }
+    else if (topic == "new_sample") {
+        
+        test.push_back(QPointF(x, (qint64)params));
+        
+        x+=1;
+        
+        if (test.size() == 49) {
+            x_axis->setRange(x - 48, x);
+            chart_series->replace(test);
+            test.clear();
+        }
     }
 }

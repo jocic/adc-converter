@@ -94,6 +94,11 @@ void ControlsController::on_Broadcast(QString topic,
     }
 }
 
+void ControlsController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}
+
 void ControlsController::on_Clicked_Connect() {
     
     DataReceiver*  data_receiver  = AppCore::get_Instance()->get_DataReceiver();
@@ -174,6 +179,7 @@ void ControlsController::on_Processor_Start() {
     
     emit ControlsController::sig_Broadcast("stream_started", {});
     emit ControlsController::sig_Broadcast("new_stream", {});
+    emit ControlsController::sig_Broadcast_ALT("new_stream", {});
     
     m_Active->minutes = m_Active->seconds = m_Active->milliseconds = 0;
     
@@ -211,9 +217,7 @@ void ControlsController::on_Processor_Sample(qint64 sample) {
     data_buffer->push_back((sample >> 0) & 0xFF);
     data_buffer->push_back((sample >> 8) & 0xFF);
     
-    emit ControlsController::sig_Broadcast("new_sample", {
-         { "value", QString::asprintf("%lld", sample) }
-    });
+    emit ControlsController::sig_Broadcast_ALT("new_sample", (void*)sample);
 }
 
 void ControlsController::on_Timer_Tick() {

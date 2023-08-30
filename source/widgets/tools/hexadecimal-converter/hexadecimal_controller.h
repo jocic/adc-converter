@@ -12,6 +12,7 @@ class HexadecimalController : public AbstractController {
         void on_Model_Changed(QString key, QString value) override;
         void on_Model_Cleared() override;
         void on_Broadcast(QString topic, QMap<QString,QString> params) override;
+        void on_Broadcast_ALT(QString topic, void* params) override;
 };
 
 #endif

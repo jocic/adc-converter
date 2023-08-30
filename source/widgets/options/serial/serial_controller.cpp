@@ -185,3 +185,8 @@ void SerialController::on_Broadcast(QString topic,
         cmb_flow->setEnabled(true);
     }
 }
+
+void SerialController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}

@@ -21,7 +21,7 @@ AppMediator::AppMediator() {
     // Does nothing...
 }
 
-void AppMediator::add_Provider(const AbstractController* ctl, QString topic) {
+void AppMediator::reg_Transmitter(const AppTransceiver* ctl, QString topic) {
     
     //qDebug() << "Adding provider for topic:" << topic;
     
@@ -31,12 +31,15 @@ void AppMediator::add_Provider(const AbstractController* ctl, QString topic) {
         
         m_Providers.insert(ctl);
         
-        connect(ctl, &AbstractController::sig_Broadcast,
-            this, &AppMediator::on_Notify);
+        connect(ctl, &AppTransceiver::sig_Broadcast,
+            this, &AppMediator::on_Broadcast);
+        
+        connect(ctl, &AppTransceiver::sig_Broadcast_ALT,
+            this, &AppMediator::on_Broadcast_ALT);
     }
 }
 
-void AppMediator::add_Consumer(const AbstractController* ctl, QString topic) {
+void AppMediator::reg_Receiver(const AppTransceiver* ctl, QString topic) {
     
     //qDebug() << "Attempting to add a consumer...";
     
@@ -52,17 +55,29 @@ void AppMediator::add_Consumer(const AbstractController* ctl, QString topic) {
             
             m_Consumers.insert(ctl);
             
-            connect(this, &AppMediator::sig_Notify,
-                ctl, &AbstractController::on_Broadcast);
+            connect(this, &AppMediator::sig_Broadcast,
+                ctl, &AppTransceiver::on_Broadcast);
+            
+            connect(this, &AppMediator::sig_Broadcast_ALT,
+                ctl, &AppTransceiver::on_Broadcast_ALT);
         }
     }
 }
 
-void AppMediator::on_Notify(QString topic, QMap<QString,QString> params) {
+void AppMediator::on_Broadcast(QString topic, QMap<QString,QString> params) {
     
     auto search = m_Subscriptions.find(topic);
     
     //qDebug() << "Notification received: (topic, params)" << topic << params;
     
-    emit AppMediator::sig_Notify(topic, params);
+    emit AppMediator::sig_Broadcast(topic, params);
+}
+
+void AppMediator::on_Broadcast_ALT(QString topic, void* params) {
+    
+    auto search = m_Subscriptions.find(topic);
+    
+    //qDebug() << "Notification received: (topic, params)" << topic << params;
+    
+    emit AppMediator::sig_Broadcast_ALT(topic, params);
 }

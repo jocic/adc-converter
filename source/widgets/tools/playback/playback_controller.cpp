@@ -113,6 +113,11 @@ void PlaybackController::on_Broadcast(QString topic,
     }
 }
 
+void PlaybackController::on_Broadcast_ALT(QString topic, void* params) {
+    
+    // Does nothing...
+}
+
 void PlaybackController::on_Playback_Update(qreal time) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
