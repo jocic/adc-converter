@@ -8,7 +8,10 @@
 
 void ScopeController::on_View_Initialized(ElementManager* manager) {
     
-    // Does nothing...
+    this->tuneTo("new_stream");
+    this->tuneTo("new_sample");
+    this->tuneTo("frame_data");
+    this->tuneTo("wd_stream_data");
 }
 
 void ScopeController::on_View_Changed() {
@@ -27,7 +30,7 @@ void ScopeController::on_Model_Cleared() {
 }
 #include <QList>
 #include <QPointF>
-void ScopeController::on_Mediator_Notify(QString topic,
+void ScopeController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     ScopeView*  view  = (ScopeView*)this->get_View();

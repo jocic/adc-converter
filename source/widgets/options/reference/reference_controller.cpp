@@ -5,7 +5,9 @@
 
 void ReferenceController::on_View_Initialized(ElementManager* manager) {
     
-    // Does nothing...
+    this->tuneTo("stream_started");
+    this->tuneTo("stream_ended");
+    this->tuneTo("stream_params");
 }
 
 void ReferenceController::on_View_Changed() {
@@ -55,7 +57,7 @@ void ReferenceController::on_Model_Cleared() {
     negative->setText("0");
 }
 
-void ReferenceController::on_Mediator_Notify(QString topic,
+void ReferenceController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();

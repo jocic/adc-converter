@@ -5,6 +5,11 @@
 
 void SerialController::on_View_Initialized(ElementManager* manager) {
     
+    this->tuneTo("stream_started");
+    this->tuneTo("stream_ended");
+    
+    //////////////////////////////
+    
     this->registerField(SerialModel::FIELD_BAUD_RATE,
         QComboBox::staticMetaObject.className());
     
@@ -145,7 +150,7 @@ void SerialController::on_Model_Cleared() {
     }
 }
 
-void SerialController::on_Mediator_Notify(QString topic,
+void SerialController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();

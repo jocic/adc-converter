@@ -6,6 +6,12 @@
 
 void CommunicationController::on_View_Initialized(ElementManager* manager) {
     
+    this->tuneTo("stream_started");
+    this->tuneTo("stream_ended");
+    this->tuneTo("refresh_ports");
+    
+    //////////////////////////////
+    
     this->registerField(CommunicationModel::FIELD_MODE,
         QComboBox::staticMetaObject.className());
     
@@ -25,7 +31,7 @@ void CommunicationController::on_View_Changed() {
     QComboBox* mode = (QComboBox*)manager
         ->get(CommunicationModel::FIELD_MODE);
     
-    emit CommunicationController::sig_Mediator_Notify("com_data", {
+    emit CommunicationController::sig_Broadcast("com_data", {
         { "port", port->currentText() }, 
         { "mode", mode->currentText() }
     });
@@ -84,7 +90,7 @@ void CommunicationController::on_Model_Cleared() {
     }
 }
 
-void CommunicationController::on_Mediator_Notify(QString topic,
+void CommunicationController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();

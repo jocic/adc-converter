@@ -16,6 +16,14 @@
 
 void SamplesController::on_View_Initialized(ElementManager* manager) {
     
+    this->tuneTo("stream_started");
+    this->tuneTo("stream_ended");
+    this->tuneTo("new_stream");
+    this->tuneTo("dump_loaded");
+    this->tuneTo("wd_stream_data");
+    
+    //////////////////////////////
+    
     // Init Model
     
     SamplesModel* model = (SamplesModel*)this->get_Model();
@@ -124,7 +132,7 @@ void SamplesController::on_View_Changed() {
             QString::asprintf("%llu", data[i]));
     }
     
-    emit SamplesController::sig_Mediator_Notify("frame_data", data_conv);
+    emit SamplesController::sig_Broadcast("frame_data", data_conv);
 }
 
 void SamplesController::on_Model_Changed(QString key, QString value) {
@@ -164,7 +172,7 @@ void SamplesController::on_Model_Cleared() {
     // Does nothing...
 }
 
-void SamplesController::on_Mediator_Notify(QString topic,
+void SamplesController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();

@@ -6,6 +6,11 @@
 
 void DecimalController::on_View_Initialized(ElementManager* manager) {
     
+    this->tuneTo("stream_started");
+    this->tuneTo("stream_ended");
+    
+    //////////////////////////////
+    
     QLineEdit* txt_dec = (QLineEdit*)manager
         ->get(DecimalModel::FIELD_DECIMAL);
     
@@ -78,7 +83,7 @@ void DecimalController::on_Model_Cleared() {
     hexadecimal->setText("");
 }
 
-void DecimalController::on_Mediator_Notify(QString topic,
+void DecimalController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();

@@ -31,7 +31,7 @@ void AppMediator::add_Provider(const AbstractController* ctl, QString topic) {
         
         m_Providers.insert(ctl);
         
-        connect(ctl, &AbstractController::sig_Mediator_Notify,
+        connect(ctl, &AbstractController::sig_Broadcast,
             this, &AppMediator::on_Notify);
     }
 }
@@ -53,7 +53,7 @@ void AppMediator::add_Consumer(const AbstractController* ctl, QString topic) {
             m_Consumers.insert(ctl);
             
             connect(this, &AppMediator::sig_Notify,
-                ctl, &AbstractController::on_Mediator_Notify);
+                ctl, &AbstractController::on_Broadcast);
         }
     }
 }

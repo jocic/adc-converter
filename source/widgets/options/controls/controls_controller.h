@@ -10,9 +10,9 @@
 class ControlsController : public AbstractController {
     
     typedef struct tm_duration {
-        quint64 hours;
         quint64 minutes;
         quint64 seconds;
+        quint64 milliseconds;
     } tm_duration_t;
     
     private:
@@ -26,7 +26,7 @@ class ControlsController : public AbstractController {
         void on_View_Changed() override;
         void on_Model_Changed(QString key, QString value) override;
         void on_Model_Cleared() override;
-        void on_Mediator_Notify(QString topic, QMap<QString,QString> params) override;
+        void on_Broadcast(QString topic, QMap<QString,QString> params) override;
         void on_Processor_Start();
         void on_Processor_End();
         void on_Processor_Sample(qint64 sample);

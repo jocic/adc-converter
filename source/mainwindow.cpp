@@ -65,59 +65,9 @@ MainWindow::MainWindow(QWidget *parent)
     
     mediator->add_Provider(ui->wd_Options_COM->controller(), "com_data");
     
-    mediator->add_Provider(ui->tab_Samples->controller(), "frame_data");
-    
-    // Consumers
-    
-    mediator->add_Consumer(ui->wd_Options_STR->controller(), "stream_started");
-    mediator->add_Consumer(ui->wd_Options_STR->controller(), "stream_ended");
-    mediator->add_Consumer(ui->wd_Options_STR->controller(), "stream_params");
-    
-    mediator->add_Consumer(ui->wd_Options_REF->controller(), "stream_started");
-    mediator->add_Consumer(ui->wd_Options_REF->controller(), "stream_ended");
-    mediator->add_Consumer(ui->wd_Options_REF->controller(), "stream_params");
-    
-    mediator->add_Consumer(ui->wd_Options_SER->controller(), "stream_started");
-    mediator->add_Consumer(ui->wd_Options_SER->controller(), "stream_ended");
-    
-    mediator->add_Consumer(ui->wd_Options_COM->controller(), "stream_started");
-    mediator->add_Consumer(ui->wd_Options_COM->controller(), "stream_ended");
-    mediator->add_Consumer(ui->wd_Options_COM->controller(), "refresh_ports");
-    
-    mediator->add_Consumer(ui->wd_Options_CTL->controller(), "str_data");
-    mediator->add_Consumer(ui->wd_Options_CTL->controller(), "com_data");
-    
-    mediator->add_Consumer(ui->wd_Tools_PL->controller(), "stream_started");
-    mediator->add_Consumer(ui->wd_Tools_PL->controller(), "stream_ended");
-    
-    mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "stream_started");
-    mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "stream_ended");
-    
-    mediator->add_Consumer(ui->wd_Tools_DEC->controller(), "stream_started");
-    mediator->add_Consumer(ui->wd_Tools_DEC->controller(), "stream_ended");
-    
-    mediator->add_Consumer(ui->wd_Info_GEN->controller(), "stream_started");
-    mediator->add_Consumer(ui->wd_Info_GEN->controller(), "stream_ended");
-    mediator->add_Consumer(ui->wd_Info_GEN->controller(), "wd_stream_data");
-    
-    mediator->add_Consumer(ui->tab_Samples->controller(), "new_stream");
-    mediator->add_Consumer(ui->tab_Samples->controller(), "stream_started");
-    mediator->add_Consumer(ui->tab_Samples->controller(), "stream_ended");
-    mediator->add_Consumer(ui->tab_Samples->controller(), "dump_loaded");
-    
-    mediator->add_Consumer(ui->tab_Scope->controller(), "new_stream");
-    mediator->add_Consumer(ui->tab_Scope->controller(), "new_sample");
-    mediator->add_Consumer(ui->tab_Scope->controller(), "frame_data");
-    mediator->add_Consumer(ui->tab_Scope->controller(), "wd_stream_data");
-    
-    // to be refactored
-    
     mediator->add_Provider(ui->wd_Options_STR->controller(), "wd_stream_data");
     
-    mediator->add_Consumer(ui->tab_Samples->controller(), "wd_stream_data");
-    mediator->add_Consumer(ui->wd_Tools_PL->controller(), "wd_stream_data");
-    
-    mediator->add_Consumer(ui->wd_Tools_HEX->controller(), "hex_selected");
+    mediator->add_Provider(ui->tab_Samples->controller(), "frame_data");
 }
 
 MainWindow::~MainWindow() {
@@ -355,5 +305,4 @@ void MainWindow::on_action_CompactView_triggered() {
     ui->action_Options->setChecked(true);
     ui->action_Tools->setChecked(true);
     ui->action_Info->setChecked(true);
-    
 }

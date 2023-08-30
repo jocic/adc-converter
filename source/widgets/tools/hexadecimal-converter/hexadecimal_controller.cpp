@@ -8,6 +8,12 @@
 
 void HexadecimalController::on_View_Initialized(ElementManager* manager) {
     
+    this->tuneTo("stream_started");
+    this->tuneTo("stream_ended");
+    this->tuneTo("hex_selected");
+    
+    //////////////////////////////
+    
     QLineEdit* txt_hex = (QLineEdit*)manager
         ->get(HexadecimalModel::FIELD_HEXADECIMAL);
     QCheckBox* cb_sig = (QCheckBox*)manager
@@ -96,7 +102,7 @@ void HexadecimalController::on_Model_Cleared() {
     val_signed->setChecked(false);
 }
 
-void HexadecimalController::on_Mediator_Notify(QString topic,
+void HexadecimalController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();

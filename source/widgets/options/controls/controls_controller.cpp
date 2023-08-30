@@ -13,6 +13,11 @@
 
 void ControlsController::on_View_Initialized(ElementManager* manager) {
     
+    this->tuneTo("str_data");
+    this->tuneTo("com_data");
+    
+    //////////////////////////////
+    
     m_Active = new tm_duration_t;
     
     //////////////////////////////
@@ -20,7 +25,7 @@ void ControlsController::on_View_Initialized(ElementManager* manager) {
     m_Timer = new QTimer();
     
     m_Timer->setTimerType(Qt::TimerType::PreciseTimer);
-    m_Timer->setInterval(1000);
+    m_Timer->setInterval(10);
     
     connect(m_Timer, &QTimer::timeout,
         this, &ControlsController::on_Timer_Tick);
@@ -78,7 +83,7 @@ void ControlsController::on_Model_Cleared() {
     // Does nothing...
 }
 
-void ControlsController::on_Mediator_Notify(QString topic,
+void ControlsController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     if (topic == "com_data") {
@@ -96,7 +101,7 @@ void ControlsController::on_Clicked_Connect() {
     
     if (!data_receiver->isRunning()) {
         
-        emit ControlsController::sig_Mediator_Notify("refresh_ports", {});
+        emit ControlsController::sig_Broadcast("refresh_ports", {});
         
         text_processor->start();
         
@@ -112,12 +117,12 @@ void ControlsController::on_Clicked_Connect() {
 
 void ControlsController::on_Clicked_Refresh() {
     
-    emit ControlsController::sig_Mediator_Notify("refresh_ports", {});
+    emit ControlsController::sig_Broadcast("refresh_ports", {});
 }
 
 void ControlsController::on_Clicked_Simulate() {
     
-    emit ControlsController::sig_Mediator_Notify("stream_params", {
+    emit ControlsController::sig_Broadcast("stream_params", {
         { "sample_rate", "10000" },
         { "bits_per_sample", "16" },
         { "signed_samples", "true" },
@@ -167,10 +172,10 @@ void ControlsController::on_Processor_Start() {
     btn_ref->setEnabled(false);
     btn_sim->setEnabled(false);
     
-    emit ControlsController::sig_Mediator_Notify("stream_started", {});
-    emit ControlsController::sig_Mediator_Notify("new_stream", {});
+    emit ControlsController::sig_Broadcast("stream_started", {});
+    emit ControlsController::sig_Broadcast("new_stream", {});
     
-    m_Active->hours = m_Active->minutes = m_Active->seconds = 0;
+    m_Active->minutes = m_Active->seconds = m_Active->milliseconds = 0;
     
     m_Timer->start();
 }
@@ -194,7 +199,7 @@ void ControlsController::on_Processor_End() {
     btn_ref->setEnabled(true);
     btn_sim->setEnabled(true);
     
-    emit ControlsController::sig_Mediator_Notify("stream_ended", {});
+    emit ControlsController::sig_Broadcast("stream_ended", {});
     
     m_Timer->stop();
 }
@@ -206,7 +211,7 @@ void ControlsController::on_Processor_Sample(qint64 sample) {
     data_buffer->push_back((sample >> 0) & 0xFF);
     data_buffer->push_back((sample >> 8) & 0xFF);
     
-    emit ControlsController::sig_Mediator_Notify("new_sample", {
+    emit ControlsController::sig_Broadcast("new_sample", {
          { "value", QString::asprintf("%lld", sample) }
     });
 }
@@ -219,18 +224,18 @@ void ControlsController::on_Timer_Tick() {
     
     if (m_Timer->isActive()) {
         
-        if (++m_Active->seconds == 60) {
+        if (++m_Active->milliseconds == 100) {
+            m_Active->seconds     += 1;
+            m_Active->milliseconds = 0;
+        }
+        
+        if (m_Active->seconds == 60) {
             m_Active->minutes += 1;
             m_Active->seconds  = 0;
         }
         
-        if (m_Active->minutes == 60) {
-            m_Active->hours  += 1;
-            m_Active->minutes = 0;
-        }
-        
         QString str_active = QString::asprintf("%02lld:%02lld:%02lld",
-            m_Active->hours, m_Active->minutes, m_Active->seconds);
+            m_Active->minutes, m_Active->seconds, m_Active->milliseconds);
         
         lbl_active->setText(str_active);
     }

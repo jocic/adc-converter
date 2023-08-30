@@ -5,11 +5,12 @@
 #include <QDebug>
 #include <QObject>
 
-#include "abstract_model.h"
-#include "abstract_view.h"
-#include "element_manager.h"
+#include "app/app_transceiver.h"
+#include "app/mvc/abstract_model.h"
+#include "app/mvc/abstract_view.h"
+#include "app/mvc/element_manager.h"
 
-class AbstractController : public QObject {
+class AbstractController : public AppTransceiver {
     
     Q_OBJECT
     
@@ -35,12 +36,10 @@ class AbstractController : public QObject {
         virtual void on_View_Changed() = 0;
         virtual void on_Model_Changed(QString key, QString value) = 0;
         virtual void on_Model_Cleared() = 0;
-        virtual void on_Mediator_Notify(QString topic, QMap<QString,QString> params) = 0;
         
     signals:
         void sig_Controller_Connected();
         void sig_Controller_Configured();
-        void sig_Mediator_Notify(QString topic, QMap<QString,QString> params);
 };
 
 #endif

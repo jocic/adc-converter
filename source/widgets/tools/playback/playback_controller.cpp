@@ -18,6 +18,12 @@
 
 void PlaybackController::on_View_Initialized(ElementManager* manager) {
     
+    this->tuneTo("stream_started");
+    this->tuneTo("stream_ended");
+    this->tuneTo("wd_stream_data");
+    
+    //////////////////////////////
+    
     // Initialize Member Variables
     
     m_Worker        = new PlayWorker();
@@ -66,7 +72,7 @@ void PlaybackController::on_Model_Cleared() {
     
 }
 
-void PlaybackController::on_Mediator_Notify(QString topic,
+void PlaybackController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();

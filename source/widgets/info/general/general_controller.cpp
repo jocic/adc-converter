@@ -8,6 +8,12 @@
 
 void GeneralController::on_View_Initialized(ElementManager* manager) {
     
+    this->tuneTo("stream_started");
+    this->tuneTo("stream_ended");
+    this->tuneTo("wd_stream_data");
+    
+    //////////////////////////////
+    
     AppLoader* loader = AppLoader::get_Instance();
     LoadWorker* worker = (LoadWorker*)loader->get_Worker();
     
@@ -62,7 +68,7 @@ void GeneralController::on_Model_Cleared() {
     duration->setText("N/D");
 }
 
-void GeneralController::on_Mediator_Notify(QString topic,
+void GeneralController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();

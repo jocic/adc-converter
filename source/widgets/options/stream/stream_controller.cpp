@@ -8,6 +8,12 @@
 
 void StreamController::on_View_Initialized(ElementManager* manager) {
     
+    this->tuneTo("stream_started");
+    this->tuneTo("stream_ended");
+    this->tuneTo("stream_params");
+    
+    //////////////////////////////
+    
     this->registerField(StreamModel::FIELD_SAMPLE_RATE,
         QLineEdit::staticMetaObject.className());
     
@@ -66,7 +72,7 @@ void StreamController::on_View_Changed() {
     data.insert(StreamModel::FIELD_SIGNED,
         cb_signed->isChecked() ? "true" : "false");
     
-    emit StreamController::sig_Mediator_Notify("wd_stream_data", data);
+    emit StreamController::sig_Broadcast("wd_stream_data", data);
 }
 
 void StreamController::on_Model_Changed(QString key, QString value) {
@@ -129,7 +135,7 @@ void StreamController::on_Model_Cleared() {
     sample_signed->setChecked(false);
 }
 
-void StreamController::on_Mediator_Notify(QString topic,
+void StreamController::on_Broadcast(QString topic,
     QMap<QString,QString> params) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
