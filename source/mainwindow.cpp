@@ -269,6 +269,16 @@ void MainWindow::on_action_DefaultView_triggered() {
     ui->action_Options->setChecked(true);
     ui->action_Tools->setChecked(true);
     ui->action_Info->setChecked(true);
+    
+    this->resizeDocks({
+        ui->dock_Options,
+        ui->dock_Tools,
+        ui->dock_Info,
+    }, {
+        270,
+        270,
+        270
+    }, Qt::Orientation::Horizontal);
 }
 
 void MainWindow::on_action_CompactView_triggered() {
@@ -310,4 +320,14 @@ void MainWindow::on_action_CompactView_triggered() {
     ui->action_Options->setChecked(true);
     ui->action_Tools->setChecked(true);
     ui->action_Info->setChecked(true);
+    
+    this->resizeDocks({
+        ui->dock_Options,
+        ui->dock_Tools,
+        ui->dock_Info,
+    }, {
+        270,
+        270,
+        270
+    }, Qt::Orientation::Horizontal);
 }
