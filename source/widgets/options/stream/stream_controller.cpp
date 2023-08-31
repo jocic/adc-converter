@@ -29,7 +29,6 @@ void StreamController::on_View_Changed() {
     ElementManager* manager = this->get_View()->get_ElementManager();
     StreamModel*    model   = (StreamModel*)this->get_Model();
     
-    
     // Sample Rate
     
     QLineEdit* txt_sample = (QLineEdit*)manager
@@ -117,6 +116,8 @@ void StreamController::on_Model_Cleared() {
         return;
     }
     
+    /////////////////////////
+    
     QLineEdit* sample_rate = (QLineEdit*)manager
         ->get(StreamModel::FIELD_SAMPLE_RATE);
     
@@ -125,6 +126,8 @@ void StreamController::on_Model_Cleared() {
     
     QCheckBox* sample_signed = (QCheckBox*)manager
         ->get(StreamModel::FIELD_SIGNED);
+    
+    /////////////////////////
     
     sample_rate->setText("44100");
     
@@ -137,7 +140,13 @@ void StreamController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
+    if (manager == NULL) {
+        return;
+    }
+    
     StreamModel* model = (StreamModel*)this->get_Model();
+    
+    /////////////////////////
     
     QLineEdit* sample_rate = (QLineEdit*)manager
         ->get(StreamModel::FIELD_SAMPLE_RATE);
@@ -148,7 +157,7 @@ void StreamController::on_Broadcast(quint64 ch, app_data_t data) {
     QCheckBox* sample_signed = (QCheckBox*)manager
         ->get(StreamModel::FIELD_SIGNED);
     
-    // Stream Events
+    /////////////////////////
     
     if (ch == AppMediator::Channel::STREAM_EVENTS) {
         
@@ -164,20 +173,16 @@ void StreamController::on_Broadcast(quint64 ch, app_data_t data) {
         }
     }
     
-    // Stream Events
-
-//    else if (topic == "stream_params") {
+    /////////////////////////
+    
+    else if (ch == AppMediator::Channel::STREAM_PARAMS) {
         
-//        if (params.contains("sample_rate")) {
-//            model->set_SampleRate(params["sample_rate"]);
-//        }
+        if (data.event != "update") {
+            return;
+        }
         
-//        if (params.contains("bits_per_sample")) {
-//            model->set_BitsPerSample(params["bits_per_sample"]);
-//        }
-        
-//        if (params.contains("signed_samples")) {
-//            model->set_Signed(params["signed_samples"]);
-//        }
-//    }
+        model->set_SampleRate(data.stream_config.sample_rate);
+        model->set_BitsPerSample(data.stream_config.bits_per_sample);
+        model->set_Signed(data.stream_config.signed_samples);
+    }
 }

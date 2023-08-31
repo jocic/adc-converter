@@ -8,7 +8,7 @@ void ReferenceController::on_View_Initialized(ElementManager* manager) {
     
     this->tuneTo(AppMediator::Channel::APP_EVENTS);
     this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
-    this->tuneTo(AppMediator::Channel::STREAM_PARAMS);
+    this->tuneTo(AppMediator::Channel::REFERENCE_PARAMS);
 }
 
 void ReferenceController::on_View_Changed() {
@@ -87,6 +87,10 @@ void ReferenceController::on_Broadcast(quint64 ch, app_data_t data) {
     // Reference Params
     
     else if (ch == AppMediator::Channel::REFERENCE_PARAMS) {
+        
+        if (data.event != "update") {
+            return;
+        }
         
         model->set_Positive(data.ref_config.adc_positive);
         model->set_Negative(data.ref_config.adc_negative);

@@ -98,7 +98,7 @@ void PlaybackController::on_Broadcast(quint64 ch, app_data_t data) {
             btn_export->setEnabled(true);
         }
     }
-    else if (ch == AppMediator::Channel::SERIAL_PARAMS) {
+    else if (ch == AppMediator::Channel::STREAM_PARAMS) {
         m_SampleRate    = data.stream_config.sample_rate;
         m_BitsPerSample = data.stream_config.bits_per_sample;
     }

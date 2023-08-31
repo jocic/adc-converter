@@ -131,24 +131,27 @@ void ControlsController::on_Clicked_Refresh() {
 
 void ControlsController::on_Clicked_Simulate() {
     
-//    emit ControlsController::sig_Broadcast("stream_params", {
-//        { "sample_rate", "10000" },
-//        { "bits_per_sample", "16" },
-//        { "signed_samples", "true" },
-//        { "positive_reference", "3300" },
-//        { "negative_reference", "0" }
-//    });
+    app_data_t data;
+    
+    data.event = "update";
+    
+    data.stream_config.sample_rate     = 10000;
+    data.stream_config.bits_per_sample = 16;
+    data.stream_config.signed_samples  = true;
+    
+    emit ControlsController::sig_Broadcast(
+        AppMediator::Channel::STREAM_PARAMS, data);
+    
+    //////////////////////////////////
     
     DataReceiver*  data_receiver  = AppCore::get_Instance()->get_DataReceiver();
     TextProcessor* text_processor = AppCore::get_Instance()->get_TextProcessor();
     
     if (!data_receiver->isRunning()) {
-        
         text_processor->start();
         data_receiver->start(true);
     }
     else {
-        
         text_processor->stop();
         data_receiver->stop();
     }

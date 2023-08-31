@@ -28,7 +28,7 @@ void SamplesController::on_View_Initialized(ElementManager* manager) {
     
     model->set_OffsetStart(0);
     model->set_RangeSpan(48);
-    model->set_BitsPerSample(8);
+    model->set_BitsPerSample(16);
     
     // Register Fields
     
@@ -126,7 +126,7 @@ void SamplesController::on_View_Changed() {
     QVector<quint64>& samples = hex_viewer->get_Data();
     
     for (const auto& sample : samples) {
-        data.scope_data.samples.push_back(sample);
+        data.scope_data.samples.push_back(sample & 0xFFFF);
     }
     
     data.scope_data.x_axis.first  = off_start_val;
@@ -192,7 +192,7 @@ void SamplesController::on_Broadcast(quint64 ch, app_data_t data) {
     QComboBox* cb_span = (QComboBox*)manager
         ->get(SamplesModel::FIELD_RANGE_SPAN);
     
-    // App Events
+    //////////////////////////////
     
     if (ch == AppMediator::Channel::APP_EVENTS) {
         
@@ -201,7 +201,7 @@ void SamplesController::on_Broadcast(quint64 ch, app_data_t data) {
         }
     }
     
-    // Stream Events
+    //////////////////////////////
     
     else if (ch == AppMediator::Channel::STREAM_EVENTS) {
         
@@ -237,7 +237,7 @@ void SamplesController::on_Broadcast(quint64 ch, app_data_t data) {
         }
     }
     
-    // Stream Params
+    //////////////////////////////
     
     else if (ch == AppMediator::Channel::STREAM_PARAMS) {
         

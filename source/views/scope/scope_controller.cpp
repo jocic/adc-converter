@@ -44,7 +44,7 @@ void ScopeController::on_Broadcast(quint64 ch, app_data_t data) {
     
     static QList<QPointF> test;
     
-    // Stream Events
+    ////////////////////////
     
     if (ch == AppMediator::Channel::STREAM_EVENTS) {
         
@@ -62,31 +62,31 @@ void ScopeController::on_Broadcast(quint64 ch, app_data_t data) {
             
             x+=1;
             
-            if (test.size() == 49) {
-                x_axis->setRange(x - 48, x);
+            if (test.size() == 48) {
+                x_axis->setRange(x - 48, x - 1);
                 chart_series->replace(test);
                 test.clear();
             }
         }
     }
     
-    // Stream Events
+    ////////////////////////
     
     else if (ch == AppMediator::Channel::SCOPE_DATA) {
         
         chart_series->clear();
         
         x_axis->setRange(data.scope_data.x_axis.first,
-            data.scope_data.x_axis.second);
+            data.scope_data.x_axis.second - 1);
         
-        quint64 x = data.scope_data.x_axis.first;
+         x = data.scope_data.x_axis.first;
         
         for (const auto& sample : data.scope_data.samples) {
-            chart_series->append(x++, sample);
+            chart_series->append(x++, qint16(sample));
         }
     }
     
-    // Stream Events
+    ////////////////////////
     
     else if (ch == AppMediator::Channel::STREAM_PARAMS) {
         

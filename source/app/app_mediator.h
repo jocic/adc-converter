@@ -19,13 +19,33 @@ class AppMediator : public QObject {
     public:
         
         enum Channel {
+            
+            /**
+             *
+             */
             APP_EVENTS,
+            
+            /**
+             *
+             */
             APP_REQUESTS,
+            
+            /**
+             * stream_started, stream_ended, new_stream
+             */
             STREAM_EVENTS,
+            
+            /**
+             *
+             */
             STREAM_PARAMS,
             REFERENCE_PARAMS,
             SERIAL_PARAMS,
             COMM_PARAMS,
+            
+            /**
+             *
+             */
             SCOPE_DATA
         };
         
