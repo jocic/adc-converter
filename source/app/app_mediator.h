@@ -10,11 +10,34 @@
 #include <QVector>
 
 #include "app/app_transceiver.h"
+#include "app/app_types.h"
 
 class AppMediator : public QObject {
     
     Q_OBJECT
-    
+        
+    public:
+        
+        enum Channel {
+            APP_EVENTS,
+            APP_REQUESTS,
+            STREAM_EVENTS,
+            STREAM_PARAMS,
+            REFERENCE_PARAMS,
+            SERIAL_PARAMS,
+            COMM_PARAMS,
+            SCOPE_DATA
+        };
+        
+        Q_ENUM(Channel);
+        
+        static AppMediator* get_Instance();
+        void reg_Transmitter(const AppTransceiver* ctl, quint64 ch);
+        void reg_Receiver(const AppTransceiver* ctl, quint64 ch);
+        
+    public slots:
+        void on_Broadcast(quint64 ch, app_data_t data);
+        
     private:
         
         static AppMediator* M_INSTANCE;
@@ -22,24 +45,14 @@ class AppMediator : public QObject {
         
         QSet<const AppTransceiver*> m_Providers;
         QSet<const AppTransceiver*> m_Consumers;
-        QMap<QString,QVector<const AppTransceiver*>> m_Subscriptions;
+        QMap<quint64,QVector<const AppTransceiver*>> m_Subscriptions;
         
         AppMediator();
         AppMediator(const AppMediator &ref) = delete;
         void operator = (const AppMediator &ref) = delete;
         
-    public:
-        static AppMediator* get_Instance();
-        void reg_Transmitter(const AppTransceiver* ctl, QString topic);
-        void reg_Receiver(const AppTransceiver* ctl, QString topic);
-        
-    public slots:
-        void on_Broadcast(QString topic, QMap<QString,QString> params);
-        void on_Broadcast_ALT(QString topic, void* params);
-        
     signals:
-        void sig_Broadcast(QString topic, QMap<QString,QString> params);
-        void sig_Broadcast_ALT(QString topic, void* params);
+        void sig_Broadcast(quint64 ch, app_data_t data);
 };
 
 #endif

@@ -1,13 +1,14 @@
 #include <QLineEdit>
 
+#include "app/app_mediator.h"
 #include "reference_model.h"
 #include "reference_controller.h"
 
 void ReferenceController::on_View_Initialized(ElementManager* manager) {
     
-    this->tuneTo("stream_started");
-    this->tuneTo("stream_ended");
-    this->tuneTo("stream_params");
+    this->tuneTo(AppMediator::Channel::APP_EVENTS);
+    this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
+    this->tuneTo(AppMediator::Channel::STREAM_PARAMS);
 }
 
 void ReferenceController::on_View_Changed() {
@@ -57,8 +58,7 @@ void ReferenceController::on_Model_Cleared() {
     negative->setText("0");
 }
 
-void ReferenceController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
+void ReferenceController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -70,27 +70,25 @@ void ReferenceController::on_Broadcast(QString topic,
     QLineEdit* negative = (QLineEdit*)manager
         ->get(ReferenceModel::FIELD_NEGATIVE);
     
-    if (topic == "stream_started") {
-        positive->setEnabled(false);
-        negative->setEnabled(false);
-    }
-    else if (topic == "stream_ended") {
-        positive->setEnabled(true);
-        negative->setEnabled(true);
-    }
-    else if (topic == "stream_params") {
-        
-        if (params.contains("positive_reference")) {
-            model->set_Positive(params["positive_reference"]);
-        }
-        
-        if (params.contains("negative_reference")) {
-            model->set_Negative(params["negative_reference"]);
-        }
-    }
-}
-
-void ReferenceController::on_Broadcast_ALT(QString topic, void* params) {
+    // Stream Events
     
-    // Does nothing...
+    if (ch == AppMediator::Channel::STREAM_EVENTS) {
+        
+        if (data.event == "stream_started") {
+            positive->setEnabled(false);
+            negative->setEnabled(false);
+        }
+        else if (data.event == "stream_ended") {
+            positive->setEnabled(true);
+            negative->setEnabled(true);
+        }
+    }
+    
+    // Reference Params
+    
+    else if (ch == AppMediator::Channel::REFERENCE_PARAMS) {
+        
+        model->set_Positive(data.ref_config.adc_positive);
+        model->set_Negative(data.ref_config.adc_negative);
+    }
 }

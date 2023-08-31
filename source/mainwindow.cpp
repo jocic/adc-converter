@@ -9,6 +9,7 @@
 #include "app/app_loader.h"
 #include "app/app_saver.h"
 #include "app/app_exporter.h"
+#include "app/app_types.h"
 #include "app/workers/load_worker.h"
 
 #include "widgets/options/stream/stream_model.h"
@@ -41,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     
     // Views
     
-    ui->tab_Scope->initialize();    
+    ui->tab_Scope->initialize();
     ui->tab_Samples->initialize();
     
     ////////////////////////////////////////
@@ -56,18 +57,18 @@ MainWindow::MainWindow(QWidget *parent)
     
     // Providers
     
-    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "stream_started");
-    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "stream_ended");
-    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "stream_params");
-    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "new_stream");
-    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "new_samples");
-    mediator->reg_Transmitter(ui->wd_Options_CTL->controller(), "refresh_ports");
-    
-    mediator->reg_Transmitter(ui->wd_Options_COM->controller(), "com_data");
-    
-    mediator->reg_Transmitter(ui->wd_Options_STR->controller(), "wd_stream_data");
-    
-    mediator->reg_Transmitter(ui->tab_Samples->controller(), "frame_data");
+    mediator->reg_Transmitter(ui->wd_Options_CTL
+        ->controller(),AppMediator::Channel::STREAM_EVENTS);
+    mediator->reg_Transmitter(ui->wd_Options_CTL
+        ->controller(), AppMediator::Channel::STREAM_PARAMS);
+    mediator->reg_Transmitter(ui->wd_Options_CTL
+        ->controller(), AppMediator::Channel::APP_REQUESTS);
+    mediator->reg_Transmitter(ui->wd_Options_COM
+        ->controller(), AppMediator::Channel::COMM_PARAMS);
+    mediator->reg_Transmitter(ui->wd_Options_STR
+        ->controller(), AppMediator::Channel::STREAM_PARAMS);
+    mediator->reg_Transmitter(ui->tab_Samples
+        ->controller(), AppMediator::Channel::SCOPE_DATA);
 }
 
 MainWindow::~MainWindow() {
@@ -83,7 +84,11 @@ void MainWindow::on_Dump_Loaded() {
     app_core->get_Buffer()->clear();
     app_core->get_Buffer()->append(*app_loader->get_Buffer());
     
-    app_mediator->on_Broadcast("dump_loaded", {});
+    /////////////////////////////
+    
+    app_data_t data = { .event = "dump_loaded" };
+    
+    app_mediator->on_Broadcast(AppMediator::Channel::APP_EVENTS, data);
 }
 
 void MainWindow::on_action_Save_triggered() {

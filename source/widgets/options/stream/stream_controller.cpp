@@ -3,14 +3,14 @@
 #include <QComboBox>
 #include <QCheckBox>
 
+#include "app/app_mediator.h"
 #include "stream_model.h"
 #include "stream_controller.h"
 
 void StreamController::on_View_Initialized(ElementManager* manager) {
     
-    this->tuneTo("stream_started");
-    this->tuneTo("stream_ended");
-    this->tuneTo("stream_params");
+    this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
+    this->tuneTo(AppMediator::Channel::STREAM_PARAMS);
     
     //////////////////////////////
     
@@ -63,16 +63,14 @@ void StreamController::on_View_Changed() {
     
     // Combile & Broadcast Data
     
-    QMap<QString,QString> data;
+    app_data_t data;
     
-    data.insert(StreamModel::FIELD_SAMPLE_RATE,
-        QString::asprintf("%llu", sample_rate));
-    data.insert(StreamModel::FIELD_BITS_PER_SAMPLE,
-        QString::asprintf("%u", bits_per_sample));
-    data.insert(StreamModel::FIELD_SIGNED,
-        cb_signed->isChecked() ? "true" : "false");
+    data.stream_config.sample_rate     = sample_rate;
+    data.stream_config.bits_per_sample = bits_per_sample;
+    data.stream_config.signed_samples  = cb_signed->isChecked();
     
-    emit StreamController::sig_Broadcast("wd_stream_data", data);
+    emit StreamController::sig_Broadcast(
+        AppMediator::Channel::STREAM_PARAMS, data);
 }
 
 void StreamController::on_Model_Changed(QString key, QString value) {
@@ -135,8 +133,7 @@ void StreamController::on_Model_Cleared() {
     sample_signed->setChecked(false);
 }
 
-void StreamController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
+void StreamController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -151,33 +148,36 @@ void StreamController::on_Broadcast(QString topic,
     QCheckBox* sample_signed = (QCheckBox*)manager
         ->get(StreamModel::FIELD_SIGNED);
     
-    if (topic == "stream_started") {
-        sample_rate->setEnabled(false);
-        bits_per_sample->setEnabled(false);
-        sample_signed->setEnabled(false);
-    }
-    else if (topic == "stream_ended") {
-        sample_rate->setEnabled(true);
-        bits_per_sample->setEnabled(true);
-        sample_signed->setEnabled(true);
-    }
-    else if (topic == "stream_params") {
-        
-        if (params.contains("sample_rate")) {
-            model->set_SampleRate(params["sample_rate"]);
-        }
-        
-        if (params.contains("bits_per_sample")) {
-            model->set_BitsPerSample(params["bits_per_sample"]);
-        }
-        
-        if (params.contains("signed_samples")) {
-            model->set_Signed(params["signed_samples"]);
-        }
-    }
-}
-
-void StreamController::on_Broadcast_ALT(QString topic, void* params) {
+    // Stream Events
     
-    // Does nothing...
+    if (ch == AppMediator::Channel::STREAM_EVENTS) {
+        
+        if (data.event == "stream_started") {
+            sample_rate->setEnabled(false);
+            bits_per_sample->setEnabled(false);
+            sample_signed->setEnabled(false);
+        }
+        else if (data.event == "stream_ended") {
+            sample_rate->setEnabled(true);
+            bits_per_sample->setEnabled(true);
+            sample_signed->setEnabled(true);
+        }
+    }
+    
+    // Stream Events
+
+//    else if (topic == "stream_params") {
+        
+//        if (params.contains("sample_rate")) {
+//            model->set_SampleRate(params["sample_rate"]);
+//        }
+        
+//        if (params.contains("bits_per_sample")) {
+//            model->set_BitsPerSample(params["bits_per_sample"]);
+//        }
+        
+//        if (params.contains("signed_samples")) {
+//            model->set_Signed(params["signed_samples"]);
+//        }
+//    }
 }

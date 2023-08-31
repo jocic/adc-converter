@@ -54,13 +54,7 @@ void ProcessingController::on_Model_Cleared() {
     progress->setValue(0);
 }
 
-void ProcessingController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
-    
-    // Does nothing...
-}
-
-void ProcessingController::on_Broadcast_ALT(QString topic, void* params) {
+void ProcessingController::on_Broadcast(quint64 ch, app_data_t data) {
     
     // Does nothing...
 }

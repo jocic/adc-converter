@@ -1,12 +1,12 @@
 #include <QComboBox>
 
+#include "app/app_mediator.h"
 #include "serial_model.h"
 #include "serial_controller.h"
 
 void SerialController::on_View_Initialized(ElementManager* manager) {
     
-    this->tuneTo("stream_started");
-    this->tuneTo("stream_ended");
+    this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
     
     //////////////////////////////
     
@@ -150,8 +150,7 @@ void SerialController::on_Model_Cleared() {
     }
 }
 
-void SerialController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
+void SerialController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -170,23 +169,21 @@ void SerialController::on_Broadcast(QString topic,
     QComboBox* cmb_flow = (QComboBox*)manager
         ->get(SerialModel::FIELD_FLOW_CONTROL);
     
-    if (topic == "stream_started") {
-        cmb_baud->setEnabled(false);
-        cmb_data->setEnabled(false);
-        cmb_parity->setEnabled(false);
-        cmb_stop->setEnabled(false);
-        cmb_flow->setEnabled(false);
+    if (ch == AppMediator::Channel::STREAM_EVENTS) {
+        
+        if (data.event == "stream_started") {
+            cmb_baud->setEnabled(false);
+            cmb_data->setEnabled(false);
+            cmb_parity->setEnabled(false);
+            cmb_stop->setEnabled(false);
+            cmb_flow->setEnabled(false);
+        }
+        else if (data.event == "stream_ended") {
+            cmb_baud->setEnabled(true);
+            cmb_data->setEnabled(true);
+            cmb_parity->setEnabled(true);
+            cmb_stop->setEnabled(true);
+            cmb_flow->setEnabled(true);
+        }
     }
-    else if (topic == "stream_ended") {
-        cmb_baud->setEnabled(true);
-        cmb_data->setEnabled(true);
-        cmb_parity->setEnabled(true);
-        cmb_stop->setEnabled(true);
-        cmb_flow->setEnabled(true);
-    }
-}
-
-void SerialController::on_Broadcast_ALT(QString topic, void* params) {
-    
-    // Does nothing...
 }

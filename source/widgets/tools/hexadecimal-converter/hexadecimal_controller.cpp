@@ -2,15 +2,15 @@
 #include <QLineEdit>
 #include <QCheckBox>
 
+#include "app/app_mediator.h"
 #include "app/converters/hexadecimal_converter.h"
 #include "hexadecimal_model.h"
 #include "hexadecimal_controller.h"
 
 void HexadecimalController::on_View_Initialized(ElementManager* manager) {
     
-    this->tuneTo("stream_started");
-    this->tuneTo("stream_ended");
-    this->tuneTo("hex_selected");
+    this->tuneTo(AppMediator::Channel::APP_EVENTS);
+    this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
     
     //////////////////////////////
     
@@ -102,8 +102,7 @@ void HexadecimalController::on_Model_Cleared() {
     val_signed->setChecked(false);
 }
 
-void HexadecimalController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
+void HexadecimalController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -116,26 +115,32 @@ void HexadecimalController::on_Broadcast(QString topic,
     QCheckBox* val_signed = (QCheckBox*)manager
         ->get(HexadecimalModel::FIELD_SIGNED);
     
-    if (topic == "stream_started") {
-        hexadecimal->setEnabled(false);
-        decimal->setEnabled(false);
-        val_signed->setEnabled(false);
-    }
-    else if (topic == "stream_ended") {
-        hexadecimal->setEnabled(true);
-        decimal->setEnabled(true);
-        val_signed->setEnabled(true);
-    }
-    else if (topic == "hex_selected") {
-        
-        QLineEdit* hexadecimal = (QLineEdit*)manager
-            ->get(HexadecimalModel::FIELD_HEXADECIMAL);
-        
-        hexadecimal->setText(params["val"]);
-    }
-}
-
-void HexadecimalController::on_Broadcast_ALT(QString topic, void* params) {
+    // App Events
     
-    // Does nothing...
+    if (ch == AppMediator::Channel::APP_EVENTS) {
+        
+        if (data.event == "hex_selected") {
+            
+            QLineEdit* hexadecimal = (QLineEdit*)manager
+                ->get(HexadecimalModel::FIELD_HEXADECIMAL);
+            
+            hexadecimal->setText(data.str_value);
+        }
+    }
+    
+    // Stream Events
+    
+    else if (ch == AppMediator::Channel::STREAM_EVENTS) {
+        
+        if (data.event == "stream_started") {
+            hexadecimal->setEnabled(false);
+            decimal->setEnabled(false);
+            val_signed->setEnabled(false);
+        }
+        else if (data.event == "stream_ended") {
+            hexadecimal->setEnabled(true);
+            decimal->setEnabled(true);
+            val_signed->setEnabled(true);
+        }
+    }
 }

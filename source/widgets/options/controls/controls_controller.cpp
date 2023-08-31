@@ -7,14 +7,15 @@
 #include <QTextStream>
 #include <QMessageBox>
 
+#include "app/app_mediator.h"
 #include "app/app_core.h"
 #include "widgets/options/controls/controls_model.h"
 #include "widgets/options/controls/controls_controller.h"
 
 void ControlsController::on_View_Initialized(ElementManager* manager) {
     
-    this->tuneTo("str_data");
-    this->tuneTo("com_data");
+    this->tuneTo(AppMediator::Channel::STREAM_PARAMS);
+    this->tuneTo(AppMediator::Channel::COMM_PARAMS);
     
     //////////////////////////////
     
@@ -83,20 +84,11 @@ void ControlsController::on_Model_Cleared() {
     // Does nothing...
 }
 
-void ControlsController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
+void ControlsController::on_Broadcast(quint64 ch, app_data_t data) {
     
-    if (topic == "com_data") {
-        
-        if (params.contains("port")) {
-            m_ComPort = params["port"];
-        }
+    if (ch == AppMediator::Channel::COMM_PARAMS) {
+        m_ComPort = data.com_config.com_port;
     }
-}
-
-void ControlsController::on_Broadcast_ALT(QString topic, void* params) {
-    
-    // Does nothing...
 }
 
 void ControlsController::on_Clicked_Connect() {
@@ -106,7 +98,13 @@ void ControlsController::on_Clicked_Connect() {
     
     if (!data_receiver->isRunning()) {
         
-        emit ControlsController::sig_Broadcast("refresh_ports", {});
+        app_data_t data;
+        
+        data.event  = "refresh_ports";
+        data.params = {};
+        
+        emit ControlsController::sig_Broadcast(
+            AppMediator::Channel::APP_EVENTS, data);
         
         text_processor->start();
         
@@ -122,18 +120,24 @@ void ControlsController::on_Clicked_Connect() {
 
 void ControlsController::on_Clicked_Refresh() {
     
-    emit ControlsController::sig_Broadcast("refresh_ports", {});
+    app_data_t data;
+    
+    data.event  = "refresh_ports";
+    data.params = {};
+    
+    emit ControlsController::sig_Broadcast(
+        AppMediator::Channel::APP_EVENTS, data);
 }
 
 void ControlsController::on_Clicked_Simulate() {
     
-    emit ControlsController::sig_Broadcast("stream_params", {
-        { "sample_rate", "10000" },
-        { "bits_per_sample", "16" },
-        { "signed_samples", "true" },
-        { "positive_reference", "3300" },
-        { "negative_reference", "0" }
-    });
+//    emit ControlsController::sig_Broadcast("stream_params", {
+//        { "sample_rate", "10000" },
+//        { "bits_per_sample", "16" },
+//        { "signed_samples", "true" },
+//        { "positive_reference", "3300" },
+//        { "negative_reference", "0" }
+//    });
     
     DataReceiver*  data_receiver  = AppCore::get_Instance()->get_DataReceiver();
     TextProcessor* text_processor = AppCore::get_Instance()->get_TextProcessor();
@@ -177,9 +181,19 @@ void ControlsController::on_Processor_Start() {
     btn_ref->setEnabled(false);
     btn_sim->setEnabled(false);
     
-    emit ControlsController::sig_Broadcast("stream_started", {});
-    emit ControlsController::sig_Broadcast("new_stream", {});
-    emit ControlsController::sig_Broadcast_ALT("new_stream", {});
+    app_data_t data;
+    
+    data.event  = "stream_started";
+    data.params = {};
+    
+    emit ControlsController::sig_Broadcast(
+        AppMediator::Channel::STREAM_EVENTS, data);
+    
+    data.event  = "new_stream";
+    data.params = {};
+    
+    emit ControlsController::sig_Broadcast(
+        AppMediator::Channel::STREAM_EVENTS, data);
     
     m_Active->minutes = m_Active->seconds = m_Active->milliseconds = 0;
     
@@ -205,7 +219,13 @@ void ControlsController::on_Processor_End() {
     btn_ref->setEnabled(true);
     btn_sim->setEnabled(true);
     
-    emit ControlsController::sig_Broadcast("stream_ended", {});
+    app_data_t data;
+    
+    data.event  = "stream_ended";
+    data.params = {};
+    
+    emit ControlsController::sig_Broadcast(
+        AppMediator::Channel::STREAM_EVENTS, data);
     
     m_Timer->stop();
 }
@@ -217,7 +237,13 @@ void ControlsController::on_Processor_Sample(qint64 sample) {
     data_buffer->push_back((sample >> 0) & 0xFF);
     data_buffer->push_back((sample >> 8) & 0xFF);
     
-    emit ControlsController::sig_Broadcast_ALT("new_sample", (void*)sample);
+    app_data_t data;
+    
+    data.event     = "new_sample";
+    data.value.i64 = sample;
+    
+    emit ControlsController::sig_Broadcast(
+        AppMediator::Channel::STREAM_EVENTS, data);
 }
 
 void ControlsController::on_Timer_Tick() {

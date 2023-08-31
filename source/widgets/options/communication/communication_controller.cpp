@@ -1,14 +1,14 @@
 #include <QSerialPortInfo>
 #include <QComboBox>
 
+#include "app/app_mediator.h"
 #include "communication_model.h"
 #include "communication_controller.h"
 
 void CommunicationController::on_View_Initialized(ElementManager* manager) {
     
-    this->tuneTo("stream_started");
-    this->tuneTo("stream_ended");
-    this->tuneTo("refresh_ports");
+    this->tuneTo(AppMediator::Channel::APP_EVENTS);
+    this->tuneTo(AppMediator::Channel::STREAM_EVENTS);;
     
     //////////////////////////////
     
@@ -31,10 +31,15 @@ void CommunicationController::on_View_Changed() {
     QComboBox* mode = (QComboBox*)manager
         ->get(CommunicationModel::FIELD_MODE);
     
-    emit CommunicationController::sig_Broadcast("com_data", {
-        { "port", port->currentText() }, 
-        { "mode", mode->currentText() }
-    });
+    ///////////////////////
+    
+    app_data_t data;
+    
+    data.com_config.com_port = port->currentText();
+    data.com_config.com_mode = mode->currentText();
+    
+    emit CommunicationController::sig_Broadcast(
+        AppMediator::Channel::STREAM_PARAMS, data);
 }
 
 void CommunicationController::on_Model_Changed(QString key, QString value) {
@@ -90,8 +95,7 @@ void CommunicationController::on_Model_Cleared() {
     }
 }
 
-void CommunicationController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
+void CommunicationController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -101,22 +105,28 @@ void CommunicationController::on_Broadcast(QString topic,
     QComboBox* port = (QComboBox*)manager
         ->get(CommunicationModel::FIELD_PORT);
     
-    if (topic == "stream_started") {
-        mode->setEnabled(false);
-        port->setEnabled(false);
-    }
-    else if (topic == "stream_ended") {
-        mode->setEnabled(true);
-        port->setEnabled(true);
-    }
-    else if (topic == "refresh_ports") {
-        this->on_RefreshPorts();
-    }
-}
-
-void CommunicationController::on_Broadcast_ALT(QString topic, void* params) {
+    // App Events
     
-    // Does nothing...
+    if (ch == AppMediator::Channel::APP_EVENTS) {
+        
+        if (data.event == "refresh_ports") {
+            this->on_RefreshPorts();
+        }
+    }
+    
+    // Stream Events
+    
+    else if (ch == AppMediator::Channel::STREAM_EVENTS) {
+        
+        if (data.event == "stream_started") {
+            mode->setEnabled(false);
+            port->setEnabled(false);
+        }
+        else if (data.event == "stream_ended") {
+            mode->setEnabled(true);
+            port->setEnabled(true);
+        }
+    }
 }
 
 void CommunicationController::on_RefreshPorts() {

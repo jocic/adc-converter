@@ -16,11 +16,9 @@
 
 void SamplesController::on_View_Initialized(ElementManager* manager) {
     
-    this->tuneTo("stream_started");
-    this->tuneTo("stream_ended");
-    this->tuneTo("new_stream");
-    this->tuneTo("dump_loaded");
-    this->tuneTo("wd_stream_data");
+    this->tuneTo(AppMediator::Channel::APP_EVENTS);
+    this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
+    this->tuneTo(AppMediator::Channel::STREAM_PARAMS);
     
     //////////////////////////////
     
@@ -123,16 +121,19 @@ void SamplesController::on_View_Changed() {
     
     // Temp
     
-    QVector<quint64>& data = hex_viewer->get_Data();
+    app_data_t data;
     
-    QMap<QString,QString> data_conv;
+    QVector<quint64>& samples = hex_viewer->get_Data();
     
-    for (quint64 i = 0; i < data.size(); i++) {
-        data_conv.insert(QString::asprintf("%llu", i),
-            QString::asprintf("%llu", data[i]));
+    for (const auto& sample : samples) {
+        data.scope_data.samples.push_back(sample);
     }
     
-    emit SamplesController::sig_Broadcast("frame_data", data_conv);
+    data.scope_data.x_axis.first  = off_start_val;
+    data.scope_data.x_axis.second = off_end_val;
+    
+    emit SamplesController::sig_Broadcast(
+        AppMediator::Channel::SCOPE_DATA, data);
 }
 
 void SamplesController::on_Model_Changed(QString key, QString value) {
@@ -172,8 +173,7 @@ void SamplesController::on_Model_Cleared() {
     // Does nothing...
 }
 
-void SamplesController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
+void SamplesController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -192,41 +192,54 @@ void SamplesController::on_Broadcast(QString topic,
     QComboBox* cb_span = (QComboBox*)manager
         ->get(SamplesModel::FIELD_RANGE_SPAN);
     
-    if (topic == "new_stream") {
+    // App Events
+    
+    if (ch == AppMediator::Channel::APP_EVENTS) {
         
-        SamplesView*  view  = (SamplesView*)this->get_View();
-        
-        HexViewer* hex_viewer = view->get_HexViewer();
-        
-        hex_viewer->get_Data().clear();
-        
-        this->on_Data_Loaded(); // Reset Hex Viewer
-        
-        this->on_View_Changed();
+        if (data.event == "dump_loaded") {
+            this->on_Clicked_Offset();
+        }
     }
-    else if (topic == "stream_started") {
+    
+    // Stream Events
+    
+    else if (ch == AppMediator::Channel::STREAM_EVENTS) {
         
-        btn_offset->setEnabled(false);
-        btn_prev->setEnabled(false);
-        btn_next->setEnabled(false);
-        txt_offset->setEnabled(false);
-        cb_span->setEnabled(false);
+        if (data.event == "new_stream") {
+            
+            SamplesView*  view  = (SamplesView*)this->get_View();
+            
+            HexViewer* hex_viewer = view->get_HexViewer();
+            
+            hex_viewer->get_Data().clear();
+            
+            this->on_Data_Loaded(); // Reset Hex Viewer
+            
+            this->on_View_Changed();
+        }
+        else if (data.event == "stream_started") {
+            
+            btn_offset->setEnabled(false);
+            btn_prev->setEnabled(false);
+            btn_next->setEnabled(false);
+            txt_offset->setEnabled(false);
+            cb_span->setEnabled(false);
+        }
+        else if (data.event == "stream_ended") {
+            
+            btn_offset->setEnabled(true);
+            btn_prev->setEnabled(true);
+            btn_next->setEnabled(true);
+            txt_offset->setEnabled(true);
+            cb_span->setEnabled(true);
+            
+            this->on_Data_Loaded();
+        }
     }
-    else if (topic == "stream_ended") {
-        
-        btn_offset->setEnabled(true);
-        btn_prev->setEnabled(true);
-        btn_next->setEnabled(true);
-        txt_offset->setEnabled(true);
-        cb_span->setEnabled(true);
-        
-        this->on_Data_Loaded();
-    }
-    else if (topic == "dump_loaded") {
-        
-        this->on_Clicked_Offset();
-    }
-    else if (topic == "wd_stream_data") {
+    
+    // Stream Params
+    
+    else if (ch == AppMediator::Channel::STREAM_PARAMS) {
         
         SamplesModel* model = (SamplesModel*)this->get_Model();
         SamplesView*  view  = (SamplesView*)this->get_View();
@@ -235,16 +248,8 @@ void SamplesController::on_Broadcast(QString topic,
         
         HexViewer* hex_viewer = view->get_HexViewer();
         
-        quint64 sample_rate     = 0;
-        quint8  bits_per_sample = 0;
-        
-        if (params.contains("txt_SampleRate")) {
-            sample_rate = params["txt_SampleRate"].toUInt();
-        }
-        
-        if (params.contains("comb_BitsPerSample")) {
-            bits_per_sample = params["comb_BitsPerSample"].toUInt();
-        }
+        quint64 sample_rate     = data.stream_config.sample_rate;
+        quint8  bits_per_sample = data.stream_config.bits_per_sample;
         
         quint64 range = qMax(1, qCeil(sample_rate / double(1000)));
         
@@ -269,11 +274,6 @@ void SamplesController::on_Broadcast(QString topic,
         
         this->on_View_Changed();
     }
-}
-
-void SamplesController::on_Broadcast_ALT(QString topic, void* params) {
-    
-    // Does nothing...
 }
 
 void SamplesController::on_Data_Loaded() {

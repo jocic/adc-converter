@@ -11,6 +11,7 @@
 #include "playback_model.h"
 #include "playback_view.h"
 #include "playback_controller.h"
+#include "app/app_mediator.h"
 #include "app/app_icons.h"
 #include "app/app_core.h"
 #include "app/app_loader.h"
@@ -18,9 +19,8 @@
 
 void PlaybackController::on_View_Initialized(ElementManager* manager) {
     
-    this->tuneTo("stream_started");
-    this->tuneTo("stream_ended");
-    this->tuneTo("wd_stream_data");
+    this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
+    this->tuneTo(AppMediator::Channel::STREAM_PARAMS);
     
     //////////////////////////////
     
@@ -72,8 +72,7 @@ void PlaybackController::on_Model_Cleared() {
     
 }
 
-void PlaybackController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
+void PlaybackController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -86,36 +85,23 @@ void PlaybackController::on_Broadcast(QString topic,
     QPushButton* btn_export = (QPushButton*)manager
         ->get(PlaybackModel::FIELD_EXPORT);
     
-    if (topic == "stream_started") {
-        slide_Time->setEnabled(false);
-        btn_toggle->setEnabled(false);
-        btn_export->setEnabled(false);
-    }
-    else if (topic == "stream_ended") {
-        slide_Time->setEnabled(true);
-        btn_toggle->setEnabled(true);
-        btn_export->setEnabled(true);
-    }
-    
-    /// to be refactored
-    
-    if (topic == "wd_stream_data") {
+    if (ch == AppMediator::Channel::STREAM_EVENTS) {
         
-        if (params.contains("txt_SampleRate")) {
-            m_SampleRate = params["txt_SampleRate"].toUInt();
+        if (data.event == "stream_started") {
+            slide_Time->setEnabled(false);
+            btn_toggle->setEnabled(false);
+            btn_export->setEnabled(false);
         }
-        
-        if (params.contains("comb_BitsPerSample")) {
-            m_BitsPerSample = params["comb_BitsPerSample"].toUInt();
+        else if (data.event == "stream_ended") {
+            slide_Time->setEnabled(true);
+            btn_toggle->setEnabled(true);
+            btn_export->setEnabled(true);
         }
-        
-        qDebug() << "Received:" << m_SampleRate << m_BitsPerSample;
     }
-}
-
-void PlaybackController::on_Broadcast_ALT(QString topic, void* params) {
-    
-    // Does nothing...
+    else if (ch == AppMediator::Channel::SERIAL_PARAMS) {
+        m_SampleRate    = data.stream_config.sample_rate;
+        m_BitsPerSample = data.stream_config.bits_per_sample;
+    }
 }
 
 void PlaybackController::on_Playback_Update(qreal time) {

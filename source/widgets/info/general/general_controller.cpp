@@ -4,13 +4,14 @@
 #include "general_controller.h"
 #include "app/app_core.h"
 #include "app/app_loader.h"
+#include "app/app_mediator.h"
 #include "app/workers/load_worker.h"
 
 void GeneralController::on_View_Initialized(ElementManager* manager) {
     
-    this->tuneTo("stream_started");
-    this->tuneTo("stream_ended");
-    this->tuneTo("wd_stream_data");
+    this->tuneTo(AppMediator::Channel::APP_EVENTS);
+    this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
+    this->tuneTo(AppMediator::Channel::STREAM_PARAMS);
     
     //////////////////////////////
     
@@ -68,8 +69,7 @@ void GeneralController::on_Model_Cleared() {
     duration->setText("N/D");
 }
 
-void GeneralController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
+void GeneralController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -81,36 +81,35 @@ void GeneralController::on_Broadcast(QString topic,
     QLabel* duration = (QLabel*)manager
         ->get(GeneralModel::FIELD_DURATION);
     
-    if (topic == "stream_ended") {
+    // Stream Events
+    
+    if (ch == AppMediator::Channel::STREAM_EVENTS) {
         
-        quint64 buffer_size = data_buffer->size();
-        
-        if (buffer_size == 0) {
-            samples->setText("N/D");
-        } else {
+        if (data.event == "stream_ended") {
             
-            quint64 total_samples  = buffer_size / (m_BitsPerSample / 8);
-            qreal   total_duration = total_samples / float(m_SampleRate);
+            quint64 buffer_size = data_buffer->size();
             
-            samples->setText(QString::asprintf("%llu",total_samples));
-            duration->setText(QString::asprintf("%.02f", total_duration));
+            if (buffer_size == 0) {
+                samples->setText("N/D");
+            } else {
+                
+                quint64 total_samples  = buffer_size / (m_BitsPerSample / 8);
+                qreal   total_duration = total_samples / float(m_SampleRate);
+                
+                samples->setText(QString::asprintf("%llu",total_samples));
+                duration->setText(QString::asprintf("%.02f", total_duration));
+            }
         }
     }
-    else if (topic == "wd_stream_data") {
+    
+    // Stream Params
+    
+    else if (ch == AppMediator::Channel::STREAM_PARAMS) {
         
-        quint8 bits_per_sample = 0;
+        quint8  bits_per_sample = data.stream_config.bits_per_sample;
+        quint64 sample_rate     = data.stream_config.sample_rate;
         
-        if (params.contains("comb_BitsPerSample")) {
-            bits_per_sample = params["comb_BitsPerSample"].toUInt();
-        }
-        
-        quint64 sample_rate = 0;
-        
-        if (params.contains("txt_SampleRate")) {
-            sample_rate = params["txt_SampleRate"].toUInt();
-        }
-        
-        m_SampleRate = sample_rate;
+        m_SampleRate    = sample_rate;
         m_BitsPerSample = bits_per_sample;
         
         quint64 buffer_size = data_buffer->size();
@@ -126,11 +125,6 @@ void GeneralController::on_Broadcast(QString topic,
             duration->setText(QString::asprintf("%.02f", total_duration));
         }
     }
-}
-
-void GeneralController::on_Broadcast_ALT(QString topic, void* params) {
-    
-    // Does nothing...
 }
 
 void GeneralController::on_Data_Loaded() {

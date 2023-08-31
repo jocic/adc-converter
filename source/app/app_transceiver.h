@@ -5,20 +5,20 @@
 #include <QObject>
 #include <QVector>
 
+#include "app/app_types.h"
+
 class AppTransceiver : public QObject {
     
     Q_OBJECT
     
     protected:
-        bool tuneTo(QString channel);
+        bool tuneTo(quint64 ch);
         
     public slots:
-        virtual void on_Broadcast(QString topic, QMap<QString,QString> params) = 0;
-        virtual void on_Broadcast_ALT(QString topic, void* params) = 0;
+        virtual void on_Broadcast(quint64 ch, app_data_t data) = 0;
     
     signals:
-        void sig_Broadcast(QString topic, QMap<QString,QString> params);
-        void sig_Broadcast_ALT(QString topic, void* params);
+        void sig_Broadcast(quint64 ch, app_data_t data);
 };
 
 #endif

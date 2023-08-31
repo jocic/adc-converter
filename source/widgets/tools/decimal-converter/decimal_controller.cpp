@@ -1,13 +1,13 @@
 #include <QLineEdit>
 
+#include "app/app_mediator.h"
 #include "app/converters/decimal_converter.h"
 #include "decimal_model.h"
 #include "decimal_controller.h"
 
 void DecimalController::on_View_Initialized(ElementManager* manager) {
     
-    this->tuneTo("stream_started");
-    this->tuneTo("stream_ended");
+    this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
     
     //////////////////////////////
     
@@ -83,8 +83,7 @@ void DecimalController::on_Model_Cleared() {
     hexadecimal->setText("");
 }
 
-void DecimalController::on_Broadcast(QString topic,
-    QMap<QString,QString> params) {
+void DecimalController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ElementManager* manager = this->get_View()->get_ElementManager();
     
@@ -94,17 +93,15 @@ void DecimalController::on_Broadcast(QString topic,
     QLineEdit* hexadecimal = (QLineEdit*)manager
         ->get(DecimalModel::FIELD_HEXADECIMAL);
     
-    if (topic == "stream_started") {
-        hexadecimal->setEnabled(false);
-        decimal->setEnabled(false);
+    if (ch == AppMediator::Channel::STREAM_EVENTS) {
+        
+        if (data.event == "stream_started") {
+            hexadecimal->setEnabled(false);
+            decimal->setEnabled(false);
+        }
+        else if (data.event == "stream_ended") {
+            hexadecimal->setEnabled(true);
+            decimal->setEnabled(true);
+        }
     }
-    else if (topic == "stream_ended") {
-        hexadecimal->setEnabled(true);
-        decimal->setEnabled(true);
-    }
-}
-
-void DecimalController::on_Broadcast_ALT(QString topic, void* params) {
-    
-    // Does nothing...
 }

@@ -21,7 +21,7 @@ AppMediator::AppMediator() {
     // Does nothing...
 }
 
-void AppMediator::reg_Transmitter(const AppTransceiver* ctl, QString topic) {
+void AppMediator::reg_Transmitter(const AppTransceiver* ctl, quint64 ch) {
     
     //qDebug() << "Adding provider for topic:" << topic;
     
@@ -33,13 +33,10 @@ void AppMediator::reg_Transmitter(const AppTransceiver* ctl, QString topic) {
         
         connect(ctl, &AppTransceiver::sig_Broadcast,
             this, &AppMediator::on_Broadcast);
-        
-        connect(ctl, &AppTransceiver::sig_Broadcast_ALT,
-            this, &AppMediator::on_Broadcast_ALT);
     }
 }
 
-void AppMediator::reg_Receiver(const AppTransceiver* ctl, QString topic) {
+void AppMediator::reg_Receiver(const AppTransceiver* ctl, quint64 ch) {
     
     //qDebug() << "Attempting to add a consumer...";
     
@@ -47,7 +44,7 @@ void AppMediator::reg_Receiver(const AppTransceiver* ctl, QString topic) {
         
         //qDebug() << "Registering to topic...";
         
-        m_Subscriptions[topic].push_back(ctl);
+        m_Subscriptions[ch].push_back(ctl);
         
         if (!m_Consumers.contains(ctl)) {
             
@@ -57,27 +54,15 @@ void AppMediator::reg_Receiver(const AppTransceiver* ctl, QString topic) {
             
             connect(this, &AppMediator::sig_Broadcast,
                 ctl, &AppTransceiver::on_Broadcast);
-            
-            connect(this, &AppMediator::sig_Broadcast_ALT,
-                ctl, &AppTransceiver::on_Broadcast_ALT);
         }
     }
 }
 
-void AppMediator::on_Broadcast(QString topic, QMap<QString,QString> params) {
+void AppMediator::on_Broadcast(quint64 ch, app_data_t data) {
     
-    auto search = m_Subscriptions.find(topic);
-    
-    //qDebug() << "Notification received: (topic, params)" << topic << params;
-    
-    emit AppMediator::sig_Broadcast(topic, params);
-}
-
-void AppMediator::on_Broadcast_ALT(QString topic, void* params) {
-    
-    auto search = m_Subscriptions.find(topic);
+    auto search = m_Subscriptions.find(ch);
     
     //qDebug() << "Notification received: (topic, params)" << topic << params;
     
-    emit AppMediator::sig_Broadcast_ALT(topic, params);
+    emit AppMediator::sig_Broadcast(ch, data);
 }

@@ -39,8 +39,8 @@ set(PROJECT_HEADERS
     source/app/app_types.h
     source/app/app_core.h
     source/app/app_icons.h
-    source/app/app_mediator.h
     source/app/app_transceiver.h
+    source/app/app_mediator.h
     source/app/app_io.h
     source/app/app_loader.h
     source/app/app_saver.h

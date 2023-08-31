@@ -1,54 +1,57 @@
+#ifndef ADC_APP_APP_TYPES_H
+
+#define ADC_APP_APP_TYPES_H
+
 #include <QtGlobal>
 #include <QVector>
 #include <QMap>
 
-typedef struct app_events {
-    QString               event;
-    QMap<QString,QString> params;
-} app_events_t;
+union gen_value {
+    qint64  i64;
+    quint64 ui64;
+};
 
 /////////////////////////////
 
-typedef struct app_request {
-    QString               request;
-    QMap<QString,QString> params;
-} app_request_t;
-
-/////////////////////////////
-
-typedef struct stream_event {
-    QString               event;
-    QMap<QString,QString> params;
-} stream_event_t;
-
-/////////////////////////////
-
-typedef struct stream_params {
+typedef struct stream_config {
     quint64 sample_rate;
     quint8  bits_per_sample;
     bool    signed_samples;
-} stream_params_t;
+} stream_config_t;
 
 /////////////////////////////
 
-typedef struct ref_params {
-    qint64 positive;
-    qint64 negative;
-    bool   convert_values;
-} ref_params_t;
+typedef struct reference_config {
+    qint64  adc_positive;
+    qint64  adc_negative;
+    bool    convert_values;
+} reference_config_t;
 
 /////////////////////////////
 
-typedef struct com_params {
-    qint64 positive;
-    qint64 negative;
-    bool   convert_values;
-} com_params_t;
+typedef struct communication_config {
+    QString com_port;
+    QString com_mode;
+} communication_config_t;
 
 /////////////////////////////
 
 typedef struct scope_data {
     QVector<qint64>       samples;
     QPair<qint64, qint64> x_axis;
-    QPair<qint64, qint64> y_axis;
 } scope_data_t;
+
+/////////////////////////////
+
+typedef struct app_data {
+    QString                event;
+    QString                str_value;
+    gen_value              value;
+    QMap<QString,QString>  params;
+    stream_config_t        stream_config;
+    reference_config_t     ref_config;
+    communication_config_t com_config;
+    scope_data_t           scope_data;
+} app_data_t;
+
+#endif

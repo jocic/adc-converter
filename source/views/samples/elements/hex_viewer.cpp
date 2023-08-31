@@ -6,22 +6,23 @@
 #include <QVBoxLayout>
 
 #include "hex_viewer.h"
+#include "app/app_types.h"
 #include "app/app_mediator.h"
 
 HexValue::HexValue() {
     this->setMouseTracking(true);
 }
 
-
 void HexValue::mousePressEvent(QMouseEvent *ev) {
-    
-    QMap<QString,QString> data;
-    
-    data.insert("val", this->text());
     
     AppMediator* mediator = AppMediator::get_Instance();
     
-    emit mediator->sig_Broadcast("hex_selected", data);
+    app_data_t data;
+    
+    data.event     = "hex_selected";
+    data.str_value = this->text();
+    
+    emit mediator->sig_Broadcast(AppMediator::Channel::APP_EVENTS, data);
 }
 
 HexViewer::HexViewer(quint64 len) {
