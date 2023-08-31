@@ -21,7 +21,7 @@ class AppMediator : public QObject {
         enum Channel {
             
             /**
-             *
+             * hex_selected
              */
             APP_EVENTS,
             
@@ -31,7 +31,7 @@ class AppMediator : public QObject {
             APP_REQUESTS,
             
             /**
-             * stream_started, stream_ended, new_stream
+             * stream_started, stream_ended, new_stream, new_sample
              */
             STREAM_EVENTS,
             

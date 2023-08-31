@@ -39,7 +39,7 @@ void CommunicationController::on_View_Changed() {
     data.com_config.com_mode = mode->currentText();
     
     emit CommunicationController::sig_Broadcast(
-        AppMediator::Channel::STREAM_PARAMS, data);
+        AppMediator::Channel::COMM_PARAMS, data);
 }
 
 void CommunicationController::on_Model_Changed(QString key, QString value) {
