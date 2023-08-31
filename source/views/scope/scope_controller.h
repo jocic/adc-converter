@@ -6,6 +6,10 @@
 
 class ScopeController : public AbstractController {
     
+    private:
+        quint8 m_BitsPerSample;
+        bool   m_SamplesSigned;
+    
     public slots:
         void on_View_Initialized(ElementManager* manager) override;
         void on_View_Changed() override;

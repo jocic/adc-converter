@@ -126,7 +126,7 @@ void SamplesController::on_View_Changed() {
     QVector<quint64>& samples = hex_viewer->get_Data();
     
     for (const auto& sample : samples) {
-        data.scope_data.samples.push_back(sample & 0xFFFF);
+        data.scope_data.samples.push_back(sample);
     }
     
     data.scope_data.x_axis.first  = off_start_val;

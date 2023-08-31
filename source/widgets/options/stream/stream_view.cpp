@@ -31,7 +31,7 @@ void StreamView::initialize(QWidget* parent) {
     layout->addRow(lbl_rate, txt_rate);
     
     lbl_bps->setText("Bits Per Sample");
-    cmb_bps->addItems({ "8", "16", "24", "32" });
+    cmb_bps->addItems({ "8", "16", "32" });
     cmb_bps->setCurrentIndex(1);
     layout->addRow(lbl_bps, cmb_bps);
     

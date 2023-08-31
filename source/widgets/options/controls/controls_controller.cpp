@@ -89,6 +89,9 @@ void ControlsController::on_Broadcast(quint64 ch, app_data_t data) {
     if (ch == AppMediator::Channel::COMM_PARAMS) {
         m_ComPort = data.com_config.com_port;
     }
+    else if (ch == AppMediator::Channel::STREAM_PARAMS) {
+        m_BitsPerSample = data.stream_config.bits_per_sample;
+    }
 }
 
 void ControlsController::on_Clicked_Connect() {
@@ -237,8 +240,26 @@ void ControlsController::on_Processor_Sample(qint64 sample) {
     
     QByteArray* data_buffer = AppCore::get_Instance()->get_Buffer();
     
-    data_buffer->push_back((sample >> 0) & 0xFF);
-    data_buffer->push_back((sample >> 8) & 0xFF);
+    switch (m_BitsPerSample) {
+        case 8:
+            data_buffer->push_back((sample >> 0) & 0xFF);
+            break;
+        case 16:
+            data_buffer->push_back((sample >> 0) & 0xFF);
+            data_buffer->push_back((sample >> 8) & 0xFF);
+            break;
+        case 24:
+            data_buffer->push_back((sample >>  0) & 0xFF);
+            data_buffer->push_back((sample >>  8) & 0xFF);
+            data_buffer->push_back((sample >> 16) & 0xFF);
+            break;
+        case 32:
+            data_buffer->push_back((sample >>  0) & 0xFF);
+            data_buffer->push_back((sample >>  8) & 0xFF);
+            data_buffer->push_back((sample >> 16) & 0xFF);
+            data_buffer->push_back((sample >> 24) & 0xFF);
+            break;
+    }
     
     app_data_t data;
     

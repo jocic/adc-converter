@@ -20,6 +20,7 @@ class ControlsController : public AbstractController {
         QString        m_ComPort;
         QString        m_ComMode;
         tm_duration_t* m_Active;
+        quint8         m_BitsPerSample;
     
     public slots:
         void on_View_Initialized(ElementManager* manager) override;

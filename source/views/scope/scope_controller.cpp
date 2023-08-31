@@ -81,8 +81,39 @@ void ScopeController::on_Broadcast(quint64 ch, app_data_t data) {
         
          x = data.scope_data.x_axis.first;
         
-        for (const auto& sample : data.scope_data.samples) {
-            chart_series->append(x++, qint16(sample));
+        if (m_SamplesSigned) {
+            
+            for (const auto& sample : data.scope_data.samples) {
+                
+                switch (m_BitsPerSample) {
+                    case 8:
+                        chart_series->append(x++, qint8(sample));
+                        break;
+                    case 16:
+                        chart_series->append(x++, qint16(sample));
+                        break;
+                    case 32:
+                        chart_series->append(x++, qint32(sample));
+                        break;
+                }
+            }
+        }
+        else {
+            
+            for (const auto& sample : data.scope_data.samples) {
+                
+                switch (m_BitsPerSample) {
+                    case 8:
+                        chart_series->append(x++, quint8(sample));
+                        break;
+                    case 16:
+                        chart_series->append(x++, quint16(sample));
+                        break;
+                    case 32:
+                        chart_series->append(x++, quint32(sample));
+                        break;
+                }
+            }
         }
     }
     
@@ -92,6 +123,9 @@ void ScopeController::on_Broadcast(quint64 ch, app_data_t data) {
         
         quint8 bits_per_sample = data.stream_config.bits_per_sample;
         bool   samples_signed  = data.stream_config.signed_samples;
+        
+        m_BitsPerSample = bits_per_sample;        
+        m_SamplesSigned = samples_signed;
         
         qint64 min_range = 0, max_range = 0;
         
