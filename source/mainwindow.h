@@ -3,6 +3,7 @@
 #define ADC_MAIN_WINDOW_H
 
 #include <QMainWindow>
+#include "app/app_types.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +18,8 @@ public:
     ~MainWindow();
     
 private slots:
+    
+    void on_Broadcast(int ch, app_data_t data);
     
     void on_Dump_Loaded();
     

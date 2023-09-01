@@ -55,6 +55,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(loader->get_Worker(), &LoadWorker::sig_Done,
         this, &MainWindow::on_Dump_Loaded);
     
+    connect(mediator, &AppMediator::sig_Broadcast,
+        this, &MainWindow::on_Broadcast);
+    
     // Providers
     
     mediator->reg_Transmitter(ui->wd_Options_CTL
@@ -73,6 +76,23 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+void MainWindow::on_Broadcast(int ch, app_data_t data) {
+    
+    if (ch == AppMediator::Channel::STREAM_EVENTS) {
+        
+        if (data.event == "stream_started") {
+            ui->action_Save->setEnabled(false);
+            ui->action_Load->setEnabled(false);
+            ui->action_Export->setEnabled(false);
+        }
+        else if (data.event == "stream_ended") {
+            ui->action_Save->setEnabled(true);
+            ui->action_Load->setEnabled(true);
+            ui->action_Export->setEnabled(true);
+        }
+    }
 }
 
 void MainWindow::on_Dump_Loaded() {
