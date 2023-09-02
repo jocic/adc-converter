@@ -16,6 +16,7 @@ void ControlsController::on_View_Initialized(ElementManager* manager) {
     
     this->tuneTo(AppMediator::Channel::STREAM_PARAMS);
     this->tuneTo(AppMediator::Channel::COMM_PARAMS);
+    this->tuneTo(AppMediator::Channel::SERIAL_PARAMS);
     
     //////////////////////////////
     
@@ -91,6 +92,16 @@ void ControlsController::on_Broadcast(quint64 ch, app_data_t data) {
     }
     else if (ch == AppMediator::Channel::STREAM_PARAMS) {
         m_BitsPerSample = data.stream_config.bits_per_sample;
+    }
+    else if (ch == AppMediator::Channel::SERIAL_PARAMS) {
+        
+        DataReceiver*  data_receiver  = AppCore::get_Instance()->get_DataReceiver();
+        
+        data_receiver->serialPort()->setBaudRate(data.ser_config.baud_rate);
+        data_receiver->serialPort()->setDataBits(data.ser_config.data_bits);
+        data_receiver->serialPort()->setStopBits(data.ser_config.stop_bits);
+        data_receiver->serialPort()->setParity(data.ser_config.parity_bit);
+        data_receiver->serialPort()->setFlowControl(data.ser_config.flow_control);
     }
 }
 

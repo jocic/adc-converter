@@ -5,6 +5,7 @@
 #include <QtGlobal>
 #include <QVector>
 #include <QMap>
+#include <QSerialPort>
 
 union gen_value {
     qint64  i64;
@@ -36,6 +37,16 @@ typedef struct communication_config {
 
 /////////////////////////////
 
+typedef struct serial_config {
+    QSerialPort::BaudRate    baud_rate;
+    QSerialPort::DataBits    data_bits;
+    QSerialPort::StopBits    stop_bits;
+    QSerialPort::Parity      parity_bit;
+    QSerialPort::FlowControl flow_control;
+} serial_config_t;
+
+/////////////////////////////
+
 typedef struct scope_data {
     QVector<qint64>       samples;
     QPair<qint64, qint64> x_axis;
@@ -51,6 +62,7 @@ typedef struct app_data {
     stream_config_t        stream_config;
     reference_config_t     ref_config;
     communication_config_t com_config;
+    serial_config_t        ser_config;
     scope_data_t           scope_data;
 } app_data_t;
 

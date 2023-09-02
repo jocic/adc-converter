@@ -70,6 +70,8 @@ MainWindow::MainWindow(QWidget *parent)
         ->controller(), AppMediator::Channel::COMM_PARAMS);
     mediator->reg_Transmitter(ui->wd_Options_STR
         ->controller(), AppMediator::Channel::STREAM_PARAMS);
+    mediator->reg_Transmitter(ui->wd_Options_SER
+        ->controller(), AppMediator::Channel::SERIAL_PARAMS);
     mediator->reg_Transmitter(ui->tab_Samples
         ->controller(), AppMediator::Channel::SCOPE_DATA);
 }

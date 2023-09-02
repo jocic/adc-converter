@@ -28,7 +28,96 @@ void SerialController::on_View_Initialized(ElementManager* manager) {
 
 void SerialController::on_View_Changed() {
     
-    qDebug() << ":D";
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    SerialModel*    model   = (SerialModel*)this->get_Model();
+    
+    //////////////////////////////
+    
+    // Baud Rate
+    
+    QComboBox* cmb_baud = (QComboBox*)manager
+        ->get(SerialModel::FIELD_BAUD_RATE);
+    
+    quint64 baud_rate = cmb_baud->currentText().toUInt();
+    
+    model->set_BaudRate((QSerialPort::BaudRate)baud_rate);
+    
+    // Data Bits
+    
+    QComboBox* cmb_data = (QComboBox*)manager
+        ->get(SerialModel::FIELD_DATA_BITS);
+    
+    quint8 data_bits = cmb_data->currentText().toUInt();
+    
+    model->set_DataBits((QSerialPort::DataBits)data_bits);
+    
+    // Stop Bits
+    
+    QComboBox* cmb_stop = (QComboBox*)manager
+        ->get(SerialModel::FIELD_STOP_BITS);
+    
+    QSerialPort::StopBits stop_bits = QSerialPort::StopBits::OneStop;
+    
+    if (cmb_stop->currentText() == "1/1") {
+        stop_bits = QSerialPort::StopBits::OneStop;
+    } else if (cmb_stop->currentText() == "1/2") {
+        stop_bits = QSerialPort::StopBits::OneAndHalfStop;
+    } else if (cmb_stop->currentText() == "2/1") {
+        stop_bits = QSerialPort::StopBits::TwoStop;
+    }
+    
+    model->set_StopBits(stop_bits);
+    
+    // Parity Bit
+    
+    QComboBox* cmb_parity = (QComboBox*)manager
+        ->get(SerialModel::FIELD_PARITY_BITS);
+    
+    QSerialPort::Parity parity_bit = QSerialPort::Parity::NoParity;
+    
+    if (cmb_parity->currentText() == "None") {
+        parity_bit = QSerialPort::Parity::NoParity;
+    } else if (cmb_parity->currentText() == "Even") {
+        parity_bit = QSerialPort::Parity::EvenParity;
+    } else if (cmb_parity->currentText() == "Odd") {
+        parity_bit = QSerialPort::Parity::OddParity;
+    } else if (cmb_parity->currentText() == "Space") {
+        parity_bit = QSerialPort::Parity::SpaceParity;
+    } else if (cmb_parity->currentText() == "Mark") {
+        parity_bit = QSerialPort::Parity::MarkParity;
+    }
+    
+    model->set_ParityBit(parity_bit);
+    
+    // Flow Control
+    
+    QComboBox* cmb_flow = (QComboBox*)manager
+        ->get(SerialModel::FIELD_FLOW_CONTROL);
+    
+    QSerialPort::FlowControl flow_control = QSerialPort::FlowControl::NoFlowControl;
+    
+    if (cmb_flow->currentText() == "None") {
+        flow_control = QSerialPort::FlowControl::NoFlowControl;
+    } else if (cmb_flow->currentText() == "Hardware") {
+        flow_control = QSerialPort::FlowControl::HardwareControl;
+    } else if (cmb_flow->currentText() == "Software") {
+        flow_control = QSerialPort::FlowControl::SoftwareControl;
+    }
+    
+    model->set_FlowControl(flow_control);
+    
+    //////////////////////////////
+    
+    app_data_t data;
+    
+    data.ser_config.baud_rate    = (QSerialPort::BaudRate)baud_rate;
+    data.ser_config.data_bits    = (QSerialPort::DataBits)data_bits;
+    data.ser_config.stop_bits    = stop_bits;
+    data.ser_config.parity_bit   = parity_bit;
+    data.ser_config.flow_control = flow_control;
+    
+    emit SerialController::sig_Broadcast(
+        AppMediator::Channel::SERIAL_PARAMS, data);
 }
 
 void SerialController::on_Model_Changed(QString key, QString value) {
