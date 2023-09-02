@@ -54,8 +54,9 @@ void ControlsController::on_View_Initialized(ElementManager* manager) {
     
     //////////////////////////////
     
-    DataReceiver*  data_receiver  = AppCore::get_Instance()->get_DataReceiver();    
-    TextProcessor* text_processor = AppCore::get_Instance()->get_TextProcessor();
+    DataReceiver*    data_receiver  = AppCore::get_Instance()->get_DataReceiver();    
+    TextProcessor*   text_processor = AppCore::get_Instance()->get_TextProcessor();
+    BinaryProcessor* bin_processor  = AppCore::get_Instance()->get_BinaryProcessor();
     
     connect(data_receiver, &DataReceiver::sig_Started,
         this, &ControlsController::on_Processor_Start);
@@ -66,7 +67,13 @@ void ControlsController::on_View_Initialized(ElementManager* manager) {
     connect(data_receiver, &DataReceiver::sig_BufferRead,
         text_processor, &TextProcessor::on_NewData);
     
+    connect(data_receiver, &DataReceiver::sig_BufferRead,
+        bin_processor, &BinaryProcessor::on_NewData);
+    
     connect(text_processor, &TextProcessor::sig_NewSample,
+        this, &ControlsController::on_Processor_Sample);
+    
+    connect(bin_processor, &BinaryProcessor::sig_NewSample,
         this, &ControlsController::on_Processor_Sample);
 }
 
@@ -89,6 +96,7 @@ void ControlsController::on_Broadcast(quint64 ch, app_data_t data) {
     
     if (ch == AppMediator::Channel::COMM_PARAMS) {
         m_ComPort = data.com_config.com_port;
+        m_ComMode = data.com_config.com_mode;
     }
     else if (ch == AppMediator::Channel::STREAM_PARAMS) {
         m_BitsPerSample = data.stream_config.bits_per_sample;
@@ -107,8 +115,9 @@ void ControlsController::on_Broadcast(quint64 ch, app_data_t data) {
 
 void ControlsController::on_Clicked_Connect() {
     
-    DataReceiver*  data_receiver  = AppCore::get_Instance()->get_DataReceiver();
-    TextProcessor* text_processor = AppCore::get_Instance()->get_TextProcessor();
+    DataReceiver*    data_receiver  = AppCore::get_Instance()->get_DataReceiver();
+    TextProcessor*   text_processor = AppCore::get_Instance()->get_TextProcessor();
+    BinaryProcessor* bin_processor  = AppCore::get_Instance()->get_BinaryProcessor();
     
     if (!data_receiver->isRunning()) {
         
@@ -120,7 +129,13 @@ void ControlsController::on_Clicked_Connect() {
         emit ControlsController::sig_Broadcast(
             AppMediator::Channel::APP_EVENTS, data);
         
-        text_processor->start();
+        if (m_ComMode == "Text") {
+            qDebug() << "Starting text...";
+            text_processor->start();
+        } else if (m_ComMode == "Binary") {
+            qDebug() << "Starting binary...";
+            bin_processor->start();
+        }
         
         data_receiver->serialPort()->setPortName(m_ComPort);
         data_receiver->start();
@@ -128,6 +143,7 @@ void ControlsController::on_Clicked_Connect() {
     else {
         
         text_processor->stop();
+        bin_processor->stop();
         data_receiver->stop();
     }
 }

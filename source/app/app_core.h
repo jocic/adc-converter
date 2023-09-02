@@ -9,6 +9,7 @@
 
 #include "app/data/data_receiver.h"
 #include "app/data/text_processor.h"
+#include "app/data/binary_processor.h"
 
 class AppCore : public QObject {
     
@@ -22,8 +23,9 @@ class AppCore : public QObject {
         QByteArray*            m_Buffer;
         QMap<QString,QString>* m_Params;
         
-        DataReceiver*  m_DataReceiver;
-        TextProcessor* m_TextProcessor;
+        DataReceiver*    m_DataReceiver;
+        TextProcessor*   m_TextProcessor;
+        BinaryProcessor* m_BinaryProcessor;
         
         AppCore();
         AppCore(const AppCore& ref) = delete;
@@ -36,6 +38,7 @@ class AppCore : public QObject {
         QByteArray* get_Buffer();
         DataReceiver* get_DataReceiver();
         TextProcessor* get_TextProcessor();
+        BinaryProcessor* get_BinaryProcessor();
         void get_Chunk(QByteArray& buf, quint64 off, quint64 len);
         void save();
         void load();

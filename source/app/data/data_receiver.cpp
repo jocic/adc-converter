@@ -13,6 +13,7 @@ DataReceiver::DataReceiver() {
     m_SerialPort->setStopBits(QSerialPort::StopBits::OneStop);
     m_SerialPort->setParity(QSerialPort::Parity::NoParity);
     m_SerialPort->setFlowControl(QSerialPort::FlowControl::NoFlowControl);
+    m_SerialPort->setReadBufferSize(1024);
     
     // Read Timer
     
@@ -88,7 +89,6 @@ bool DataReceiver::isRunning() {
 void DataReceiver::on_ReadInterval() {
     
     if (m_SerialPort->isOpen() && m_SerialPort->isReadable()) {
-       
         if (m_SerialPort->bytesAvailable()) {
             QByteArray buffer = m_SerialPort->readAll();
             emit DataReceiver::sig_BufferRead(buffer);
