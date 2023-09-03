@@ -31,6 +31,7 @@ class ControlsController : public AbstractController {
         void on_Broadcast(quint64 ch, app_data_t data) override;
         void on_Processor_Start();
         void on_Processor_End();
+        void on_Processor_Error();
         void on_Processor_Sample(qint64 sample);
         void on_Clicked_Connect();
         void on_Clicked_Refresh();

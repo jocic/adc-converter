@@ -89,9 +89,16 @@ bool DataReceiver::isRunning() {
 void DataReceiver::on_ReadInterval() {
     
     if (m_SerialPort->isOpen() && m_SerialPort->isReadable()) {
+        
         if (m_SerialPort->bytesAvailable()) {
+            
             QByteArray buffer = m_SerialPort->readAll();
-            emit DataReceiver::sig_BufferRead(buffer);
+            
+            if (m_SerialPort->error() == QSerialPort::SerialPortError::NoError) {
+                emit DataReceiver::sig_BufferRead(buffer);
+            } else {
+                emit DataReceiver::sig_Error();
+            }
         }
     }
 }

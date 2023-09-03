@@ -33,6 +33,7 @@ class DataReceiver : public QObject {
     signals:
         void sig_Started();
         void sig_Stopped();
+        void sig_Error();
         void sig_BufferRead(QByteArray buffer);
 };
 

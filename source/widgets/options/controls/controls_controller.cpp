@@ -64,6 +64,9 @@ void ControlsController::on_View_Initialized(ElementManager* manager) {
     connect(data_receiver, &DataReceiver::sig_Stopped,
         this, &ControlsController::on_Processor_End);
     
+    connect(data_receiver, &DataReceiver::sig_Error,
+        this, &ControlsController::on_Processor_Error);
+    
     connect(data_receiver, &DataReceiver::sig_BufferRead,
         text_processor, &TextProcessor::on_NewData);
     
@@ -262,6 +265,17 @@ void ControlsController::on_Processor_End() {
         AppMediator::Channel::STREAM_EVENTS, data);
     
     m_Timer->stop();
+}
+
+void ControlsController::on_Processor_Error() {
+    
+    this->on_Processor_End();
+    
+    QMessageBox error;
+    
+    error.setWindowTitle("Serial Error");
+    error.setText("Unknown read error occured, please check your device.");
+    error.exec();
 }
 
 void ControlsController::on_Processor_Sample(qint64 sample) {
