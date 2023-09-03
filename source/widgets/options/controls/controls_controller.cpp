@@ -134,7 +134,7 @@ void ControlsController::on_Clicked_Connect() {
             text_processor->start();
         } else if (m_ComMode == "Binary") {
             qDebug() << "Starting binary...";
-            bin_processor->start();
+            bin_processor->start(m_BitsPerSample);
         }
         
         data_receiver->serialPort()->setPortName(m_ComPort);

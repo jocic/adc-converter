@@ -12,13 +12,15 @@ class BinaryProcessor : public DataProcessor {
         
     private:
         QQueue<qint32>* m_Samples;
-        QByteArray* m_SampleBuffer;
+        quint8 m_BitsPerSample;
+        qint32 m_SampleBuffer;
+        quint8 m_BitsCount;
         void on_DataTimeout() override;
         void on_SampleTimeout() override;
         
     public:
         BinaryProcessor();
-        void start();
+        void start(quint8 bits_per_sample);
         void stop();
 };
 

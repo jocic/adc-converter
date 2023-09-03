@@ -4,14 +4,18 @@
 
 BinaryProcessor::BinaryProcessor() : DataProcessor() {
     
-    m_Samples      = new QQueue<qint32>();
-    m_SampleBuffer = new QByteArray();
+    m_Samples = new QQueue<qint32>();
 }
 
-void BinaryProcessor::start() {
+void BinaryProcessor::start(quint8 bits_per_sample) {
+    
+    m_BitsPerSample = bits_per_sample;
     
     m_Buffers->clear();
     m_Samples->clear();
+    
+    m_SampleBuffer = 0;
+    m_BitsCount    = 0;
     
     DataProcessor::start();
 }
@@ -26,10 +30,6 @@ void BinaryProcessor::stop() {
     DataProcessor::stop();
 }
 
-int test = 0;
-
-qint16 sample = 0;
-
 void BinaryProcessor::on_DataTimeout() {
     
     if (m_Buffers->size() == 0) {
@@ -43,14 +43,14 @@ void BinaryProcessor::on_DataTimeout() {
     
     while (index < buffer.size()) {
         
-        sample <<= 8;
-        sample  |= buffer[index];
+        m_SampleBuffer <<= 8;
+        m_SampleBuffer  |= buffer[index];
         
-        test++;
+        m_BitsCount += 8;
         
-        if (test == 2) {
-            m_Samples->enqueue(sample);
-            sample = test = 0;
+        if (m_BitsCount == m_BitsPerSample) {
+            m_Samples->enqueue(m_SampleBuffer);
+            m_SampleBuffer = m_BitsCount = 0;
         }
         
         index++;
