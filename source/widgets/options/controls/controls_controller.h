@@ -19,6 +19,7 @@ class ControlsController : public AbstractController {
         QTimer*        m_Timer;
         QString        m_ComPort;
         QString        m_ComMode;
+        QString        m_ComEndi;
         tm_duration_t* m_Active;
         quint8         m_BitsPerSample;
     

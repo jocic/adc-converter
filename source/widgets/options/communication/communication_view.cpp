@@ -22,6 +22,8 @@ void CommunicationView::initialize(QWidget* parent) {
     QComboBox*   cmb_port = new QComboBox();
     QLabel*      lbl_mode = new QLabel();
     QComboBox*   cmb_mode = new QComboBox();
+    QLabel*      lbl_endi = new QLabel();
+    QComboBox*   cmb_endi = new QComboBox();
     
     box->setLayout(lay_root);
     box->setTitle("Communication");
@@ -33,6 +35,11 @@ void CommunicationView::initialize(QWidget* parent) {
     cmb_mode->addItems({ "Text", "Binary" });
     lay_root->addRow(lbl_mode, cmb_mode);
     
+    lbl_endi->setText("Endianness");
+    cmb_endi->addItems({ "Big", "Small" });
+    cmb_endi->setEnabled(false);
+    lay_root->addRow(lbl_endi, cmb_endi);
+    
     parent->layout()->addWidget(box);
     
     // Push References
@@ -41,6 +48,7 @@ void CommunicationView::initialize(QWidget* parent) {
     
     manager->push(CommunicationModel::FIELD_PORT, cmb_port);
     manager->push(CommunicationModel::FIELD_MODE, cmb_mode);
+    manager->push(CommunicationModel::FIELD_ENDIANNESS, cmb_endi);
     
     emit CommunicationView::sig_View_Initialized(manager);
 }

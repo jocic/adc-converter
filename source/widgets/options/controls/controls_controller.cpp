@@ -97,6 +97,7 @@ void ControlsController::on_Broadcast(quint64 ch, app_data_t data) {
     if (ch == AppMediator::Channel::COMM_PARAMS) {
         m_ComPort = data.com_config.com_port;
         m_ComMode = data.com_config.com_mode;
+        m_ComEndi = data.com_config.com_endian;
     }
     else if (ch == AppMediator::Channel::STREAM_PARAMS) {
         m_BitsPerSample = data.stream_config.bits_per_sample;
@@ -134,7 +135,7 @@ void ControlsController::on_Clicked_Connect() {
             text_processor->start();
         } else if (m_ComMode == "Binary") {
             qDebug() << "Starting binary...";
-            bin_processor->start(m_BitsPerSample);
+            bin_processor->start(m_BitsPerSample, m_ComEndi == "Big");
         }
         
         data_receiver->serialPort()->setPortName(m_ComPort);

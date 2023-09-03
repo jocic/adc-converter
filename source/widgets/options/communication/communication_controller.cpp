@@ -1,4 +1,5 @@
 #include <QSerialPortInfo>
+#include <QLabel>
 #include <QComboBox>
 
 #include "app/app_mediator.h"
@@ -18,6 +19,9 @@ void CommunicationController::on_View_Initialized(ElementManager* manager) {
     this->registerField(CommunicationModel::FIELD_PORT,
         QComboBox::staticMetaObject.className());
     
+    this->registerField(CommunicationModel::FIELD_ENDIANNESS,
+        QComboBox::staticMetaObject.className());
+    
     this->on_RefreshPorts();
 }
 
@@ -31,15 +35,25 @@ void CommunicationController::on_View_Changed() {
     QComboBox* mode = (QComboBox*)manager
         ->get(CommunicationModel::FIELD_MODE);
     
+    QComboBox* cmb_endi = (QComboBox*)manager
+        ->get(CommunicationModel::FIELD_ENDIANNESS);
+    
     ///////////////////////
     
     app_data_t data;
     
-    data.com_config.com_port = port->currentText();
-    data.com_config.com_mode = mode->currentText();
+    data.com_config.com_port   = port->currentText();
+    data.com_config.com_mode   = mode->currentText();
+    data.com_config.com_endian = cmb_endi->currentText();
     
     emit CommunicationController::sig_Broadcast(
         AppMediator::Channel::COMM_PARAMS, data);
+    
+    if (mode->currentText() == "Binary") {
+        cmb_endi->setEnabled(true);
+    } else {
+        cmb_endi->setEnabled(false);
+    }
 }
 
 void CommunicationController::on_Model_Changed(QString key, QString value) {

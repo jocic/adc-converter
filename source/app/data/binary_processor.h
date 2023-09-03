@@ -15,12 +15,13 @@ class BinaryProcessor : public DataProcessor {
         quint8 m_BitsPerSample;
         qint32 m_SampleBuffer;
         quint8 m_BitsCount;
+        bool m_BigEndian;
         void on_DataTimeout() override;
         void on_SampleTimeout() override;
         
     public:
         BinaryProcessor();
-        void start(quint8 bits_per_sample);
+        void start(quint8 bits_per_sample, bool big_endian = true);
         void stop();
 };
 

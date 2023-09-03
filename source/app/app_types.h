@@ -33,6 +33,7 @@ typedef struct reference_config {
 typedef struct communication_config {
     QString com_port;
     QString com_mode;
+    QString com_endian;
 } communication_config_t;
 
 /////////////////////////////
