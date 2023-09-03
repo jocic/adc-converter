@@ -99,6 +99,7 @@ set(PROJECT_HEADERS
     
     # Scope
     
+    source/views/scope/elements/custom_chart_view.h
     source/views/scope/scope_view.h
     source/views/scope/scope_controller.h
     source/views/scope/scope_widget.h
@@ -254,6 +255,7 @@ set(PROJECT_SOURCES
     
     # Scope
     
+    source/views/scope/elements/custom_chart_view.cpp
     source/views/scope/scope_view.cpp
     source/views/scope/scope_controller.cpp
     source/views/scope/scope_widget.cpp

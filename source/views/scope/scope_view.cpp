@@ -12,6 +12,7 @@
 #include <QtCharts/QValueAxis>
 
 #include "app/mvc/element_manager.h"
+#include "views/scope/elements/custom_chart_view.h"
 #include "views/scope/scope_view.h"
 
 void ScopeView::initialize(QWidget* parent) {
@@ -19,7 +20,8 @@ void ScopeView::initialize(QWidget* parent) {
     QWidget*     wd_main  = new QWidget();
     QVBoxLayout* lay_main = new QVBoxLayout();
     
-    QChartView *   chart_view   = new QChartView();
+    CustomChartView* chart_view = new CustomChartView();
+    
     QChart*        chart        = new QChart();
     QSplineSeries* chart_series = new QSplineSeries();
     QValueAxis*    chart_x      = new QValueAxis();
