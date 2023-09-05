@@ -2,7 +2,7 @@
 
 Serial plotter and sample analysis software for DSP applications.
 
-![Preview](assets/images/preview.png)
+![Preview](assets/images/preview.gif)
 
 **WHAT YOU NEED TO KNOW:** Proof of concept was rapidly developed over the weekend to assess the functionallity of the AV-related Hardware I previously designed - implying that there's some inherent instability to that particular version as A LOT of corners were cut. I didn't want to bother with the actual Software Design, and only needed something that could get a job done, occasional crashes were acceptable to me. Saying that, it's still a better tool than the one provided by Arduino (Plotter) and supports two modes of operation:
   * **text** - allowing you to capture ADC samples sent in the ASCII format followed by the \r\n (typical for Arduino)
