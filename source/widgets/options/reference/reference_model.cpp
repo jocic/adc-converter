@@ -2,6 +2,7 @@
 
 const QString ReferenceModel::FIELD_POSITIVE = "txt_Positive";
 const QString ReferenceModel::FIELD_NEGATIVE = "txt_Negative";
+const QString ReferenceModel::FIELD_CONVERT  = "cb_Convert";
 
 quint16 ReferenceModel::get_Positive() {
     
@@ -47,4 +48,27 @@ void ReferenceModel::set_Negative(QString value) {
     this->set(FIELD_NEGATIVE, value);
     
     emit ReferenceModel::sig_Model_Updated(FIELD_NEGATIVE, value);
+}
+
+bool ReferenceModel::get_Convert() {
+    
+    QString value = this->get(FIELD_CONVERT);
+    
+    return value == "true";
+}
+
+void ReferenceModel::set_Convert(bool value) {
+    
+    QString new_value = value ? "true" : "false";
+    
+    this->set(FIELD_CONVERT, new_value);
+    
+    emit ReferenceModel::sig_Model_Updated(FIELD_CONVERT, new_value);
+}
+
+void ReferenceModel::set_Convert(QString value) {
+    
+    this->set(FIELD_CONVERT, value);
+    
+    emit ReferenceModel::sig_Model_Updated(FIELD_CONVERT, value);
 }

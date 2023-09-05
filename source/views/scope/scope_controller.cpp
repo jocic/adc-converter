@@ -11,7 +11,11 @@ void ScopeController::on_View_Initialized(ElementManager* manager) {
     
     this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
     this->tuneTo(AppMediator::Channel::STREAM_PARAMS);
+    this->tuneTo(AppMediator::Channel::REFERENCE_PARAMS);
     this->tuneTo(AppMediator::Channel::SCOPE_DATA);
+    
+    m_BitsPerSample = 16;
+    m_SamplesSigned = true;
 }
 
 void ScopeController::on_View_Changed() {
@@ -46,7 +50,54 @@ void ScopeController::on_Broadcast(quint64 ch, app_data_t data) {
     
     ////////////////////////
     
-    if (ch == AppMediator::Channel::STREAM_EVENTS) {
+    if (ch == AppMediator::Channel::REFERENCE_PARAMS) {
+        
+        m_ConversionTable.clear();
+        
+        //////////////////////////
+        
+        qint64 upper_limit = 0;
+        qint64 lower_limit = 0;
+        
+        if (m_SamplesSigned) {
+            upper_limit = pow(2, m_BitsPerSample - 1);
+            lower_limit = upper_limit * -1;
+        } else {
+            upper_limit = pow(2, m_BitsPerSample);
+            lower_limit = 0;
+        }
+        
+        //////////////////////////
+        
+        quint64 adc_range = abs(data.ref_config.adc_negative)
+            + abs(data.ref_config.adc_positive);
+        
+        quint64 adc_resolution = pow(2, m_BitsPerSample);
+        
+        qreal voltage_increment = qreal(adc_range) / adc_resolution;
+        
+        for (qint64 i = lower_limit, j = 0; i <= upper_limit; i++, j++) {
+            m_ConversionTable[i] = data.ref_config.adc_negative
+                + (j * voltage_increment);
+        }
+        
+        //////////////////////////
+        
+        m_AdcNegative     = data.ref_config.adc_negative;
+        m_AdcPositive     = data.ref_config.adc_positive;
+        m_ApplyConversion = data.ref_config.convert_values;
+        
+        if (m_ApplyConversion) {
+            y_axis->setRange(data.ref_config.adc_negative,
+                data.ref_config.adc_positive);
+        } else {
+            y_axis->setRange(lower_limit, upper_limit);
+        }
+    }
+    
+    ////////////////////////
+    
+    else if (ch == AppMediator::Channel::STREAM_EVENTS) {
         
         if (data.event == "new_stream") {
             
@@ -58,7 +109,13 @@ void ScopeController::on_Broadcast(quint64 ch, app_data_t data) {
         }
         else if (data.event == "new_sample") {
             
-            test.push_back(QPointF(x, data.value.i64));
+            qint64 value = data.value.i64;
+            
+            if (m_ApplyConversion) {
+                value = m_ConversionTable[value];
+            }
+            
+            test.push_back(QPointF(x, value));
             
             x+=1;
             
@@ -85,34 +142,50 @@ void ScopeController::on_Broadcast(quint64 ch, app_data_t data) {
             
             for (const auto& sample : data.scope_data.samples) {
                 
+                qint64 value = 0;
+                
                 switch (m_BitsPerSample) {
                     case 8:
-                        chart_series->append(x++, qint8(sample));
+                        value = qint8(sample);
                         break;
                     case 16:
-                        chart_series->append(x++, qint16(sample));
+                        value = qint16(sample);
                         break;
                     case 32:
-                        chart_series->append(x++, qint32(sample));
+                        value = qint32(sample);
                         break;
                 }
+                
+                if (m_ApplyConversion) {
+                    value = m_ConversionTable[value];
+                }
+                
+                chart_series->append(x++, value);
             }
         }
         else {
             
             for (const auto& sample : data.scope_data.samples) {
                 
+                quint64 value = 0;
+                
                 switch (m_BitsPerSample) {
                     case 8:
-                        chart_series->append(x++, quint8(sample));
+                        value = quint8(sample);
                         break;
                     case 16:
-                        chart_series->append(x++, quint16(sample));
+                        value = quint16(sample);
                         break;
                     case 32:
-                        chart_series->append(x++, quint32(sample));
+                        value = quint32(sample);
                         break;
                 }
+                
+                if (m_ApplyConversion) {
+                    value = m_ConversionTable[value];
+                }
+                
+                chart_series->append(x++, value);
             }
         }
     }
@@ -137,6 +210,23 @@ void ScopeController::on_Broadcast(quint64 ch, app_data_t data) {
             min_range = 0;
         }
         
-        y_axis->setRange(min_range, max_range);
+        //////////////////////////
+        
+        qint64 upper_limit = 0;
+        qint64 lower_limit = 0;
+        
+        if (m_SamplesSigned) {
+            upper_limit = pow(2, m_BitsPerSample - 1);
+            lower_limit = upper_limit * -1;
+        } else {
+            upper_limit = pow(2, m_BitsPerSample);
+            lower_limit = 0;
+        }
+        
+        if (m_ApplyConversion) {
+            y_axis->setRange(m_AdcPositive, m_AdcNegative);
+        } else {
+            y_axis->setRange(lower_limit, upper_limit);
+        }
     }
 }

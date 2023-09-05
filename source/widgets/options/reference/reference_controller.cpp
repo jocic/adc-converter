@@ -1,4 +1,5 @@
 #include <QLineEdit>
+#include <QCheckBox>
 
 #include "app/app_mediator.h"
 #include "reference_model.h"
@@ -9,11 +10,42 @@ void ReferenceController::on_View_Initialized(ElementManager* manager) {
     this->tuneTo(AppMediator::Channel::APP_EVENTS);
     this->tuneTo(AppMediator::Channel::STREAM_EVENTS);
     this->tuneTo(AppMediator::Channel::REFERENCE_PARAMS);
+    
+    this->registerField(ReferenceModel::FIELD_POSITIVE,
+        QLineEdit::staticMetaObject.className());
+    
+    this->registerField(ReferenceModel::FIELD_NEGATIVE,
+        QLineEdit::staticMetaObject.className());
+    
+    this->registerField(ReferenceModel::FIELD_CONVERT,
+        QCheckBox::staticMetaObject.className());
 }
 
 void ReferenceController::on_View_Changed() {
     
-    // Does nothing...
+    ElementManager* manager = this->get_View()->get_ElementManager();
+    
+    // Fields
+    
+    QLineEdit* positive = (QLineEdit*)manager
+        ->get(ReferenceModel::FIELD_POSITIVE);
+    
+    QLineEdit* negative = (QLineEdit*)manager
+        ->get(ReferenceModel::FIELD_NEGATIVE);
+    
+    QCheckBox* convert = (QCheckBox*)manager
+        ->get(ReferenceModel::FIELD_CONVERT);
+    
+    // Combile & Broadcast Data
+    
+    app_data_t data;
+    
+    data.ref_config.adc_positive   = positive->text().toLongLong();
+    data.ref_config.adc_negative   = negative->text().toLongLong();
+    data.ref_config.convert_values = convert->isChecked();
+    
+    emit ReferenceController::sig_Broadcast(
+        AppMediator::Channel::REFERENCE_PARAMS, data);
 }
 
 void ReferenceController::on_Model_Changed(QString key, QString value) {

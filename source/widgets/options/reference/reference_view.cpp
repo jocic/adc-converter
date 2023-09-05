@@ -3,6 +3,7 @@
 #include <QGroupBox>
 #include <QFormLayout>
 #include <QLabel>
+#include <QCheckBox>
 #include <QLineEdit>
 
 #include "app/mvc/element_manager.h"
@@ -19,6 +20,7 @@ void ReferenceView::initialize(QWidget* parent) {
     QLineEdit*   pos_text  = new QLineEdit();
     QLabel*      neg_label = new QLabel();
     QLineEdit*   neg_text  = new QLineEdit();
+    QCheckBox*   cb_conv   = new QCheckBox();
     
     box->setLayout(layout);
     box->setTitle("Reference");
@@ -31,6 +33,9 @@ void ReferenceView::initialize(QWidget* parent) {
     neg_text->setText("0");
     layout->addRow(neg_label, neg_text);
     
+    cb_conv->setText("Convert Values");
+    layout->addRow(cb_conv);
+    
     parent->layout()->addWidget(box);
     
     // Push References
@@ -39,6 +44,7 @@ void ReferenceView::initialize(QWidget* parent) {
     
     manager->push(ReferenceModel::FIELD_POSITIVE, pos_text);
     manager->push(ReferenceModel::FIELD_NEGATIVE, neg_text);
+    manager->push(ReferenceModel::FIELD_CONVERT, cb_conv);
     
     emit ReferenceView::sig_View_Initialized(manager);
 }
