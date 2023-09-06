@@ -181,8 +181,14 @@ void StreamController::on_Broadcast(quint64 ch, app_data_t data) {
             return;
         }
         
-        model->set_SampleRate(data.stream_config.sample_rate);
-        model->set_BitsPerSample(data.stream_config.bits_per_sample);
+        if (data.stream_config.sample_rate != 0) {
+            model->set_SampleRate(data.stream_config.sample_rate);
+        }
+        
+        if (data.stream_config.bits_per_sample != 0) {
+            model->set_BitsPerSample(data.stream_config.bits_per_sample);
+        }
+        
         model->set_Signed(data.stream_config.signed_samples);
     }
 }

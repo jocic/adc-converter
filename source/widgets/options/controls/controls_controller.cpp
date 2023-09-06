@@ -20,6 +20,11 @@ void ControlsController::on_View_Initialized(ElementManager* manager) {
     
     //////////////////////////////
     
+    m_BitsPerSample = 16;
+    m_SignedSamples = true;
+    
+    //////////////////////////////
+    
     m_Active = new tm_duration_t;
     
     //////////////////////////////
@@ -104,6 +109,7 @@ void ControlsController::on_Broadcast(quint64 ch, app_data_t data) {
     }
     else if (ch == AppMediator::Channel::STREAM_PARAMS) {
         m_BitsPerSample = data.stream_config.bits_per_sample;
+        m_SignedSamples = data.stream_config.signed_samples;
     }
     else if (ch == AppMediator::Channel::SERIAL_PARAMS) {
         
@@ -137,8 +143,8 @@ void ControlsController::on_Clicked_Connect() {
             qDebug() << "Starting text...";
             text_processor->start();
         } else if (m_ComMode == "Binary") {
-            qDebug() << "Starting binary...";
-            bin_processor->start(m_BitsPerSample, m_ComEndi == "Big");
+            qDebug() << "Starting binary..." << m_ComEndi;
+            bin_processor->start(m_BitsPerSample, m_ComEndi == "Big", m_SignedSamples);
         }
         
         data_receiver->serialPort()->setPortName(m_ComPort);
@@ -149,6 +155,29 @@ void ControlsController::on_Clicked_Connect() {
         text_processor->stop();
         bin_processor->stop();
         data_receiver->stop();
+        
+        ////////////////////
+        
+        QByteArray* data_buffer = AppCore::get_Instance()->get_Buffer();
+        
+        quint8  bytes_per_sample = m_BitsPerSample / 8;
+        quint64 total_samples    = qreal(data_buffer->size() / bytes_per_sample);
+        qreal   stream_duration  = (m_Active->minutes * 60 + m_Active->seconds + (m_Active->milliseconds / 100.0F));
+        
+        quint64 sample_rate = total_samples / stream_duration;
+        
+        ////////////////////
+        
+        app_data_t str_data;
+        
+        str_data.event = "update";
+        
+        str_data.stream_config.sample_rate     = sample_rate;
+        str_data.stream_config.bits_per_sample = m_BitsPerSample;
+        str_data.stream_config.signed_samples  = m_SignedSamples;
+        
+        emit ControlsController::sig_Broadcast(
+            AppMediator::Channel::STREAM_PARAMS, str_data);
     }
 }
 
@@ -308,8 +337,26 @@ void ControlsController::on_Processor_Sample(qint64 sample) {
     data.event     = "new_sample";
     data.value.i64 = sample;
     
-    emit ControlsController::sig_Broadcast(
-        AppMediator::Channel::STREAM_EVENTS, data);
+    if (m_SignedSamples) {
+        
+        switch (m_BitsPerSample) {
+            case 8:
+                data.value.i64 = qint8(sample);
+                break;
+            case 16:
+                data.value.i64 = qint16(sample);
+                break;
+            case 32:
+                data.value.i64 = qint32(sample);
+                break;
+        }
+    }
+     {
+        
+        emit ControlsController::sig_Broadcast(
+            AppMediator::Channel::STREAM_EVENTS, data);
+    }
+    
 }
 
 void ControlsController::on_Timer_Tick() {
@@ -320,12 +367,12 @@ void ControlsController::on_Timer_Tick() {
     
     if (m_Timer->isActive()) {
         
-        if (++m_Active->milliseconds == 100) {
+        if (++m_Active->milliseconds == 99) {
             m_Active->seconds     += 1;
             m_Active->milliseconds = 0;
         }
         
-        if (m_Active->seconds == 60) {
+        if (m_Active->seconds == 59) {
             m_Active->minutes += 1;
             m_Active->seconds  = 0;
         }

@@ -22,6 +22,7 @@ class ControlsController : public AbstractController {
         QString        m_ComEndi;
         tm_duration_t* m_Active;
         quint8         m_BitsPerSample;
+        bool           m_SignedSamples;
     
     public slots:
         void on_View_Initialized(ElementManager* manager) override;
