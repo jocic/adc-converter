@@ -7,10 +7,11 @@ BinaryProcessor::BinaryProcessor() : DataProcessor() {
     m_Samples = new QQueue<qint32>();
 }
 
-void BinaryProcessor::start(quint8 bits_per_sample, bool big_endian) {
+void BinaryProcessor::start(quint8 bits_per_sample, bool big_endian, bool samples_signed) {
     
     m_BitsPerSample = bits_per_sample;
     m_BigEndian     = big_endian;
+    m_SamplesSigned = samples_signed;
     
     m_Buffers->clear();
     m_Samples->clear();
@@ -52,20 +53,19 @@ void BinaryProcessor::on_DataTimeout() {
             m_SampleBuffer  |= buffer[index];
             
             if (m_BitsCount == m_BitsPerSample) {
-                m_Samples->enqueue(m_SampleBuffer);
+                m_Samples->enqueue((m_SampleBuffer));
                 m_SampleBuffer = m_BitsCount = 0;
             }
         }
         else {
             
-            m_SampleBuffer |= buffer[index];
+            m_SampleBuffer  |= buffer[index];
+            m_SampleBuffer <<= 8;
             
             if (m_BitsCount == m_BitsPerSample) {
-                m_Samples->enqueue(m_SampleBuffer);
+                m_Samples->enqueue((m_SampleBuffer));
                 m_SampleBuffer = m_BitsCount = 0;
             }
-            
-            m_SampleBuffer <<= 8;
         }
         
         index++;

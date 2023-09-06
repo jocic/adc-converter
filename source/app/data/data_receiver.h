@@ -22,6 +22,7 @@ class DataReceiver : public QObject {
     private slots:
         void on_ReadInterval();
         void on_SimInterval();
+        void on_ReadError(QSerialPort::SerialPortError error);
         
     public:
         DataReceiver();

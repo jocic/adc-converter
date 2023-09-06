@@ -15,6 +15,9 @@ DataReceiver::DataReceiver() {
     m_SerialPort->setFlowControl(QSerialPort::FlowControl::NoFlowControl);
     m_SerialPort->setReadBufferSize(1024);
     
+    connect(m_SerialPort, &QSerialPort::errorOccurred,
+        this, &DataReceiver::on_ReadError);
+    
     // Read Timer
     
     m_ReadTimer = new QTimer();
@@ -96,8 +99,6 @@ void DataReceiver::on_ReadInterval() {
             
             if (m_SerialPort->error() == QSerialPort::SerialPortError::NoError) {
                 emit DataReceiver::sig_BufferRead(buffer);
-            } else {
-                emit DataReceiver::sig_Error();
             }
         }
     }
@@ -154,4 +155,11 @@ void DataReceiver::on_SimInterval() {
     }
     
     emit DataReceiver::sig_BufferRead(buffer);
+}
+
+void DataReceiver::on_ReadError(QSerialPort::SerialPortError error) {
+    
+    if (error == QSerialPort::SerialPortError::ResourceError) {
+        emit DataReceiver::sig_Error();
+    }
 }
