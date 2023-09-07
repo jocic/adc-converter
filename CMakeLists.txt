@@ -85,6 +85,11 @@ set(PROJECT_HEADERS
     
     source/popovers/abstract_popover.h
     
+    # About
+    
+    source/popovers/about/about_view.h
+    source/popovers/about/about_popover.h
+    
     # Processing
     
     source/popovers/processing/processing_model.h
@@ -240,6 +245,11 @@ set(PROJECT_SOURCES
     # General
     
     source/popovers/abstract_popover.cpp
+    
+    # About
+    
+    source/popovers/about/about_view.cpp
+    source/popovers/about/about_popover.cpp
     
     # Processing
     

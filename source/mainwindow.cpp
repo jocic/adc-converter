@@ -14,6 +14,8 @@
 
 #include "widgets/options/stream/stream_model.h"
 
+#include "popovers/about/about_popover.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -355,3 +357,14 @@ void MainWindow::on_action_CompactView_triggered() {
         270
     }, Qt::Orientation::Horizontal);
 }
+
+void MainWindow::on_action_About_triggered() {
+    
+    AboutPopover* about = new AboutPopover(this);
+    
+    about->initialize();
+    about->exec();
+    
+    delete about;
+}
+
