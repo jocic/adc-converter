@@ -16,6 +16,7 @@ void ScopeController::on_View_Initialized(ElementManager* manager) {
     
     m_BitsPerSample = 16;
     m_SamplesSigned = true;
+    
 }
 
 void ScopeController::on_View_Changed() {

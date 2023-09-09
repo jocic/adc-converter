@@ -9,10 +9,10 @@
 #include <QtMultimedia/QAudioSink>
 #include <QtMultimedia/QAudioFormat>
 
-#include "app/workers/abstract_worker.h"
+#include "app/workers/abstract_file_worker.h"
 #include "app/audio/audio_source.h"
 
-class PlayWorker : public AbstractWorker {
+class PlayWorker : public AbstractFileWorker {
     
     Q_OBJECT
     

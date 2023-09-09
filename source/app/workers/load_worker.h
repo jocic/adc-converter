@@ -5,9 +5,9 @@
 #include <QObject>
 #include <QFile>
 
-#include "app/workers/abstract_worker.h"
+#include "app/workers/abstract_file_worker.h"
 
-class LoadWorker : public AbstractWorker {
+class LoadWorker : public AbstractFileWorker {
     
     Q_OBJECT
     

@@ -68,6 +68,7 @@ set(PROJECT_HEADERS
     # Workers
     
     source/app/workers/abstract_worker.h
+    source/app/workers/abstract_file_worker.h
     source/app/workers/load_worker.h
     source/app/workers/save_worker.h
     source/app/workers/export_worker.h
@@ -229,6 +230,7 @@ set(PROJECT_SOURCES
     # Workers
     
     source/app/workers/abstract_worker.cpp
+    source/app/workers/abstract_file_worker.cpp
     source/app/workers/load_worker.cpp
     source/app/workers/save_worker.cpp
     source/app/workers/export_worker.cpp

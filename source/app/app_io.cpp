@@ -55,11 +55,11 @@ void AppIO::set_Popover(ProcessingPopover* pop) {
     }
 }
 
-AbstractWorker* AppIO::get_Worker() {
+AbstractFileWorker* AppIO::get_Worker() {
     return m_Worker;
 }
 
-void AppIO::set_Worker(AbstractWorker* wrk) {
+void AppIO::set_Worker(AbstractFileWorker* wrk) {
     
     if (wrk != NULL) {
         delete m_Worker;

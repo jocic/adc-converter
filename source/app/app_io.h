@@ -9,21 +9,21 @@
 #include <QFile>
 
 #include "popovers/processing/processing_popover.h"
-#include "app/workers/abstract_worker.h"
+#include "app/workers/abstract_file_worker.h"
 
 class AppIO : public QFileDialog {
     
     Q_OBJECT
     
     private:
-        QByteArray*        m_Buffer;
-        ProcessingPopover* m_Popover;
-        AbstractWorker*    m_Worker;
+        QByteArray*         m_Buffer;
+        ProcessingPopover*  m_Popover;
+        AbstractFileWorker* m_Worker;
         
     protected:
         void set_Buffer(QByteArray* buf);
         void set_Popover(ProcessingPopover* pop);
-        void set_Worker(AbstractWorker* wrk);
+        void set_Worker(AbstractFileWorker* wrk);
         
     protected slots:
         void on_Error(QFile::FileError error);
@@ -36,7 +36,7 @@ class AppIO : public QFileDialog {
         QByteArray* get_Buffer();
         void get_Chunk(QByteArray& buf, quint64 off, quint64 len);
         ProcessingPopover* get_Popover();
-        AbstractWorker* get_Worker();
+        AbstractFileWorker* get_Worker();
         bool is_Selected();
         virtual void process() = 0;
         void clear();

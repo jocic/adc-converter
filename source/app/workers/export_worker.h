@@ -6,9 +6,9 @@
 #include <QFile>
 #include <QByteArray>
 
-#include "app/workers/abstract_worker.h"
+#include "app/workers/abstract_file_worker.h"
 
-class ExportWorker : public AbstractWorker {
+class ExportWorker : public AbstractFileWorker {
     
     Q_OBJECT
     

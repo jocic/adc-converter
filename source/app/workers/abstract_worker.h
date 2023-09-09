@@ -10,17 +10,6 @@
 class AbstractWorker : public QThread {
     
     Q_OBJECT
-    
-    protected:
-        QFile* m_File;
-        QByteArray* m_Buffer;
-        quint64 calc_ChunkSize(quint64 size);
-    
-    public: 
-        QFile* get_File();
-        void set_File(QFile* file);
-        QByteArray* get_Buffer();
-        void set_Buffer(QByteArray* buffer);
         
     signals:
         void sig_Error(QFile::FileError error);
