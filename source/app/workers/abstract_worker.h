@@ -12,11 +12,7 @@ class AbstractWorker : public QThread {
     Q_OBJECT
         
     signals:
-        void sig_Error(QFile::FileError error);
-        void sig_Read(QByteArray chunk);
-        void sig_Wrote(QByteArray chunk);
-        void sig_Progressed(quint8 value);
-        void sig_Done();
+        void sig_Timeout();
 };
 
 #endif
