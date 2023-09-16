@@ -475,15 +475,24 @@
    <property name="text">
     <string>Bug Report</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="action_Bug">
    <property name="text">
     <string>Check Updates</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="action_About">
    <property name="text">
     <string>About Program</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
   <action name="action_Save">
